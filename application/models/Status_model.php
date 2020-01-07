@@ -1,11 +1,11 @@
 <?php
-class City extends CI_Model {
+class Status_model extends CI_Model {
     public function __construct() {
         $this->load->database();
     }
 
-public function getCities() {
-        $query = $this->db->get('cities');
+	public function getStatus() {
+        $query = $this->db->get('marital_status');
         return $query->result();
     }
 

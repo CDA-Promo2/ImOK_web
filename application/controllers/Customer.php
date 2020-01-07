@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exist('No direct script access allowed');
-class Customers extends CI_Controller {
+class Customer extends CI_Controller {
     public function __construct() {
         parent::__construct();
-        $this->load->model(['Customer', 'City', 'Status']);
+        $this->load->model(['Customer_model', 'City_model', 'Status_model']);
         $this->load->helper(['url', 'form', 'date']);
         $this->load->library(['form_validation', 'pagination']);
     }
@@ -12,7 +12,7 @@ class Customers extends CI_Controller {
         // On passera dans le tableau data toutes les informations utiles pour la vue
         // Le titre de la page
         $data['title'] = "Liste des clients";
-        $data['customers'] = $this->Customer->getCustomers();
+        $data['customers'] = $this->Customer_model->getCustomers();
         // Chargement des différentes vue, avec envoi du tableau data
         $this->load->view('common/_header', $data);
         $this->load->view('customer/index', $data);
@@ -25,8 +25,8 @@ class Customers extends CI_Controller {
             // Titre de la page
             $data['title'] = "Ajout d'un Client";
             // Récupération du crédit
-            $data['marital_status'] = $this->Status->getStatus();
-            $data['cities'] = $this->Cities->getCities();
+            $data['marital_status'] = $this->Status_model->getStatus();
+            $data['cities'] = $this->City_model->getAll();
             $data['id'] = $id;
         // Modification de l'affichage des erreurs
         $this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
@@ -41,7 +41,7 @@ class Customers extends CI_Controller {
 
             // Chargement des différentes vues servant à la création d'un utilisateur
             $this->load->view('common/_header', $data);
-            $this->load->view('customer/index', $data);
+            $this->load->view('customer/create', $data);
             $this->load->view('common/_footer', $data);
         }
 
