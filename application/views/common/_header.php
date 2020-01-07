@@ -19,5 +19,5 @@ if($title!='Connexion' && !isset($_SESSION['user'])){
 <body>
 <div class="container-fluid p-0 d-flex">
 	<?php if(isset($_SESSION['user'])){include_once('_navigation.php');} ?>
-	<main class="p-2">
+	<main class="p-2 w-100">
 		<?php if(isset($_SESSION['user'])){include_once('_breadcrumbs.php');} ?>
