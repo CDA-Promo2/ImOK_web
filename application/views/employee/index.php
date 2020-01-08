@@ -1,4 +1,4 @@
-<div class="row no-gutters">
+<div class="row">
 
 	<?php if($_SESSION['user']->id_roles == 1){ ?>
 		<!-- Admin MainBoard -->

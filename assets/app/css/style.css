@@ -1,3 +1,14 @@
+/* Mise en page du contenu pricipal*/
+main{
+	padding-top: 40px;
+}
+@media all and (min-width: 768px){
+	main{
+		padding: 10px;
+		padding-left: 210px;
+	}
+}
+/* Mise en page de la barre de navigation*/
 #mainNavigation{
 	width: 200px;
 	height: 100vh;
@@ -7,12 +18,28 @@
 	z-index: 20;
 	background-color: white;
 }
-@media all and (min-width: 768px){
-	main.shrinked{
-		padding-left: 200px;
-	}
-}
 button.navigation-open{
 	position: absolute;
+	top: 8px;
+	left: 4px;
 	z-index: 19;
 }
+/* Menu principal*/
+#mainMenu{
+	margin-top: 20px;
+}
+#mainMenu ul{
+	list-style: none;
+	padding-left: 10px;
+}
+#mainMenu a{
+	color: grey;
+}
+#mainMenu .menu-title{
+	font-size: 18px;
+}
+#mainMenu .menu-content{
+	font-size: 14px;
+	padding-left: 10px;
+}
+

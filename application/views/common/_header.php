@@ -20,5 +20,5 @@ if($title!='Connexion' && !isset($_SESSION['user'])){
 <body>
 <div class="container-fluid">
 	<?php if(isset($_SESSION['user'])){include_once('_navigation.php');} ?>
-	<main class="<?=isset($_SESSION['user']) ? 'shrinked' : '' ?>">
+	<main>
 		<?php if(isset($_SESSION['user'])){include_once('_breadcrumbs.php');} ?>
