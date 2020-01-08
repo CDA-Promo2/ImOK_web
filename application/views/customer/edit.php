@@ -11,25 +11,29 @@
             <input type="text" id="firstname" name="firstname" class="form-control" value="<?= $client->firstname ?? '' ?>">
         </div>
         <div class="form-group my-1">
+            <label for="id_marital_status">Statue</label>
+            <select name="id_marital_status" class="form-control">
+                <option value="0" selected disabled>Veuillez choisir un Status</option>
+                <?php foreach ($marital_status as $status): ?>
+                    <option value="<?= $status->id ?>" <?= $client->id_marital_status == $status->id ? 'selected' : '' ?>><?= $status->id ?>. <?= $status->name ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="form-group my-1">
             <label for="birthdate">Date de naissance</label> <?= form_error('birthdate') ?>
             <input type="date" id="birthdate" name="birthdate" class="form-control" value="<?= $client->birthdate ?? '' ?>">
         </div>
         <div class="form-group my-1">
-            <label for="address">Adresse</label> <?= form_error('address') ?>
-            <input type="text" id="address" name="address" class="form-control" value="<?= $client->address ?? '' ?>">
+            <label for="street">Adresse</label> <?= form_error('street') ?>
+            <input type="text" id="street" name="street" class="form-control" value="<?= $client->street ?? '' ?>">
         </div>
         <div class="form-group my-1">
             <label for="phone">Telephone</label> <?= form_error('phone') ?>
             <input type="text" id="phone" name="phone" class="form-control" value="<?= $client->phone ?? '' ?>">
         </div>
         <div class="form-group my-1">
-            <label for="id_marital_status">Statue</label>
-            <select name="id_marital_status" class="form-control">
-                <option value="0" selected disabled>Veuillez choisir un Status</option>
-                <?php foreach ($marital_status as $status): ?>
-                    <option value="<?= $status->id ?>" <?= $client->id_marital_status == $status->id ? 'selected' : '' ?>><?= $status->id ?>. <?= $status->status ?></option>
-                <?php endforeach; ?>
-            </select>
+            <label for="mail">Mail</label> <?= form_error('mail') ?>
+            <input type="text" id="mail" name="mail" class="form-control" value="<?= $client->mail ?? '' ?>">
         </div>
         <div class="row justify-content-around my-5">
             <a href="<?= site_url('details/' . $client->id) ?>" class="btn btn-secondary col-4">Retour</a>

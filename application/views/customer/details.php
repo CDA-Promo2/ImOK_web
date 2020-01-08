@@ -36,7 +36,7 @@
                     </li>
                 </ul>
                 <div class="row justify-content-end mt-auto">
-                    <a href="<?= site_url('customer/details/edit/' . $client->id) ?>" class="btn btn-secondary text-white mx-3"><i class="fas fa-pen"></i> Modifier</a>
+                    <a href="<?= site_url('customer/edit/' . $client->id) ?>" class="btn btn-secondary text-white mx-3"><i class="fas fa-pen"></i> Modifier</a>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                 </li>
                 </ul>
                 <div class="row justify-content-end mt-auto">
-                    <a href="<?= site_url('customer/details/edit/' . $client->id) ?>" class="btn btn-secondary text-white mx-3"><i class="fas fa-pen"></i> Modifier</a>
+                    <a href="<?= site_url('customer/edit/' . $client->id) ?>" class="btn btn-secondary text-white mx-3"><i class="fas fa-pen"></i> Modifier</a>
                 </div>
             </div>
         </div>

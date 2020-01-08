@@ -92,7 +92,7 @@ class Customer extends CI_Controller {
         // Récupération des informations du client choisi
         $data['client'] = $this->Customer_model->getClientById($id);
         // Si les informations sont vides, alors le client d'id = $id n'existe pas
-        if (empty($data['customers'])) {
+        if (empty($data['client'])) {
             show_404();
         } else {
             // Affichage des vues correspondants à l'édition
