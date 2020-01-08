@@ -14,10 +14,11 @@ if($title!='Connexion' && !isset($_SESSION['user'])){
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="<?= base_url('assets/common/css/bootstrap.min.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/app/css/style.css') ?>">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 	<title><?= $title ?></title>
 </head>
 <body>
-<div class="container-fluid p-0 d-flex">
+<div class="container-fluid">
 	<?php if(isset($_SESSION['user'])){include_once('_navigation.php');} ?>
-	<main class="p-2 w-100">
+	<main class="<?=isset($_SESSION['user']) ? 'shrinked' : '' ?>">
 		<?php if(isset($_SESSION['user'])){include_once('_breadcrumbs.php');} ?>

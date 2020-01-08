@@ -1,4 +1,18 @@
 #mainNavigation{
 	width: 200px;
 	height: 100vh;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 20;
+	background-color: white;
+}
+@media all and (min-width: 768px){
+	main.shrinked{
+		padding-left: 200px;
+	}
+}
+button.navigation-open{
+	position: absolute;
+	z-index: 19;
 }

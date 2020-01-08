@@ -9,7 +9,12 @@ class Employee extends CI_Controller{
 
 	public function index(){
 
-		$data['title'] = "Accueil";
+		$data['title'] = 'Accueil';
+		$data['role'] = $this->Employee_model->getRole($_SESSION['user']->id_roles);
+
+		$data['dashboard'][2] = array('performance','agenda','estate','customer','message');
+		$data['dashboard'][3] = array('agenda','performance','estate','customer','message');
+		$data['dashboard'][4] = array('customer','agenda','estate','performance','message');
 
 		$this->load->view('common/_header', $data);
 		$this->load->view('employee/index', $data);
