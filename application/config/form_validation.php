@@ -4,17 +4,17 @@ $config = [
             [
             'field' => 'lastname',
             'label' => 'Nom de famille',
-            'rules' => 'trim|required|max_length[50]|alpha'
+            'rules' => 'trim|required|max_length[50]'
         ],
             [
             'field' => 'firstname',
             'label' => 'Prénom',
-            'rules' => 'trim|required|max_length[50]|alpha'
+            'rules' => 'trim|required|max_length[50]'
         ],
             [
             'field' => 'street',
             'label' => 'Adresse',
-            'rules' => 'trim|required|max_length[100]|alpha_numeric_spaces'
+            'rules' => 'trim|required|max_length[100]'
         ],
             [
             'field' => 'complement',
@@ -45,6 +45,16 @@ $config = [
             'field' => 'civility',
             'label' => 'Civilité',
                 'rules' => 'trim|required'
+             ],
+             [
+                'field' => 'birthdate',
+                'label' => 'date de naissance',
+                'rules' => ['trim', 'required', 'max_length[10]', 'regex_match[/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/]']
+            ],
+            [
+                'field' => 'date_register',
+                'label' => 'date d\'inscription',
+                'rules' => ['trim', 'required', 'max_length[10]', 'regex_match[/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/]']
             ]
     ]
 ];
