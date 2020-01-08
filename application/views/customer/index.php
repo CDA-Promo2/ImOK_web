@@ -1,17 +1,4 @@
-<?php 
-
-$typecivility = array(
-    0 => 'Monsieur',
-    1 => 'Madame'
-);
-
-var_dump($typecivility);
-
-?>
-
-<div class="container p-5">
-    <h1 class="text-center"><?= $title ?></h1>
-</div>
+<h1 class="text-center"><?= $title ?></h1>
 
 <div class="container p-5">
 <table class="table table-hover text-center shadow border bg-white">
@@ -61,5 +48,5 @@ var_dump($typecivility);
                 </div>
             </div>
         <?php } ?>
-        <a href="<?= site_url('customer/create') ?>" class="btn btn-danger mr-3"><i class="fas fa-plus"></i> Ajouter client</a>
+        <a href="<?= site_url('customer/create/') ?>" class="btn btn-danger mr-3"><i class="fas fa-plus"></i> Ajouter client</a>
     </div>
