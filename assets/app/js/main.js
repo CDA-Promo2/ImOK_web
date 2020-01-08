@@ -23,12 +23,19 @@ $(function(){
  */
 $(function(){
 	$('input.typeahead').typeahead({
+		delay: 100,
+		items: 30,
 		source:  function (query, process) {
-			return $.get('ajaxpro', { query: query }, function (data) {
-				console.log(data);
+			return $.get('search', { query: query }, function (data) {
 				data = $.parseJSON(data);
 				return process(data);
 			});
+		},
+		displayText: function (item) {
+			return item.name + ' (' + item.zip_code + ')';
+		},
+		afterSelect: function (data) {
+			$("#id_cities").val(data.id);
 		}
 	});
 });

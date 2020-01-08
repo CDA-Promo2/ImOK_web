@@ -1,6 +1,10 @@
 <h1 class="text-center"><?= $title ?></h1>
 <hr>
-
+<?php
+	if($_POST){
+		var_dump($_POST);
+	}
+?>
 <div class="container">
 	<?= form_error() ?>
 	<?= form_open_multipart(); ?>
@@ -12,7 +16,8 @@
 			</div>
 			<div class="form-group my-1">
 				<label for="city">Ville</label>
-				<input class="typeahead form-control" type="text">
+				<input type="hidden" id="id_cities" name="id_cities" value=""/>
+				<input id="city" name="city" class="typeahead form-control" type="text" value="">
 			</div>
 			<div class="form-group my-1">
 				<label for="district">Secteur</label>
@@ -242,6 +247,10 @@
 				<label for="description">A PROXIMITE</label>
 			</div>
 		</div>
+	</div>
+	<div class="row justify-content-around my-5">
+		<a href="<?= site_url().'/estate' ?>" class="btn btn-secondary col-4">Retour</a>
+		<input type="submit" class="form-control btn btn-success col-4" name="createEstate">
 	</div>
 	<?php form_close() ?>
 </div>

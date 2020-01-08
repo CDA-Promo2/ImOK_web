@@ -10,10 +10,8 @@ class Estate extends CI_Controller
 			'Estate_model', 'Estate_types_model', 'Exposition_model', 'Heating_types_model',
 			'Outside_conditions_model', 'Furniture_model', 'Room_type_model', 'Windows_type_model',
 			'Ground_covering_model', 'Wall_covering_model', 'Heating_type_model']);
-		$this->load->helper(['url', 'form', 'date']);
+		$this->load->helper(['url', 'url_helper', 'form', 'date']);
 	}
-
-
 	public function index() {
 		$data['title'] = 'Accueil de biens';
 
@@ -32,25 +30,16 @@ class Estate extends CI_Controller
 		$data['groundCoveringsList'] = $this->Ground_covering_model->getAll();
 		$data['wallCoveringsList'] = $this->Wall_covering_model->getAll();
 		$data['heatingTypesList'] = $this->Heating_type_model->getAll();
-
 		// Chargement des vues, avec envoi du tableau $data
 		$this->load->view('common/_header', $data);
 		$this->load->view('estate/create', $data);
 		$this->load->view('common/_footer', $data);
 	}
-
-	public function ajaxPro() {
-		$query = $this->input->get('query');
-		$this->db->like('name', $query);
+	public function search() {
+		$term = $this->input->get('term');
+		$this->db->like('name', $term);
+		$this->db->or_like('zip_code', $term);
 		$data = $this->db->get('cities')->result();
 		echo json_encode($data);
 	}
-
-//	public function search() {
-//		$term = $this->input->get('term');
-//		$this->db->like('name', $term);
-//		$data = $this->db->get('cities')->result();
-//		echo json_encode($data);
-//	}
-
 }

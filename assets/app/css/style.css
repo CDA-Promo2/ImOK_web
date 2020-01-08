@@ -42,4 +42,8 @@ button.navigation-open{
 	font-size: 14px;
 	padding-left: 10px;
 }
-
+/* Style JQuery UI Autocomplete */
+ul.typeahead.dropdown-menu {
+	max-height: 200px;
+	overflow: auto;
+}
