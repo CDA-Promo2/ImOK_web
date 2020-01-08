@@ -14,17 +14,18 @@ class Customer_model extends CI_Model {
 
     public function createCustomers() {
         $data = [
+            'civility' => $this->input->post('civility'),
             'firstname' => $this->input->post('firstname'),
             'lastname' => $this->input->post('lastname'),
             'street' => $this->input->post('street'),
             'complement' => $this->input->post('complement'),
             'phone' => $this->input->post('phone'),
             'mail' => $this->input->post('mail'),
-            'id_Marital_Status' => $this->input->post('id_Marital_Status'),
+            'id_marital_status' => $this->input->post('id_marital_status'),
             'id_cities' => $this->input->post('id_cities'),
         ];
         $data = $this->security->xss_clean($data);
-        return $this->db->insert('Customer', $data);
+        return $this->db->insert('customers', $data);
     }
 
     public function deleteCustomer($id) {

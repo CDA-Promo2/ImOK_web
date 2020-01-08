@@ -23,22 +23,23 @@ class Customer extends CI_Controller {
         // Gère la page de création d'un credit
         public function create() {
             // Titre de la page
-            $data['title'] = "Ajout d'un Client";
+            $data['title'] = "Ajouter un Client";
             // Récupération du crédit
             $data['marital_status'] = $this->Status_model->getStatus();
-            $data['cities'] = $this->City_model->getAll();
-            $data['id'] = $id;
+            // $data['cities'] = $this->City_model->getAll();
+
         // Modification de l'affichage des erreurs
-        $this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
+            $this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
         // S'il n'y a pas d'erreurs lors de l'application des règles de vérification
         // form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
-        if ($this->form_validation->run() === TRUE) {
             // On appel la méthodes du model Users servant à la création d'un utilsilateur
-            $this->Client->createCustomers();
-                        // Puis on se redirige vers la page d'accueil
-                        redirect(site_url('index'));
-                    }
+            if ($this->form_validation->run() === TRUE) {
 
+                $this->Customer_model->createCustomers();
+                redirect(base_url());
+            
+            }
+            // Puis on se redirige vers la page d'accueil
             // Chargement des différentes vues servant à la création d'un utilisateur
             $this->load->view('common/_header', $data);
             $this->load->view('customer/create', $data);
