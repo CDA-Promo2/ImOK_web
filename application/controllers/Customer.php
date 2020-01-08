@@ -59,4 +59,46 @@ class Customer extends CI_Controller {
             redirect('');
         }
     }
+
+        //Methode gérant la page details
+        public function details($id = 0) {
+            $data['title'] = 'Informations du client';
+            $data['client'] = $this->Customer_model->getClientById($id);            
+            
+            $this->load->view('common/_header', $data);
+            $this->load->view('customer/details', $data);
+            $this->load->view('common/_footer', $data);
+        }
+
+         // Méthode gérant la modification d'un client
+    public function edit($id = 0) {
+        // Titre de la page
+        $data['title'] = "Modification des informations sur ";
+        // Récupération des status
+        $data['marital_status'] = $this->Status_model->getStatus();
+        $data['cities'] = $this->City_model->getAll();
+        // Si le formulaire de modification a été submit
+        if ($_POST) {
+            // Modification de l'affichage des erreurs
+            $this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
+            // S'il n'y a pas eu d'erreurs lors de l'application des règles de sécurités
+            if ($this->form_validation->run() === TRUE) {
+                // On appel la méthodes du model Client afin de mettre à jour le client d'id = $id
+                $this->Customer_model->updateCustomer($id);
+                // Puis on se redirige vers l'accueil
+                redirect(base_url());
+            }
+        }
+        // Récupération des informations du client choisi
+        $data['client'] = $this->Customer_model->getClientById($id);
+        // Si les informations sont vides, alors le client d'id = $id n'existe pas
+        if (empty($data['client'])) {
+            show_404();
+        } else {
+            // Affichage des vues correspondants à l'édition
+            $this->load->view('common/_header', $data);
+            $this->load->view('customer/edit', $data);
+            $this->load->view('common/_footer', $data);
+        }
+    }
 }
