@@ -8,7 +8,7 @@ class Customer_model extends CI_Model {
         $this->db->select(['customers.*', 'firstname', 'lastname', 'street', 'complement', 'phone', 'mail', 'cities.name as name_cities', 'marital_status.name name_status', 'zip_code', 'civility']);
         $this->db->join('cities', 'cities.id = customers.id_cities');
         $this->db->join('marital_status', 'marital_status.id = customers.id_marital_status');
-        $query = $this->db->get('Customers');
+        $query = $this->db->get('customers');
         return $query->result();
     }
 
@@ -27,7 +27,7 @@ class Customer_model extends CI_Model {
             'id_cities' => $this->input->post('id_cities'),
         ];
         $data = $this->security->xss_clean($data);
-        return $this->db->insert('customers', $data);
+        return $this->db->insert('estates', $data);
     }
 
     public function deleteCustomer($id) {
