@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Login_model');
+		$this->load->model('Employee_model');
 	}
 
 	public function index()
@@ -31,6 +32,7 @@ class Login extends CI_Controller {
 			$userConnected = $this->Login_model->validate($mail,$password);
 			if($userConnected){
 				$_SESSION['user']=$userConnected;
+				$_SESSION['role']=$this->Employee_model->getRole($_SESSION['user']->id_roles);
 				redirect(site_url(), 'refresh');
 			}else{
 				$data['formError']='Addresse mail ou mot de passe invalide';

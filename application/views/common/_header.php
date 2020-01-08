@@ -3,6 +3,7 @@
 if($title!='Connexion' && !isset($_SESSION['user'])){
 	redirect(site_url('login'));
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,5 +21,5 @@ if($title!='Connexion' && !isset($_SESSION['user'])){
 <body>
 <div class="container-fluid">
 	<?php if(isset($_SESSION['user'])){include_once('_navigation.php');} ?>
-	<main>
+	<main class="<?=isset($_SESSION['user']) ? 'shrinked' : '' ?>">
 		<?php if(isset($_SESSION['user'])){include_once('_breadcrumbs.php');} ?>

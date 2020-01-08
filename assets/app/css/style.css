@@ -3,7 +3,7 @@ main{
 	padding-top: 40px;
 }
 @media all and (min-width: 768px){
-	main{
+	main.shrinked{
 		padding: 10px;
 		padding-left: 210px;
 	}
