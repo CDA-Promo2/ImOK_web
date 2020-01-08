@@ -17,3 +17,18 @@ $(function(){
 
 	});
 });
+
+/**
+ * AUTOCOMPLETION VILLE
+ */
+$(function(){
+	$('input.typeahead').typeahead({
+		source:  function (query, process) {
+			return $.get('ajaxpro', { query: query }, function (data) {
+				console.log(data);
+				data = $.parseJSON(data);
+				return process(data);
+			});
+		}
+	});
+});
