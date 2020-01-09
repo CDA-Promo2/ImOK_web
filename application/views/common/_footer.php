@@ -1,4 +1,5 @@
 	</main>
+	<?= var_dump($_POST)?>
 </div>
 	<script src="<?= base_url('assets/common/js/popper.min.js')?>"></script>
 	<script src="<?= base_url('assets/common/js/jquery-3.4.1.min.js')?>"></script>

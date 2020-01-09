@@ -34,7 +34,7 @@ $id_marital_status = [
 $id_cities = [
 	'field' => 'id_cities',
 	'label' => 'Ville',
-	'rules' => ['trim','required|max_length[5]','integer']
+	'rules' => ['trim','required','max_length[5]','integer']
 ];
 $mail = [
 	'field' => 'mail',

@@ -5,7 +5,7 @@ class Employee extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model(['Employee_model','Role_model']);
-		$this->load->helper('form');
+		$this->load->helper('form','url');
 		$this->load->library(['form_validation', 'pagination']);
 	}
 
@@ -51,10 +51,11 @@ class Employee extends CI_Controller{
 		$this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
 
 		if ($this->form_validation->run() === TRUE) {
-			//creation du user
-			die('create should be fine');
+			//Génération d'un password aléatoire
+			$random_password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#!?') , 0 , 8 );
+			//Création de l'employé
+			$this->Employee_model->create($random_password);
 			redirect(base_url());
-
 		}
 
 		$this->load->view('common/_header', $data);

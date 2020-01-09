@@ -63,7 +63,7 @@
 					<?= form_error('id_roles') ?>
 				</div>
 			<?php } ?>
-			<button type="submit" class="btn btn-primary form-control">Modifier</button>
+			<button type="submit" class="btn btn-primary form-control">Enregistrer</button>
 		</form>
 	</div>
 </div>
