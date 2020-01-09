@@ -31,10 +31,12 @@ class Employee_model extends CI_Model {
 			'mail' =>$this->input->post('mail'),
 			'phone' =>$this->input->post('phone'),
 			'id_roles' => $this->input->post('id_roles'),
-			'password' => $random_password
+			'password' => password_hash($random_password,PASSWORD_DEFAULT)
 		];
 		$data = $this->security->xss_clean($data);
-		return $this->db->insert('employees',$data);
+		if($this->db->insert('employees',$data)){
+			return $this->db->insert_id();
+		}
 	}
 
 	public function update($id){

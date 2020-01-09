@@ -6,7 +6,7 @@ class Employee extends CI_Controller{
 		parent::__construct();
 		$this->load->model(['Employee_model','Role_model','City_model']);
 		$this->load->helper('form','url');
-		$this->load->library(['form_validation', 'pagination']);
+		$this->load->library(['form_validation', 'pagination','email']);
 	}
 
 	public function index(){
@@ -59,9 +59,21 @@ class Employee extends CI_Controller{
 			//Génération d'un password aléatoire
 			$random_password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#!?') , 0 , 8 );
 			//Création de l'employé
-			$this->Employee_model->create($random_password);
-			$this->session->set_flashdata('validation_message', 'Le profil de '.$_POST['firstname'].' '.$_POST['lastname'].' a bien été enregistré.');
-			redirect(base_url());
+			$userId = $this->Employee_model->create($random_password);
+			if($userId) {
+				$user = $this->Employee_model->getById($userId);
+				//envoi de l'email
+				$this->email->set_newline("\r\n")
+					->from($this->config->item('smtp_user'))
+					->to('psym4ntis@gmail.com')
+					->subject('IMOK: Bienvenue parmis nous '.$user->firstname)
+					->message('Votre mot de passe de connexion temporaire est: '.$random_password)
+					->send();
+
+				//creation du message de validation et redirection
+				$this->session->set_flashdata('validation_message', 'Le profil de ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' a bien été enregistré.');
+				redirect(base_url());
+			}
 		}
 
 		$this->load->view('common/_header', $data);
@@ -84,15 +96,17 @@ class Employee extends CI_Controller{
 
 		if ($this->form_validation->run() === TRUE) {
 			//update du user
-			$this->Employee_model->update($data['employee']->id);
-			$this->session->set_flashdata('validation_message', 'Le profil de '.$data['employee']->firstname.' '.$data['employee']->lastname.' a bien été mis à jour.');
-			redirect(base_url());
+			if($this->Employee_model->update($data['employee']->id)) {
+				//creation du message de validation et redirection
+				$this->session->set_flashdata('validation_message', 'Le profil de ' . $data['employee']->firstname . ' ' . $data['employee']->lastname . ' a bien été mis à jour.');
+				redirect(base_url());
+			}
 		}
+
 
 		$this->load->view('common/_header', $data);
 		$this->load->view('employee/edit', $data);
 		$this->load->view('common/_footer', $data);
-
 	}
 
 	public function search() {
