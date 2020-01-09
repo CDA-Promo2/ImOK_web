@@ -21,7 +21,6 @@ class Customer_model extends CI_Model {
             'complement' => $this->input->post('complement'),
             'phone' => $this->input->post('phone'),
             'mail' => $this->input->post('mail'),
-            'mail' => $this->input->post('mail'),
             'birthdate' => $this->input->post('birthdate'),
             'date_register' => $this->input->post('date_register'),
             'id_marital_status' => $this->input->post('id_marital_status'),
@@ -48,13 +47,15 @@ class Customer_model extends CI_Model {
 
         public function updateCustomer($id) {
             $data = array(
-                'lastname' => $this->input->post('lastname'),
                 'firstname' => $this->input->post('firstname'),
-                'birthdate' => $this->input->post('birthdate'),
-                'mail' => $this->input->post('mail'),
+                'lastname' => $this->input->post('lastname'),
                 'street' => $this->input->post('street'),
+                'complement' => $this->input->post('complement'),
                 'phone' => $this->input->post('phone'),
-                'id_marital_Status' => $this->input->post('id_marital_Status'),
+                'mail' => $this->input->post('mail'),
+                'birthdate' => $this->input->post('birthdate'),
+                'date_register' => $this->input->post('date_register'),
+                'id_marital_status' => $this->input->post('id_marital_status'),
                 'id_cities' => $this->input->post('id_cities'),
             );
             $this->db->where('id', $id);

@@ -7,6 +7,11 @@ class Employee_model extends CI_Model {
 		$this->load->database();
 	}
 
+	public function getAll() {
+		$query = $this->db->get('employees');
+		return $query->result();
+	}
+
 	public function getById($id){
 		$query=$this->db->get_where('employees',array('id'=>$id));
 		return $query->row();

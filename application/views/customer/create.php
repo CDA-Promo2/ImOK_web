@@ -1,20 +1,9 @@
-<?php 
-
-?>
-
 <h1 class="text-center"><?= $title ?></h1>
 
 <?= form_error(); ?>
 <div class="row justify-content-center">
     <div class="form col-md-12 col-lg-8 mt-5">
         <?= form_open_multipart(); ?>
-		<div class="form-group my-1">
-			<label for="civility">Civilité :</label><?= form_error('civility') ?>
-			<div>
-				<input type= "radio" name="civility" value="0"> Monsieur</input>
-				<input type= "radio" name="civility" value="1"> Madame</input>
-			</div>
-		</div>
 		<div class="form-group my-1">
 			<label for="lastname">Nom</label> <?= form_error('lastname') ?>
 			<input type="text" placeholder="Nom du client" id="lastname" name="lastname" class="form-control" value="<?= $_POST['lastname'] ?? '' ?>">
