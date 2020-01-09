@@ -15,9 +15,8 @@ class Employee_model extends CI_Model {
 	}
 
 	public function getById($id){
-		$query=$this->db->select(['employees.*','roles.name','cities.name'])
+		$query=$this->db->select(['employees.*','roles.name as role'])
 						->join('roles','roles.id = employees.id_roles')
-						->join('cities','cities.id = employees.id_cities')
 						->get_where('employees',array('employees.id'=>$id));
 		return $query->row();
 	}

@@ -4,7 +4,9 @@ class Employee extends CI_Controller{
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('Employee_model');
+		$this->load->model(['Employee_model','Role_model']);
+		$this->load->helper('form');
+		$this->load->library(['form_validation', 'pagination']);
 	}
 
 	public function index(){
@@ -23,6 +25,11 @@ class Employee extends CI_Controller{
 	}
 
 	public function list(){
+
+		if($_SESSION['user']->id_roles != 1){
+			show_404();
+		}
+
 		$data['title'] = 'Liste des employés';
 
 		$data['employees'] = $this->Employee_model->getAll();
@@ -32,13 +39,52 @@ class Employee extends CI_Controller{
 		$this->load->view('common/_footer', $data);
 	}
 
-	public function details($id){
+	public function create(){
 
-		$data['employee'] = $this->Employee_model->getById($id);
-		$data['title'] = 'Profil de '.$data['employee']->firstname.' '.$data['employee']->lastname;
+		if($_SESSION['user']->id_roles !=1){
+			show_404();
+		}
+
+		$data['roles'] = $this->Role_model->getAll();
+		$data['title'] = 'Enregistrer un nouvel employé';
+
+		$this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
+
+		if ($this->form_validation->run() === TRUE) {
+			//creation du user
+			die('create should be fine');
+			redirect(base_url());
+
+		}
 
 		$this->load->view('common/_header', $data);
-		$this->load->view('employee/details', $data);
+		$this->load->view('employee/create', $data);
+		$this->load->view('common/_footer', $data);
+
+
+	}
+
+	public function edit($id){
+
+		if($_SESSION['user']->id != $id && $_SESSION['user']->id_roles !=1){
+			show_404();
+		}
+
+		$data['employee'] = $this->Employee_model->getById($id);
+		$data['roles'] = $this->Role_model->getAll();
+		$data['title'] = 'Profil de '.$data['employee']->firstname.' '.$data['employee']->lastname;
+
+		$this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
+
+		if ($this->form_validation->run() === TRUE) {
+			//update du user
+			die('update should be fine');
+			redirect(base_url());
+
+		}
+
+		$this->load->view('common/_header', $data);
+		$this->load->view('employee/edit', $data);
 		$this->load->view('common/_footer', $data);
 
 	}

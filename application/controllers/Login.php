@@ -31,7 +31,7 @@ class Login extends CI_Controller {
 			$password = $this->input->post('password');
 			$userConnected = $this->Login_model->validate($mail,$password);
 			if($userConnected){
-				$_SESSION['user']=$userConnected;
+				$_SESSION['user']= $this->Employee_model->getById($userConnected->id);
 				$_SESSION['role']=$this->Employee_model->getRole($_SESSION['user']->id_roles);
 				redirect(site_url(), 'refresh');
 			}else{

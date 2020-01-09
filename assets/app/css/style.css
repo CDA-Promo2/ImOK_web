@@ -43,3 +43,13 @@ button.navigation-open{
 	padding-left: 10px;
 }
 
+
+
+/*Effets hover*/
+.hover{
+	transition: .2s ease-in-out;
+}
+.hover-up:hover{
+	cursor: pointer;
+	transform: translateY(-5px);
+}
