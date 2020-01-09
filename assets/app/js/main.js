@@ -27,6 +27,7 @@ $(function(){
 		items: 30,
 		source:  function (query, process) {
 			return $.get('search', { query: query }, function (data) {
+				console.log(data);
 				data = $.parseJSON(data);
 				return process(data);
 			});

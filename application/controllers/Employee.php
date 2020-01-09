@@ -4,7 +4,7 @@ class Employee extends CI_Controller{
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(['Employee_model','Role_model']);
+		$this->load->model(['Employee_model','Role_model','City_model']);
 		$this->load->helper('form','url');
 		$this->load->library(['form_validation', 'pagination']);
 	}
@@ -45,6 +45,11 @@ class Employee extends CI_Controller{
 			show_404();
 		}
 
+		if($this->input->post('id_cities')){
+			$city = $this->City_model->getById($this->input->post('id_cities'));
+			$data['city'] = $city->name.' ('.$city->zip_code.')';
+		}
+
 		$data['roles'] = $this->Role_model->getAll();
 		$data['title'] = 'Enregistrer un nouvel employé';
 
@@ -55,13 +60,13 @@ class Employee extends CI_Controller{
 			$random_password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#!?') , 0 , 8 );
 			//Création de l'employé
 			$this->Employee_model->create($random_password);
+			$this->session->set_flashdata('validation_message', 'Le profil de '.$_POST['firstname'].' '.$_POST['lastname'].' a bien été enregistré.');
 			redirect(base_url());
 		}
 
 		$this->load->view('common/_header', $data);
 		$this->load->view('employee/create', $data);
 		$this->load->view('common/_footer', $data);
-
 
 	}
 
@@ -79,9 +84,9 @@ class Employee extends CI_Controller{
 
 		if ($this->form_validation->run() === TRUE) {
 			//update du user
-			die('update should be fine');
+			$this->Employee_model->update($data['employee']->id);
+			$this->session->set_flashdata('validation_message', 'Le profil de '.$data['employee']->firstname.' '.$data['employee']->lastname.' a bien été mis à jour.');
 			redirect(base_url());
-
 		}
 
 		$this->load->view('common/_header', $data);
@@ -89,4 +94,13 @@ class Employee extends CI_Controller{
 		$this->load->view('common/_footer', $data);
 
 	}
+
+	public function search() {
+		$term = $this->input->get('term');
+		$this->db->like('name', $term);
+		$this->db->or_like('zip_code', $term);
+		$data = $this->db->get('cities')->result();
+		echo json_encode($data);
+	}
+
 }

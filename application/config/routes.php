@@ -56,3 +56,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['estate/create'] = 'estate/create';
+$route['employee/edit/(:any)'] = 'employee/edit/$1';

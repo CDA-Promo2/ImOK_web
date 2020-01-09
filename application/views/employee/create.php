@@ -32,8 +32,9 @@
 				<?= form_error('complement') ?>
 			</div>
 			<div class="form-group">
-				<label for="id_cities">Ville</label>
-				<input type="text" class="form-control" id="id_cities" name="id_cities" placeholder="Ville" value="<?= $_POST['id_cities'] ?? ''?>">
+				<label for="city">Ville</label>
+				<input type="text" class="form-control typeahead" id="city" name="city" placeholder="Ville" value="<?= $city ?? '' ?>">
+				<input type="text" hidden id="id_cities" name="id_cities" value="<?= $_POST['id_cities'] ?? ''?>">
 				<?= form_error('id_cities') ?>
 			</div>
 			<div class="row">

@@ -5,7 +5,11 @@
 	<button type=button class="navigation-close btn d-block d-md-none ml-auto"><i class="fas fa-times"></i></button>
 	<div class="userProfile mt-2 text-center">
 		<a href="<?= site_url('employee/edit/'.$_SESSION['user']->id) ?>" title="Modifier le profil">
-			<img src="<?=base_url('assets/img/defaultAvatar.png')?>" alt="<?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?>" class="img-fluid w-50 hover hover-up">
+			<?php if(read_file(base_url('upload/img/avatar/avatar'.$_SESSION['user']->id.'.jpg'))) { ?>
+				<img src="<?= base_url('upload/img/avatar/avatar'.$_SESSION['user']->id.'.jpg') ?>" alt="<?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?>" class="img-fluid w-50 hover hover-up">
+			<?php }else{ ?>
+				<img src="<?= base_url('upload/img/avatar/defaultAvatar.png') ?>" alt="<?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?>" class="img-fluid w-50 hover hover-up">
+			<?php } ?>
 		</a>
 		<p class="mb-0"><?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?></p>
 		<p class="mb-2 small text-muted"><?=$_SESSION['user']->role?></p>

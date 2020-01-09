@@ -33,7 +33,7 @@
 			</div>
 			<div class="form-group">
 				<label for="id_cities">Ville</label>
-				<input type="text" class="form-control" id="id_cities" name="id_cities" value="<?= $employee->id_cities?>">
+				<input type="text" class="form-control" id="id_cities" name="id_cities" placeholder="Ville" value="<?= $employee->id_cities ?>"/>
 				<?= form_error('id_cities') ?>
 			</div>
 			<div class="row">

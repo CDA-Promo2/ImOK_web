@@ -23,3 +23,9 @@ if($title!='Connexion' && !isset($_SESSION['user'])){
 	<?php if(isset($_SESSION['user'])){include_once('_navigation.php');} ?>
 	<main class="<?=isset($_SESSION['user']) ? 'shrinked' : '' ?>">
 		<?php if(isset($_SESSION['user'])){include_once('_breadcrumbs.php');} ?>
+
+		<!--message de validation (flash data)-->
+		<?php if(isset($_SESSION['validation_message'])){ ?>
+			<p class="validation_message alert alert-success"><?= $_SESSION['validation_message'] ?></p>
+		<?php } ?>
+

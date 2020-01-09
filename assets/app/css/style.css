@@ -57,3 +57,27 @@ ul.typeahead.dropdown-menu {
 	cursor: pointer;
 	transform: translateY(-5px);
 }
+
+
+/*Message de validation */
+.validation_message{
+	position: absolute;
+	left: calc(50% + 100px);
+	transform: translateX(-50%);
+	animation: 3s validationAnimation forwards;
+}
+
+@keyframes validationAnimation {
+	0%{
+		top: -60px;
+	}
+	20%{
+		top: 30px;
+	}
+	80%{
+		top: 30px;
+	}
+	to{
+		top: -60px;
+	}
+}
