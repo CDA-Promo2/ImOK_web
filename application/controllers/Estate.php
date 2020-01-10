@@ -36,9 +36,9 @@ class Estate extends CI_Controller
 		$data['estateTypeList'] = $this->Estate_types_model->getAll();
 		$data['expositionsList'] = $this->Exposition_model->getAll();
 
-//		if ($_POST){
-//			$this->Estate_model->createEstate();
-//		}
+		if ($_POST){
+			$this->Estate_model->createEstate();
+		}
 
 		// Chargement des vues, avec envoi du tableau $data
 		$this->load->view('common/_header', $data);
