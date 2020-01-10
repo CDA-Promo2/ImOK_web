@@ -47,8 +47,8 @@ class Customer extends CI_Controller {
             if ($this->form_validation->run() === TRUE) {
 
                 $this->Customer_model->createCustomers();
-                redirect(base_url());
-            
+                redirect(base_url('index.php/customer/'));
+
             }
             // Puis on se redirige vers la page d'accueil
             // Chargement des différentes vues servant à la création d'un utilisateur
@@ -61,7 +61,7 @@ class Customer extends CI_Controller {
         public function details($id = 0) {
             $data['title'] = 'Informations du client';
             $data['client'] = $this->Customer_model->getClientById($id);            
-            $data['appointements'] = $this->Appointment_model->getAppointmentById($id);            
+            $data['appointements'] = $this->Appointment_model->getAppointmentByIdCustomers($id);            
             
             $this->load->view('common/_header', $data);
             $this->load->view('customer/details', $data);

@@ -1,8 +1,8 @@
-<?= form_error(); ?>
-    <div class="row justify-content-center">
-        <div class="form col-md-12 col-lg-8 mt-5">
+<div class="container p-5 my-5 shadow">
+    <h1><?= $title ?></h1>
+    <?= form_error(); ?>
             <?= form_open_multipart(); ?>
-            <div class="row justify-content-between">
+            <div class="row justify-content-between my-5">
                 <div class="form col-md-4">
 
                     <div class="form-group my-1">
@@ -68,6 +68,7 @@
                                 <th>Type</th>
                                 <th>Client</th>
                                 <th>Employé</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,6 +85,7 @@
                                     <td><?= $appointment->description ?></td>
                                     <td><?= $appointment->firstnameCustomers . ' ' . $appointment->lastnameCustomers  ?></td>
                                     <td><?= $appointment->firstnameEmployees . ' ' . $appointment->lastnameEmployees  ?></td>
+                                    <td><a style="float:right" href="<?= site_url('appointment/edit/' . $appointment->id) ?>" class="btn btn-outline-secondary mx-1"><i class="fas fa-edit"></i></a></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -95,5 +97,7 @@
             </div>                       
     
         </div>
- 
+    
+    </div>
+
     </div>
