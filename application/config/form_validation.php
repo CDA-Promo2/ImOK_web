@@ -72,6 +72,36 @@ $password_confirm = [
 	'label' => 'Confirmation',
 	'rules' => ['trim','required','matches[password]']
 ];
+$date_start = [
+	'field' => 'date_start',
+	'label' => 'Date de début',
+	'rules' => ['trim', 'required']
+];
+$date_end = [
+	'field' => 'date_end',
+	'label' => 'Date de fin',
+	'rules' => ['trim', 'required']
+];
+$note = [
+	'field' => 'note',
+	'label' => 'Note',
+	'rules' => ['trim','required']
+];
+$id_appointment_types = [
+	'field' => 'id_appointment_types',
+	'label' => 'Type',
+	'rules' => ['trim','required','max_length[1]','integer']
+];
+$id_customers = [
+	'field' => 'id_customers',
+	'label' => 'Client',
+	'rules' => ['trim','required','max_length[5]','integer']
+];
+$id_employees = [
+	'field' => 'id_employees',
+	'label' => 'Employé',
+	'rules' => ['trim','required','max_length[5]','integer']
+];
 
 
 //Routes
@@ -81,5 +111,7 @@ $config = [
 	'customer/edit' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
 	'employee/create' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
 	'employee/edit' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
-	'employee/password' => [$password,$password_confirm]
+	'employee/password' => [$password,$password_confirm],
+	'appointment/create' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees],
+	'appointment/edit' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees]
 ];

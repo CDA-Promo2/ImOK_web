@@ -1,7 +1,8 @@
 <h1 class="text-center"><?= $title ?></h1>
 
+<div class="container">
 <div class="row justify-content-around mt-5">
-    <div class="card rounded p-4 col-md-5 shadow">
+    <div class="card rounded p-4 col-md-6">
         <h2>Informations sur <?= $client->lastname . ' ' . $client->firstname ?></h2>
         <div class="row mt-5">
             <div class="col-6">
@@ -41,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="card rounded p-4 col-md-5 shadow">
+    <div class="card rounded p-4 col-md-6">
         <h2>Informations générales</h2>
         <div class="row mt-5">
             <div class="col-6">
@@ -84,11 +85,15 @@
     <table class="table table-hover text-center shadow border bg-white">
             <thead class="thead-dark">
                 <tr>
-                    <th>Liste des RDV de <?= $client->lastname . ' ' . $client->firstname ?></th>
+                    <th>Date</th>
+                    <th>Heure</th>
+                    <th>Avec</th>
                 </tr>
             </thead>
             <tbody>
                     <tr>
+                        <td>test</td>
+                        <td>test</td>
                         <td>test</td>
                     </tr>
             </tbody>
@@ -108,6 +113,7 @@
             </tbody>
         </table>
         </div>
+    </div>
     </div>
     </div>
 

@@ -7,7 +7,8 @@
             <?= form_open_multipart(); ?>
 
             <div class="form-group my-1">
-			    <label for="date_start">Date et heure de début</label> <?= form_error('date_start') ?>
+			    <label for="date_start">Date et heure de début</label> 
+                <?= form_error('date_start') ?>
 			    <input type="datetime-local" placeholder="Date et heure du début du rendez-vous" id="date_start" name="date_start" class="form-control" value="<?= $_POST['date_start'] ?? '' ?>">
 		    </div>
 
@@ -18,7 +19,7 @@
 
             <div class="form-group my-1">
 			    <label for="note">Note</label> <?= form_error('note') ?>
-			    <input type="text" placeholder="Note" id="note" name="note" class="form-control" value="<?= $_POST['note'] ?? '' ?>">
+			    <input type="textarea" placeholder="Note" id="note" name="note" class="form-control" value="<?= $_POST['note'] ?? '' ?>">
 		    </div>
 
             <div class="form-group my-1">

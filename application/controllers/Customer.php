@@ -3,7 +3,7 @@ defined('BASEPATH') OR exist('No direct script access allowed');
 class Customer extends CI_Controller {
     public function __construct() {
         parent::__construct();
-        $this->load->model(['Customer_model', 'City_model', 'Status_model']);
+        $this->load->model(['Customer_model', 'City_model', 'Status_model', 'Appointment_model', 'Mandate_model']);
         $this->load->helper(['url', 'form', 'date']);
         $this->load->library(['form_validation', 'pagination']);
     }
@@ -12,7 +12,18 @@ class Customer extends CI_Controller {
         // On passera dans le tableau data toutes les informations utiles pour la vue
         // Le titre de la page
         $data['title'] = "Liste des clients";
+
+        //Récupération de tout les clients
         $data['customers'] = $this->Customer_model->getCustomers();
+
+        //configuration de la pagination
+        $this->load->config('pagination');
+        $config = $this->config->item('pagination_config');
+        $config['total_rows'] = $this->Customer_model->countAll();
+        $config['base_url'] = site_url('customer/index');
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+
         // Chargement des différentes vue, avec envoi du tableau data
         $this->load->view('common/_header', $data);
         $this->load->view('customer/index', $data);
@@ -46,24 +57,11 @@ class Customer extends CI_Controller {
             $this->load->view('common/_footer', $data);
         }
 
-        // Méthodes gérant la suppression d'un client
-        public function delete() {
-        // On récupère l'id du client que l'on souhaite supprimer
-        $id = $this->uri->segment(2);
-        // S'il n'y a pas d'id -> page 404
-        if (empty($id)) {
-            show_404();
-        } else {
-            // On appel la méthodes du model Client afin de supprimer le client d'id = $id
-            $customer = $this->Customer->deleteCustomer($id);
-            redirect('');
-        }
-    }
-
         //Methode gérant la page details
         public function details($id = 0) {
             $data['title'] = 'Informations du client';
             $data['client'] = $this->Customer_model->getClientById($id);            
+            $data['appointements'] = $this->Appointment_model->getAppointmentById($id);            
             
             $this->load->view('common/_header', $data);
             $this->load->view('customer/details', $data);
@@ -101,4 +99,12 @@ class Customer extends CI_Controller {
             $this->load->view('common/_footer', $data);
         }
     }
+
+    public function search() {
+		$term = $this->input->get('term');
+		$this->db->like('name', $term);
+		$this->db->or_like('zip_code', $term);
+		$data = $this->db->get('cities')->result();
+		echo json_encode($data);
+	}
 }
