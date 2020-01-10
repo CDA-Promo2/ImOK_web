@@ -9,9 +9,9 @@ class Employee_model extends CI_Model {
 
 	public function getAll(){
 		$query=$this->db->select(['employees.id','employees.firstname','employees.lastname','roles.name as role'])
-						->join('roles','roles.id = employees.id_roles')
-						->get('employees');
-		return $query->result();
+						->join('roles','roles.id = employees.id_roles');
+			$query = $this->db->get('employees');
+			return $query->result();
 	}
 
 	public function getById($id){

@@ -16,6 +16,16 @@ class Appointment extends CI_Controller {
         // Le titre de la page
         $data['title'] = "Liste des rendez-vous";
         $data['appointments'] = $this->Appointment_model->getAppointments();
+        $data['employees'] = $this->Employee_model->getAll();
+
+        //configuration de la pagination
+        $this->load->config('pagination');
+        $config = $this->config->item('pagination_config');
+        $config['total_rows'] = $this->Appointment_model->countAll();
+        $config['base_url'] = site_url('appointment/index');
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+
         // Chargement des différentes vue, avec envoi du tableau data
         $this->load->view('common/_header', $data);
         $this->load->view('appointment/index', $data);
@@ -40,7 +50,7 @@ class Appointment extends CI_Controller {
         if ($this->form_validation->run() === TRUE) {
 
             $this->Appointment_model->createAppointments();
-            redirect(base_url('appointment/create'));
+            redirect(base_url('index.php/appointment/'));
         
         }
         // Puis on se redirige vers la page d'accueil

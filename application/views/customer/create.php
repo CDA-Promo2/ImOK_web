@@ -1,7 +1,4 @@
 <h1 class="text-center"><?= $title ?></h1>
-
-<?php var_dump($_POST); ?>
-
 <hr>
 <?= form_error(); ?>
 <div class="row justify-content-center">
