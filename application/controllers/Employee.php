@@ -16,6 +16,7 @@ class Employee extends CI_Controller{
 			redirect(site_url('employee/password/'.$_SESSION['user']->id));
 		}
 
+
 		$data['title'] = 'Accueil';
 		$data['role'] = $this->Employee_model->getRole($_SESSION['user']->id_roles);
 
