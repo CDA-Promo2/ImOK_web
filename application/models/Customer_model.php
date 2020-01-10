@@ -8,9 +8,32 @@ class Customer_model extends CI_Model {
         $this->db->select(['customers.*', 'firstname', 'lastname', 'street', 'complement', 'phone', 'mail', 'cities.name as name_cities', 'marital_status.name name_status', 'zip_code', 'civility']);
         $this->db->join('cities', 'cities.id = customers.id_cities');
         $this->db->join('marital_status', 'marital_status.id = customers.id_marital_status');
-        $query = $this->db->get('Customers');
+        $this->db->group_by('customers.id');
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $this->db->like('firstname', $_GET['search']);
+            $this->db->or_like('lastname', $_GET['search']);
+        }
+        $limit = 5;
+        if (isset($_GET['per_page'])) {
+            $first = ($_GET['per_page'] - 1) * 5;
+        } else {
+            $first = 0;
+        }
+        $this->db->limit($limit, $first);
+        $query = $this->db->get('customers');
         return $query->result();
     }
+
+        //cette methode compte le nombre de clients
+        public function countAll() {
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $this->db->like('firstname', $_GET['search']);
+                $this->db->or_like('lastname', $_GET['search']);
+                $this->db->from('customers');
+                return $this->db->count_all_results();
+            }
+            return $this->db->count_all('customers');
+        }
 
     public function createCustomers() {
         $data = [
@@ -44,6 +67,7 @@ class Customer_model extends CI_Model {
             $query = $this->db->get('customers');
             return $query->row();
         }
+
 
         public function updateCustomer($id) {
             $data = array(

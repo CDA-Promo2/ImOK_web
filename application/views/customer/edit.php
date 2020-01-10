@@ -1,9 +1,18 @@
+<?php var_dump($_POST);?>
+
 <h1 class="text-center"><?= $title . ' ' . $client->lastname . ' ' . $client->firstname?></h1>
 
     <?= form_error(); ?>
     <div class="row justify-content-center">
     <div class="form col-md-12 col-lg-8 mt-5">
         <?= form_open_multipart(); ?>
+
+        <div class="form-group my-1">
+			<input type="hidden" name="civility" value="<?= $client->civility ?? '' ?>">
+		</div>
+        <div class="form-group my-1">
+			<input type="hidden" name="date_register" value="<?= $client->date_register ?? '' ?>">
+		</div>
         <div class="form-group my-1">
             <label for="lastname">Nom</label> <?= form_error('lastname') ?>
             <input type="text" id="lastname" name="lastname" class="form-control" value="<?= $client->lastname ?? '' ?>">
@@ -35,7 +44,7 @@
         </div>
         <div class="form-group my-1">
             <label for="id_cities">Ville</label> <?= form_error('id_cities') ?>
-            <input type="number" id="id_cities" name="id_cities" class="form-control" value="<?= $client->id_cities ?? '' ?>">
+            <input type="number" id="id_cities" name="id_cities" class="typeahead form-control" value="<?= $client->id_cities ?? '' ?>">
         </div>
         <div class="form-group my-1">
             <label for="phone">Telephone</label> <?= form_error('phone') ?>
@@ -49,5 +58,4 @@
             <a href="<?= site_url('customer/details/' . $client->id) ?>" class="btn btn-secondary col-4">Retour</a>
             <input type="submit" class="form-control btn btn-success col-4" name="update">
         </div>
-    </form>
 </div>
