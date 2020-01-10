@@ -26,8 +26,13 @@ $(function(){
 		delay: 100,
 		items: 30,
 		source:  function (query, process) {
-			return $.get('search', { query: query }, function (data) {
-				console.log(data);
+			let url = new URL(window.location.href);
+			let split = url.pathname.split('/');
+			let path = '/' + split[1] + '/' + split[2] + '/search';
+			return $.get(path, { query: query }, function (data) {
+				// var url = new URL(window.location.href);
+				// var split = url.pathname.split('/');
+				// console.log(split);
 				data = $.parseJSON(data);
 				return process(data);
 			});

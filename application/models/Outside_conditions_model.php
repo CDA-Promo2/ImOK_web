@@ -10,12 +10,12 @@ class Outside_conditions_model extends CI_Model
 	}
 
 	public function getAll() {
-		$query = $this->db->get('Outside_conditions');
+		$query = $this->db->get('outside_conditions');
 		return $query->result();
 	}
 
 	public function getById($id) {
-		$query = $this->db->get_where('Outside_conditions', ['id' => $id]);
+		$query = $this->db->get_where('outside_conditions', ['id' => $id]);
 		return $query->row();
 	}
 }
