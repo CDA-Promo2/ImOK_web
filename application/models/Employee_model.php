@@ -54,6 +54,15 @@ class Employee_model extends CI_Model {
 		return $this->db->where('id',$id)->update('employees',$data);
 	}
 
+	public function update_password($id){
+		$data = [
+			'first_connection' => 0,
+			'password' => password_hash($this->input->post('password'),PASSWORD_DEFAULT)
+		];
+		$data = $this->security->xss_clean($data);
+		return $this->db->where('id',$id)->update('employees',$data);
+	}
+
 	public function getRole($id){
 		$query=$this->db->get_where('roles',array('id'=>$id));
 		return $query->row();

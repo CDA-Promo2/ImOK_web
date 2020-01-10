@@ -11,6 +11,11 @@ class Employee extends CI_Controller{
 
 	public function index(){
 
+
+		if($_SESSION['user']->first_connection){
+			redirect(site_url('employee/password/'.$_SESSION['user']->id));
+		}
+
 		$data['title'] = 'Accueil';
 		$data['role'] = $this->Employee_model->getRole($_SESSION['user']->id_roles);
 
@@ -63,12 +68,7 @@ class Employee extends CI_Controller{
 			if($userId) {
 				$user = $this->Employee_model->getById($userId);
 				//envoi de l'email
-				$this->email->set_newline("\r\n")
-					->from($this->config->item('smtp_user'))
-					->to('psym4ntis@gmail.com')
-					->subject('IMOK: Bienvenue parmis nous '.$user->firstname)
-					->message('Votre mot de passe de connexion temporaire est: '.$random_password)
-					->send();
+				$this->email->send_employee_welcome($user,$random_password);
 
 				//creation du message de validation et redirection
 				$this->session->set_flashdata('validation_message', 'Le profil de ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' a bien été enregistré.');
@@ -87,6 +87,7 @@ class Employee extends CI_Controller{
 		if($_SESSION['user']->id != $id && $_SESSION['user']->id_roles !=1){
 			show_404();
 		}
+
 
 		$data['employee'] = $this->Employee_model->getById($id);
 		$data['roles'] = $this->Role_model->getAll();
@@ -109,6 +110,30 @@ class Employee extends CI_Controller{
 		$this->load->view('common/_footer', $data);
 	}
 
+	public function password($id) {
+
+		if($_SESSION['user']->id != $id){
+			show_404();
+		}
+
+		$data['employee'] = $this->Employee_model->getById($id);
+		$data['title'] = 'Modification de votre mot de passe';
+
+
+		$this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
+
+		if ($this->form_validation->run() === TRUE) {
+			$this->Employee_model->update_password($id);
+			$this->session->set_flashdata('validation_message', 'Votre mot de passe a bien été mis à jour.');
+			redirect(base_url());
+		}
+
+		$this->load->view('common/_header', $data);
+		$this->load->view('employee/password', $data);
+		$this->load->view('common/_footer', $data);
+
+	}
+
 	public function search() {
 		$term = $this->input->get('term');
 		$this->db->like('name', $term);
@@ -116,5 +141,6 @@ class Employee extends CI_Controller{
 		$data = $this->db->get('cities')->result();
 		echo json_encode($data);
 	}
+
 
 }

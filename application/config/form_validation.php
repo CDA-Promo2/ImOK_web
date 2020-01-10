@@ -56,11 +56,23 @@ $date_register = [
 	'label' => 'date d\'inscription',
 	'rules' => ['trim', 'required', 'max_length[10]', 'regex_match[/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/]']
 ];
-$id_roles = ['field' =>
-	'id_roles',
+$id_roles = [
+	'field' => 'id_roles',
 	'label' => 'Role',
 	'rules' => ['trim','required','max_length[5]','integer']
 ];
+$password = [
+	'field' => 'password',
+	'label' => 'Mot de passe',
+	'rules' => ['trim','required','regex_match[/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/]'],
+	'errors' => ['regex_match' => '8 caractères, une majuscule, un chiffre et un caractère spécial minimums']
+];
+$password_confirm = [
+	'field' => 'password_confirm',
+	'label' => 'Confirmation',
+	'rules' => ['trim','required','matches[password]']
+];
+
 
 //Routes
 //Selon la route, nous définissons les rêgles à appeller
@@ -68,5 +80,6 @@ $config = [
     'customer/create' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
 	'customer/edit' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
 	'employee/create' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
-	'employee/edit' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles]
+	'employee/edit' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
+	'employee/password' => [$password,$password_confirm]
 ];

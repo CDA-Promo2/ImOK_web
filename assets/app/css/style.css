@@ -65,6 +65,7 @@ ul.typeahead.dropdown-menu {
 	left: calc(50% + 100px);
 	transform: translateX(-50%);
 	animation: 3s validationAnimation forwards;
+	z-index: 100;
 }
 
 @keyframes validationAnimation {
