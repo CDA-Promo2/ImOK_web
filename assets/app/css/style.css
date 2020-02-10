@@ -94,3 +94,12 @@ ul.typeahead.dropdown-menu {
 	width: 100%;
 	height: 100%;
 }
+
+/** Full calendar **/
+
+.fc-h-event {
+	color: #FFF;
+	background-color: #337ab7;
+}
+
+/** FIN Full calendar **/

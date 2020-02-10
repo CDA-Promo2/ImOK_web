@@ -18,6 +18,7 @@ $(function(){
 	});
 });
 
+
 /**
  * AUTOCOMPLETION VILLE
  */
@@ -45,3 +46,7 @@ $(function(){
 		}
 	});
 });
+
+/**
+ * GESTION DU CREATE DES RDV
+ */
