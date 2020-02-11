@@ -1,6 +1,6 @@
 <?php
 //Check if the user is logged in, if not, redirect to the login page
-if($title!='Connexion' && !isset($_SESSION['user'])){
+if(!isset($noLoginRequired) && !isset($_SESSION['user'])){
 	redirect(site_url('login'));
 }
 
@@ -22,9 +22,6 @@ if($title!='Connexion' && !isset($_SESSION['user'])){
 <div class="container-fluid">
 	<?php if(isset($_SESSION['user'])){include_once('_navigation.php');} ?>
 	<main class="<?=isset($_SESSION['user']) ? 'shrinked' : '' ?>">
-		<?php if(isset($_SESSION['user'])){include_once('_breadcrumbs.php');} ?>
-
-		<?= $breadcrumb ?? '' ?>
 
 		<!--message de validation (flash data)-->
 		<?php if(isset($_SESSION['validation_message'])){ ?>

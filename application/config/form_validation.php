@@ -109,9 +109,11 @@ $id_employees = [
 $config = [
     'customer/create' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
 	'customer/edit' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
-	'employee/create' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
+	'employee/create' => [$lastname, $firstname, $mail, $phone, $id_roles],
 	'employee/edit' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
 	'employee/password' => [$password,$password_confirm],
 	'appointment/create' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees],
-	'appointment/edit' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees]
+	'appointment/edit' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees],
+	'employee/passwordrecovery/1' => [$mail],
+	'employee/passwordrecovery/2' => [$password,$password_confirm]
 ];

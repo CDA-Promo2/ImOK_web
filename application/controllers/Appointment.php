@@ -7,16 +7,20 @@ class Appointment extends CI_Controller {
         parent::__construct();
         $this->load->model(['Appointment_model', 'Appointment_types_model', 'Employee_model', 'Customer_model']);
         $this->load->helper(['url', 'form', 'date']);
-        $this->load->library(['form_validation', 'pagination']);
+        $this->load->library(['form_validation', 'pagination','breadcrumbcomponent']);
     }
 
     // Méthode gérant la page d'accueil
     public function index() {
+
         // On passera dans le tableau data toutes les informations utiles pour la vue
         // Le titre de la page
         $data['title'] = "Liste des rendez-vous";
         $data['appointments'] = $this->Appointment_model->getAppointments();
         $data['employees'] = $this->Employee_model->getAll();
+		$data['breadcrumb'] = $breadcrumb = $this->breadcrumbcomponent->add('Accueil', site_url())
+																	  ->add('Liste des rendez-vous', site_url('appointment'))
+																	  ->createView();
 
         //configuration de la pagination
         $this->load->config('pagination');

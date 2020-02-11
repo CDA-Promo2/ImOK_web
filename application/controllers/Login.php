@@ -41,6 +41,7 @@ class Login extends CI_Controller {
 
 		//load login view
 		$data['title']='Connexion';
+		$data['noLoginRequired']=true;
 		$this->load->view('common/_header',$data);
 		$this->load->view('login/index',$data);
 		$this->load->view('common/_footer',$data);

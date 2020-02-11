@@ -21,22 +21,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="street">Adresse</label>
-				<input type="text" class="form-control" id="street" name="street" placeholder="Adresse" value="<?= $_POST['street'] ?? '' ?>">
-				<?= form_error('street') ?>
-			</div>
-			<div class="form-group">
-				<label for="complement">Complément d'addresse</label>
-				<input type="text" class="form-control" id="complement" name="complement" placeholder="Complément d'adresse" value="<?= $_POST['complement'] ?? '' ?>">
-				<?= form_error('complement') ?>
-			</div>
-			<div class="form-group">
-				<label for="city">Ville</label>
-				<input type="text" class="form-control typeahead" id="city" name="city" placeholder="Ville" value="<?= $city ?? '' ?>">
-				<input type="text" hidden id="id_cities" name="id_cities" value="<?= $_POST['id_cities'] ?? ''?>">
-				<?= form_error('id_cities') ?>
-			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">

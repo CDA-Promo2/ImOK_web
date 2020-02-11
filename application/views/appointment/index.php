@@ -1,4 +1,7 @@
 <div class="container p-5 my-5 panel-group shadow">
+
+	<?= $breadcrumb ?>
+
     <h1><?= $title ?></h1>
     <div class="row justify-content-end">
             <form action="" method="get">
