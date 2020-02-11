@@ -179,11 +179,13 @@ $id_outside_conditions = [
 $config = [
     'customer/create' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
 	'customer/edit' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
-	'employee/create' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
+	'employee/create' => [$lastname, $firstname, $mail, $phone, $id_roles],
 	'employee/edit' => [$lastname, $firstname, $street, $complement, $id_cities, $mail, $phone, $id_roles],
 	'employee/password' => [$password,$password_confirm],
 	'appointment/create' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees],
 	'appointment/edit' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees],
+	'employee/passwordrecovery/1' => [$mail],
+	'employee/passwordrecovery/2' => [$password,$password_confirm],
 	'estate/create' => [$id_customers, $id_cities, $id_district, $street, $complement, $renovation, $id_estate_types, $floor, $id_build_date, $condominium, $joint_ownership,
-						$floor_number, $id_expositions, $size, $carrez_size, $rooms_numbers, $bedroom_numbers, $id_outside_conditions]
+		$floor_number, $id_expositions, $size, $carrez_size, $rooms_numbers, $bedroom_numbers, $id_outside_conditions]
 ];

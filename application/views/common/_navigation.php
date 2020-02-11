@@ -18,6 +18,11 @@
 		</form>
 	</div>
 	<nav id="mainMenu">
+		<ul>
+			<li class="menu-group">
+				<a class="text-default font-weight-bold menu-title" href="<?=site_url()?>">Accueil</a>
+			</li>
+		</ul>
 		<?php if($_SESSION['user']->id_roles == 1){ ?>
 		<ul>
 			<li class="menu-group">

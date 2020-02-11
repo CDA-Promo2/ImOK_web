@@ -21,21 +21,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="street">Adresse</label>
-				<input type="text" class="form-control" id="street" name="street" value="<?= $employee->street?>">
-				<?= form_error('street') ?>
-			</div>
-			<div class="form-group">
-				<label for="complement">Complément d'addresse</label>
-				<input type="text" class="form-control" id="complement" name="complement" value="<?= $employee->complement?>">
-				<?= form_error('complement') ?>
-			</div>
-			<div class="form-group">
-				<label for="id_cities">Ville</label>
-				<input type="text" class="form-control" id="id_cities" name="id_cities" placeholder="Ville" value="<?= $employee->id_cities ?>"/>
-				<?= form_error('id_cities') ?>
-			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">

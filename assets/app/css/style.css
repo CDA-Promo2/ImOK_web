@@ -8,6 +8,11 @@ main{
 		padding-left: 210px;
 	}
 }
+
+.text-default{
+	color: #212529!important;
+}
+
 /* Mise en page de la barre de navigation*/
 #mainNavigation{
 	width: 200px;
@@ -101,3 +106,19 @@ ul.typeahead.dropdown-menu {
 .alert-danger{
 	bottom: 8px;
 }
+
+.form-group.required label:after{
+	content:"*";
+	color: red;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+/** Full calendar **/
+
+.fc-h-event {
+	color: #FFF;
+	background-color: #337ab7;
+}
+
+/** FIN Full calendar **/
