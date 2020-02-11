@@ -11,6 +11,7 @@ class Estate extends CI_Controller
 			'Outside_conditions_model', 'Furniture_model', 'Room_type_model', 'Windows_type_model',
 			'Ground_covering_model', 'Wall_covering_model', 'Heating_type_model', 'Customer_model']);
 		$this->load->helper(['url', 'url_helper', 'form', 'date']);
+		$this->load->library(['form_validation']);
 	}
 	public function index() {
 		$data['title'] = 'Accueil de biens';
@@ -23,6 +24,7 @@ class Estate extends CI_Controller
 	}
 	public function create() {
 		$data['title'] = 'Ajout d\'un bien';
+
 		$data['cities']	= $this->City_model->getAll();
 		$data['dates']	= $this->Build_date_model->getAll();
 		$data['furnituresList'] = $this->Furniture_model->getAll();
@@ -36,8 +38,14 @@ class Estate extends CI_Controller
 		$data['estateTypeList'] = $this->Estate_types_model->getAll();
 		$data['expositionsList'] = $this->Exposition_model->getAll();
 
-		if ($_POST){
+		// Modification de l'affichage des erreurs
+		$this->form_validation->set_error_delimiters('<br><small class="alert alert-danger p-1">', '</small>');
+		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
+		// form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
+		if ($this->form_validation->run() === TRUE) {
 			$this->Estate_model->createEstate();
+			$lastId = $this->db->insert_id();
+			redirect(base_url('index.php/estate/details/'.$lastId));
 		}
 
 		// Chargement des vues, avec envoi du tableau $data
