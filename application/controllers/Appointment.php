@@ -17,18 +17,35 @@ class Appointment extends CI_Controller {
         // Le titre de la page
         $data['title'] = "Liste des rendez-vous";
         $data['appointments'] = $this->Appointment_model->getAppointments();
+        $data['appointment_types'] = $this->Appointment_types_model->getAll();
+        $data['customers'] = $this->Customer_model->getCustomers();
         $data['employees'] = $this->Employee_model->getAll();
 		$data['breadcrumb'] = $breadcrumb = $this->breadcrumbcomponent->add('Accueil', site_url())
 																	  ->add('Liste des rendez-vous', site_url('appointment'))
 																	  ->createView();
+        // $data['appointments'] = $this->Appointment_model->getAppointments();
+        // $data['employees'] = $this->Employee_model->getAll();
 
         //configuration de la pagination
-        $this->load->config('pagination');
-        $config = $this->config->item('pagination_config');
-        $config['total_rows'] = $this->Appointment_model->countAll();
-        $config['base_url'] = site_url('appointment/index');
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
+        // $this->load->config('pagination');
+        // $config = $this->config->item('pagination_config');
+        // $config['total_rows'] = $this->Appointment_model->countAll();
+        // $config['base_url'] = site_url('appointment/index');
+        // $this->pagination->initialize($config);
+        // $data['pagination'] = $this->pagination->create_links();
+
+        //Configuration du calendrier
+        $data['result'] = $this->db->get("appointments")->result();
+
+        foreach ($data['result'] as $key => $value) {
+            $data['data'][$key]['title'] = $value->note;
+            $data['data'][$key]['start'] = $value->date_start;
+            $data['data'][$key]['end'] = $value->date_end;
+            $data['data'][$key]['id_customers'] = $value->id_customers;
+            $data['data'][$key]['id_appointment_types'] = $value->id_appointment_types;
+            $data['data'][$key]['id_employees'] = $value->id_employees;
+            $data['data'][$key]['backgroundColor'] = "#337ab7";
+        }
 
         // Chargement des différentes vue, avec envoi du tableau data
         $this->load->view('common/_header', $data);

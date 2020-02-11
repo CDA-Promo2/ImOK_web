@@ -106,3 +106,12 @@ ul.typeahead.dropdown-menu {
 	display: inline-block;
 	margin-left: 10px;
 }
+
+/** Full calendar **/
+
+.fc-h-event {
+	color: #FFF;
+	background-color: #337ab7;
+}
+
+/** FIN Full calendar **/
