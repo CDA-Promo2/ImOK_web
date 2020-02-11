@@ -9,7 +9,7 @@ class Employee extends CI_Controller{
 		$this->load->library(['form_validation', 'pagination','email']);
 	}
 
-	public function index(){
+	public function index() {
 
 
 		if($_SESSION['user']->first_connection){
