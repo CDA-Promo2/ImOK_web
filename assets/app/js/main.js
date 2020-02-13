@@ -47,6 +47,5 @@ $(function(){
 	});
 });
 
-/**
- * GESTION DU CREATE DES RDV
- */
+
+

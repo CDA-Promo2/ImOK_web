@@ -109,8 +109,8 @@ ul.typeahead.dropdown-menu {
 
 /** Full calendar **/
 
-.fc-h-event {
-	color: #FFF;
+.fc-event-container {
+	color: #FFF !important;
 	background-color: #337ab7;
 }
 

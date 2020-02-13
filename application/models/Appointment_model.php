@@ -5,9 +5,10 @@ class Appointment_model extends CI_Model {
     }
 
     public function getAppointments() {
-        $this->db->select(['appointments.*', 'date_start', 'date_end', 'note', 'appointment_types.description as description', 'customers.firstname as firstnameCustomers', 'customers.lastname as lastnameCustomers', 'employees.lastname as lastnameEmployees', 'employees.firstname as firstnameEmployees', 'employees.mail', 'employees.phone']);
+        $this->db->select(['appointments.*', 'date_start', 'note', 'appointment_types.description as description', 'customers.firstname as firstnameCustomers', 'customers.lastname as lastnameCustomers', 'employees.lastname as lastnameEmployees', 'employees.firstname as firstnameEmployees', 'employees.mail as mailEmployees', 'customers.mail as mailCustomers', 'employees.phone as phoneEmployees', 'customers.phone as phoneCustomers', 'customers.street as streetCustomers', 'cities.name as citiesCustomers', 'cities.zip_code as codeCustomers']);
         $this->db->join('appointment_types', 'appointment_types.id = appointments.id_appointment_types');
         $this->db->join('customers', 'customers.id = appointments.id_customers');
+        $this->db->join('cities', 'cities.id = customers.id_cities');
         $this->db->join('employees', 'employees.id = appointments.id_employees');
         if (isset($_GET['employee']) && !empty($_GET['employee'])) {
             $this->db->like('employees.firstname', $_GET['employee']);
@@ -26,7 +27,6 @@ class Appointment_model extends CI_Model {
     public function createAppointments() {
         $data = [
             'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
             'note' => $this->input->post('note'),
             'id_appointment_types' => $this->input->post('id_appointment_types'),
             'id_customers' => $this->input->post('id_customers'),
@@ -39,7 +39,6 @@ class Appointment_model extends CI_Model {
     public function updateAppointments($id) {
         $data = array(
             'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
             'note' => $this->input->post('note'),
             'id_appointment_types' => $this->input->post('id_appointment_types'),
             'id_customers' => $this->input->post('id_customers'),
@@ -78,6 +77,11 @@ class Appointment_model extends CI_Model {
                 $this->db->where('customers.id', $id);
                 $query = $this->db->get('appointments');
                 return $query->result();
+            }
+
+            public function deleteAppointment($id) {
+                $this->db->where('id', $id);
+                return $this->db->delete('appointments');
             }
 
 }
