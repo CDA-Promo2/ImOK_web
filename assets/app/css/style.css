@@ -115,3 +115,15 @@ ul.typeahead.dropdown-menu {
 }
 
 /** FIN Full calendar **/
+
+/** Détail des biens **/
+
+.center-vertical {
+	vertical-align: -webkit-baseline-middle;
+}
+
+.cbox {
+	background-color: #f0f0f0;
+	padding: 20px 29px 20px;
+}
+/** Fin des détails de bien **/

@@ -7,12 +7,12 @@ class Estate_model extends CI_Model {
 	}
 	// Récupère tous les biens
 	public function getAllEstates() {
-		$query = $this->db->get('estates');
+		$query = $this->db->get('estate_view');
 		return $query->result();
 	}
 	// Récupère un bien en fonction de son id
 	public function getEstates($id) {
-		$query = $this->db->get_where('estates',array('estates.id'=>$id));
+		$query = $this->db->get_where('estate_view',array('estate_view.id'=>$id));
 		return $query->row();
 	}
 	// Créer un nouveau bien
