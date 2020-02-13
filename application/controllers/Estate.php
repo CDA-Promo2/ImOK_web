@@ -23,29 +23,20 @@ class Estate extends CI_Controller
 		$this->load->view('common/_footer', $data);
 	}
 	public function create() {
+		$data = $this->load_estate_componenents();
 		$data['title'] = 'Ajout d\'un bien';
-
-		$data['cities']	= $this->City_model->getAll();
-		$data['dates']	= $this->Build_date_model->getAll();
-		$data['furnituresList'] = $this->Furniture_model->getAll();
-		$data['roomTypeList'] = $this->Room_type_model->getAll();
-		$data['windowsTypeList'] = $this->Windows_type_model->getAll();
-		$data['groundCoveringsList'] = $this->Ground_covering_model->getAll();
-		$data['wallCoveringsList'] = $this->Wall_covering_model->getAll();
-		$data['heatingTypesList'] = $this->Heating_type_model->getAll();
-		$data['outsideConditionList'] = $this->Outside_conditions_model->getAll();
-		$data['customerList'] = $this->Customer_model->getCustomers();
-		$data['estateTypeList'] = $this->Estate_types_model->getAll();
-		$data['expositionsList'] = $this->Exposition_model->getAll();
 
 		// Modification de l'affichage des erreurs
 		$this->form_validation->set_error_delimiters('<br><small class="alert alert-danger p-1">', '</small>');
 		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
 		// form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
 		if ($this->form_validation->run() === TRUE) {
+
 			$this->Estate_model->createEstate();
 			$lastId = $this->db->insert_id();
 			redirect(base_url('index.php/estate/details/'.$lastId));
+		}else{
+			var_dump($this->form_validation->error_array());
 		}
 
 		// Chargement des vues, avec envoi du tableau $data
@@ -61,19 +52,8 @@ class Estate extends CI_Controller
 		echo json_encode($data);
 	}
 	public function edit($id){
+		$data = $this->load_estate_componenents();
 		$data['title'] = 'Modification d\'un bien';
-
-		$data['cities']	= $this->City_model->getAll();
-		$data['dates']	= $this->Build_date_model->getAll();
-		$data['furnituresList'] = $this->Furniture_model->getAll();
-		$data['roomTypeList'] = $this->Room_type_model->getAll();
-		$data['windowsTypeList'] = $this->Windows_type_model->getAll();
-		$data['groundCoveringsList'] = $this->Ground_covering_model->getAll();
-		$data['wallCoveringsList'] = $this->Wall_covering_model->getAll();
-		$data['heatingTypesList'] = $this->Heating_type_model->getAll();
-		$data['outsideConditionList'] = $this->Outside_conditions_model->getAll();
-		$data['customerList'] = $this->Customer_model->getCustomers();
-		$data['estateTypeList'] = $this->Estate_types_model->getAll();
 
 		$data['estate'] = $this->Estate_model->getEstates($id);
 
@@ -88,5 +68,21 @@ class Estate extends CI_Controller
 		$this->load->view('common/_header', $data);
 		$this->load->view('estate/details', $data);
 		$this->load->view('common/_footer', $data);
+	}
+
+	public function load_estate_componenents(){
+		$data['cities']	= $this->City_model->getAll();
+		$data['dates']	= $this->Build_date_model->getAll();
+		$data['furnituresList'] = $this->Furniture_model->getAll();
+		$data['roomTypeList'] = $this->Room_type_model->getAll();
+		$data['windowsTypeList'] = $this->Windows_type_model->getAll();
+		$data['groundCoveringsList'] = $this->Ground_covering_model->getAll();
+		$data['wallCoveringsList'] = $this->Wall_covering_model->getAll();
+		$data['heatingTypesList'] = $this->Heating_type_model->getAll();
+		$data['outsideConditionList'] = $this->Outside_conditions_model->getAll();
+		$data['customerList'] = $this->Customer_model->getCustomers();
+		$data['estateTypeList'] = $this->Estate_types_model->getAll();
+		$data['expositionsList'] = $this->Exposition_model->getAll();
+		return $data;
 	}
 }

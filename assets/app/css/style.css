@@ -115,3 +115,125 @@ ul.typeahead.dropdown-menu {
 }
 
 /** FIN Full calendar **/
+
+
+
+/*
+CREATION DES BIENS
+*/
+
+#description{
+	height: 124px;
+	overflow: auto;
+	resize: none;
+}
+
+.card.tab:not(#tab-1){
+	display: none;
+}
+
+.energyScale,
+.gasScale{
+	display: flex;
+	list-style: none;
+	padding-left: 0px;
+}
+
+.energyScale li,
+.gasScale li {
+	padding: 4px 10px;
+	transition: .2s ease-in-out;
+}
+
+.energyScale li.selected,
+.gasScale li.selected {
+	transform: scale(1.4);
+	border-radius: 5px;
+	border: 2px solid white;
+}
+
+.energyScale li:nth-child(1){
+	color : white;
+	background-color: #379932;
+}
+.energyScale li:nth-child(2){
+	color : white;
+	background-color: #3acc31;
+}
+.energyScale li:nth-child(3){
+	color : black;
+	background-color: #cdfd33;
+}
+.energyScale li:nth-child(4){
+	color : black;
+	background-color: #fbea49;
+}
+.energyScale li:nth-child(5){
+	color : black;
+	background-color: #fccc2f;
+}
+.energyScale li:nth-child(6){
+	color : white;
+	background-color: #fb9c34;
+}
+.energyScale li:nth-child(7){
+	color : white;
+	background-color: #fa1c1f;
+}
+.energyScale li:nth-child(8){
+	color : black;
+	background-color: #eeeeee;
+}
+
+
+.gasScale li:nth-child(1){
+	color : white;
+	background-color: #f6edfe;
+}
+.gasScale li:nth-child(2){
+	color : white;
+	background-color: #e4c7fb;
+}
+.gasScale li:nth-child(3){
+	color : black;
+	background-color: #d2adf1;
+}
+.gasScale li:nth-child(4){
+	color : black;
+	background-color: #c99aef;
+}
+.gasScale li:nth-child(5){
+	color : black;
+	background-color: #b77ae9;
+}
+.gasScale li:nth-child(6){
+	color : white;
+	background-color: #a659e9;
+}
+.gasScale li:nth-child(7){
+	color : white;
+	background-color: #8835d9;
+}
+.gasScale li:nth-child(8){
+	color : black;
+	background-color: #eeeeee;
+}
+
+
+#image-preview,
+#facilities-list{
+	height: 400px;
+	overflow: auto;
+}
+
+.thumbnail-image{
+	width: 100%;
+	height: 200px;
+	background-size: cover;
+	background-position: center;
+}
+
+
+/*
+FIN DE CREATION DES BIENS
+*/

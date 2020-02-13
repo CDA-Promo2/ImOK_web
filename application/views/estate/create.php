@@ -1,129 +1,400 @@
-<h1 class="text-center"><?= $title ?></h1>
-<hr>
 <div class="container">
 	<?= form_error() ?>
 	<?= form_open_multipart(); ?>
-	<div class="row justify-content-center">
-		<div class="col">
-			<div class="form-group my-1">
-				<label for="id_customers">Propriétaire</label> <span class="error">* <?= form_error('id_customers') ?></span>
-				<select name="id_customers" id="id_customers" class="form-control">
-					<option value="" selected>Veuillez choisir un client</option>
-					<?php foreach ($customerList as $customer): ?>
-						<option value="<?= $customer->id ?>" <?= isset($_POST['id_customers']) && $_POST['id_customers'] == $customer->id ? 'selected' : '' ?> ><?= $customer->lastname ?> <?= $customer->firstname ?></option>
-					<?php endforeach; ?>
-				</select>
+		<!-- formulaire premiere partie -->
+		<div class="tab card" id="tab-1">
+			<div class="card-header">
+				<h2>Enregistrer un bien (1/4)</h2>
 			</div>
-			<div class="form-group my-1">
-				<label for="city">Ville</label> <span class="error">* <?= form_error('id_cities') ?></span>
-				<input type="hidden" id="id_cities" name="id_cities" value=""/>
-				<input id="city" name="city" class="typeahead form-control" type="text" value="">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12">
+						<h3>Informations générales</h3>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="id_customers">Propriétaire</label>
+							<select type="text" name="id_customers" id="id_customers" class="form-control">
+								<option value="" selected disabled>Choisissez un client</option>
+								<?php foreach ($customerList as $customer): ?>
+									<option value="<?= $customer->id ?>" <?= isset($_POST['id_customers']) && $_POST['id_customers'] == $customer->id ? 'selected' : '' ?> ><?= $customer->lastname ?> <?= $customer->firstname ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="id_estate_types">Type de bien</label>
+							<select type="text" name="id_estate_types" id="id_estate_types" class="form-control">
+								<option value="" selected disabled>Choisissez un type de bien</option>
+								<?php foreach ($estateTypeList as $estateType): ?>
+									<option value="<?= $estateType->id ?>" <?= isset($_POST['id_estate_types']) && $_POST['id_estate_types'] == $estateType->id ? 'selected' : '' ?>><?= $estateType->name ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h3>Addresse</h3>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label for="street">Addresse</label>
+									<input type="text" name="street" id="street" class="form-control" value="<?= $_POST['street'] ?? '' ?>">
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="complement">Complément d'addresse</label>
+									<input type="text" name="complement" id="complement" class="form-control" value="<?= $_POST['complement'] ?? '' ?>">
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="city">Ville</label>
+									<input type="hidden" id="id_cities" name="id_cities" value=""/>
+									<input id="city" name="city" class="typeahead form-control" type="text" value="">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h3>Informations générales</h3>
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="size">Surface</label>
+									<input type="text" id="size" name="size" class="form-control" value="<?= $_POST['size'] ?? '' ?>">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="carrez_size">Surface (loi Carrez)</label>
+									<input type="text" id="carrez_size" name="carrez_size" class="form-control" value="<?= $_POST['carrez_size'] ?? '' ?>">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="rooms_numbers">Nb de pièces</label>
+									<input type="text" id="rooms_numbers" name="rooms_numbers" class="form-control" value="<?= $_POST['rooms_numbers'] ?? '' ?>">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="bedroom_numbers">Nb de chambres</label>
+									<input type="text" id="bedroom_numbers" name="bedroom_numbers" class="form-control" value="<?= $_POST['bedroom_numbers'] ?? '' ?>">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="floor">Etage ?</label>
+									<input type="text" id="floor" name="floor" class="form-control" value="<?= $_POST['floor'] ?? '' ?>">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="floor_number">Nb d'étages</label>
+									<input type="text" id="floor_number" name="floor_number" class="form-control" value="<?= $_POST['floor_number'] ?? '' ?>">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						<h3>Informations complémentaires</h3>
+					</div>
+					<div class="col-12">
+						<div class="d-flex justify-content-start">
+								<div class="custom-control custom-checkbox mr-3">
+									<input type="checkbox" class="custom-control-input" id="joint_ownership" name="joint_ownership">
+									<label class="custom-control-label" for="joint_ownership">Copropriété</label>
+								</div>
+								<div class="custom-control custom-checkbox mr-3">
+									<input type="checkbox" class="custom-control-input" id="condominium" name="condominium">
+									<label class="custom-control-label" for="condominium">Mitoyenneté</label>
+								</div>
+								<div class="custom-control custom-checkbox mr-3">
+									<input type="checkbox" class="custom-control-input" id="renovation" name="renovation">
+									<label class="custom-control-label" for="renovation">Rénnovations à prévoir</label>
+								</div>
+						</div>
+					</div>
+					<div class="col-md-6 mt-3">
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label for="id_outside_conditions">Etat extérieur</label>
+									<select type="text" name="id_outside_conditions" id="id_outside_conditions" class="form-control">
+										<option value="" selected disabled>Choisir un état général</option>
+										<?php foreach ($outsideConditionList as $outsideCondition): ?>
+											<option value="<?= $outsideCondition->id ?>" <?= isset($_POST['id_outside_conditions']) && $_POST['id_outside_conditions'] == $outsideCondition->id ? 'selected' : '' ?>><?= $outsideCondition->name ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="id_expositions">Exposition</label>
+									<select type="text" name="id_expositions" id="id_expositions" class="form-control">
+										<option value="" selected disabled>Choisir une exposition</option>
+										<?php foreach ($expositionsList as $exposition): ?>
+											<option value="<?= $exposition->id ?>" <?= isset($_POST['id_expositions']) && $_POST['id_expositions'] == $exposition->id ? 'selected' : '' ?>><?= $exposition->name ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 mt-3">
+						<div class="form-group">
+							<label for="description">Description</label>
+							<textarea name="description" id="description" class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="form-group my-1">
-				<label for="district">Secteur</label> <?= form_error('district') ?>
-				<input type="text" id="district" name="district" class="form-control" value="<?= $_POST['id_cities'] ?? '' ?>">
-			</div>
-			<div class="form-group my-1">
-				<label for="street">Adresse</label> <span class="error">* <?= form_error('street') ?></span>
-				<input type="text" id="street" name="street" class="form-control" value="<?= $_POST['street'] ?? '' ?>">
-			</div>
-			<div class="form-group my-1">
-				<label for="complement">Complément d'adresse</label> <?= form_error('complement') ?>
-				<input type="text" id="complement" name="complement" class="form-control" value="<?= $_POST['complement'] ?? '' ?>">
-			</div>
-			<div class="form-group my-1">
-				<label for="renovation">Rénovation ?</label> <span class="error">* <?= form_error('renovation') ?> </span>
-				<select name="renovation" id="renovation" class="form-control">
-					<option value="" selected >---</option>
-					<option value="0" <?= isset($_POST['renovation']) && $_POST['renovation'] === 0 ? 'selected' : '' ?>>Non</option>
-					<option value="1" <?= isset($_POST['renovation']) && $_POST['renovation'] == 1 ? 'selected' : '' ?>>Oui</option>
-				</select>
+			<div class="card-footer clearfix">
+				<button type="button" data-parent="#tab-1" data-target="#tab-2" class="previous btn btn-secondary float-right">Suivant</button>
 			</div>
 		</div>
-		<div class="col">
-			<div class="form-group my-1">
-				<label for="id_estate_types">Type de bien</label> <span class="error">* <?= form_error('id_estate_types') ?></span>
-				<select name="id_estate_types" id="id_estate_types" class="form-control">
-					<option value="" selected>Veuillez choisir un type de bien</option>
-					<?php foreach ($estateTypeList as $estateType): ?>
-						<option value="<?= $estateType->id ?>" <?= isset($_POST['id_estate_types']) && $_POST['id_estate_types'] == $estateType->id ? 'selected' : '' ?>><?= $estateType->name ?></option>
-					<?php endforeach; ?>
-				</select>
+
+		<!-- formulaire deuxième partie -->
+		<div class="card tab" id="tab-2">
+			<div class="card-header">
+				<h2>Enregistrer un bien (2/4)</h2>
 			</div>
-			<div class="form-group my-1">
-				<label for="floor">Etage</label> <span class="error">* <?= form_error('floor') ?></span>
-				<input type="text" id="floor" name="floor" class="form-control" value="<?= $_POST['floor'] ?? '' ?>">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12">
+						<h3>Pièces</h3>
+					</div>
+					<div class="col-md-6">
+						<div class="h-100 border p-3" id="room-list">
+
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label for="room_types">Type de pièce</label>
+									<select type="text" class="form-control" name="room_types" id="room_types">
+										<option value="" selected disabled>Selectionnez un type de pièce</option>
+										<?php foreach ($roomTypeList as $roomType): ?>
+											<option value="<?= $roomType->id ?>" <?= isset($_POST['room_types']) && $_POST['room_types'] == $roomType->id ? 'selected' : '' ?>><?= $roomType->name ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="room-size">Surface</label>
+									<input type="text" class="form-control" name="room-size" id="room-size">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="room-carrezSize">Surface (Carrez)</label>
+									<input type="text" class="form-control" name="room-carrezSize" id="room-carrezSize">
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="windows_types">Type de fenêtre</label>
+									<select type="text" class="form-control" name="windows_types" id="windows_types">
+										<option value="" selected disabled>Selectionnez un type de fenètres</option>
+										<?php foreach ($windowsTypeList as $windowsType): ?>
+											<option value="<?= $windowsType->id ?>" <?= isset($_POST['windows_types']) && $_POST['windows_types'] == $windowsType->id ? 'selected' : '' ?>><?= $windowsType->name ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="wall_coverings">Revêtement mural</label>
+									<select type="text" class="form-control" name="wall_coverings" id="wall_coverings">
+										<option value="" selected disabled>Selectionnez un revêtement</option>
+										<?php foreach ($wallCoveringsList as $wallCovering): ?>
+											<option value="<?= $wallCovering->id ?>" <?= isset($_POST['wall_coverings']) && $_POST['wall_coverings'] == $wallCovering->id ? 'selected' : '' ?>><?= $wallCovering->name ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="ground_coverings">Revêtement au sol</label>
+									<select type="text" class="form-control" name="ground_coverings" id="ground_coverings">
+										<option value="" selected disabled>Selectionnez un revêtement</option>
+										<?php foreach ($groundCoveringsList as $groundCovering): ?>
+											<option value="<?= $groundCovering->id ?>" <?= isset($_POST['ground_coverings']) && $_POST['ground_coverings'] == $groundCovering->id ? 'selected' : '' ?>><?= $groundCovering->name ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-12">
+								<button type="button" class="w-100 btn btn-primary d-block">
+									<i class="fa fa-pen"></i>
+									Ajouter une pièce
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="form-group my-1">
-				<label for="id_build_date">Date de construction</label> <span class="error">* <?= form_error('id_build_date') ?></span>
-				<select name="id_build_date" id="build_date" class="form-control">
-					<option value="" selected >---</option>
-					<?php foreach ($dates as $date): ?>
-						<option value="<?= $date->id ?>" <?= isset($_POST['id_build_date']) && $_POST['id_build_date'] == $date->id ? 'selected' : '' ?>><?= $date->period ?></option>
-					<?php endforeach; ?>
-				</select>
-			</div>
-			<div class="form-group my-1">
-				<label for="condominium">Mitoyen ?</label> <span class="error">* <?= form_error('condominium') ?></span>
-				<select name="condominium" id="condominium" class="form-control">
-					<option value=""  selected >---</option>
-					<option value="0" <?= isset($_POST['condominium']) && $_POST['condominium'] === 0 ? 'selected' : '' ?>>Non</option>
-					<option value="1" <?= isset($_POST['condominium']) && $_POST['condominium'] == 1 ? 'selected' : '' ?>>Oui</option>
-				</select>
-			</div>
-			<div class="form-group my-1">
-				<label for="joint_ownership">Copropriété</label> <span class="error">* <?= form_error('joint_ownership') ?></span>
-				<select name="joint_ownership" id="joint_ownership" class="form-control">
-					<option value=""  selected >---</option>
-					<option value="0" <?= isset($_POST['joint_ownership']) && $_POST['joint_ownership'] === 0 ? 'selected' : '' ?>>Non</option>
-					<option value="1" <?= isset($_POST['joint_ownership']) && $_POST['joint_ownership'] == 1 ? 'selected' : '' ?>>Oui</option>
-				</select>
-			</div>
-			<div class="form-group my-1">
-				<label for="floor_number">Nombre d'étages</label> <span class="error">* <?= form_error('floor_number') ?></span>
-				<input type="text" id="floor_number" name="floor_number" class="form-control" value="<?= $_POST['floor_number'] ?? '' ?>">
+			<div class="card-footer clearfix">
+				<button type="button" data-target="#tab-1" class="next btn btn-secondary float-left">Précédent</button>
+				<button type="button" data-target="#tab-3" class="previous btn btn-secondary float-right">Suivant</button>
 			</div>
 		</div>
-		<div class="col">
-			<div class="form-group my-1">
-				<label for="id_expositions">Exposition</label> <span class="error">* <?= form_error('id_expositions') ?></span>
-				<select name="id_expositions" id="expositions" class="form-control">
-					<option value="" selected >Veuillez choisir une exposition</option>
-					<?php foreach ($expositionsList as $exposition): ?>
-						<option value="<?= $exposition->id ?>" <?= isset($_POST['id_expositions']) && $_POST['id_expositions'] == $exposition->id ? 'selected' : '' ?>><?= $exposition->name ?></option>
-					<?php endforeach; ?>
-				</select>
+
+		<!-- formulaire troisième partie -->
+		<div class="card tab" id="tab-3">
+			<div class="card-header">
+				<h2>Enregistrer un bien (3/4)</h2>
 			</div>
-			<div class="form-group my-1">
-				<label for="size">Surface (en m²)</label> <span class="error">* <?= form_error('size') ?></span>
-				<input type="text" id="size" name="size" class="form-control" value="<?= $_POST['size'] ?? '' ?>">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+						<div class="form-group">
+							<h3 class="text-center">Prix de vente</h3>
+							<input type="text" name="price" id="price" class="form-control" value="<?=$_POST['price'] ?? ''?>">
+						</div>
+					</div>
+					<div class="col-12">
+						<hr>
+					</div>
+					<div class="col-md-6">
+						<h3>Charges</h3>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label for="">Taxe foncière</label>
+									<input type="text" class="form-control" name="property_tax" id="property_tax" value="<?=$_POST['property_tax'] ?? ''?>">
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="">Taxe d'habitation</label>
+									<input type="text" class="form-control" name="housing_tax" id="housing_tax" value="<?=$_POST['housing_tax'] ?? ''?>">
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="">Charges de copropriétés</label>
+									<input type="text" class="form-control" name="condominium_fees" id="condominium_fees" value="<?=$_POST['condominium_fees'] ?? ''?>">
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="">Charges annuelles</label>
+									<input type="text" class="form-control" name="annual_fees" id="annual_fees" value="<?=$_POST['annual_fees'] ?? ''?>">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h3>Consommation</h3>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="">Consommation énergétique</label>
+								<input type="text" class="form-control" name="energy_consumption" id="energy_consumption" placeholder="en kWhEP / m&sup2; /an" value="<?=$_POST['energy_consumption'] ?? ''?>">
+							</div>
+						</div>
+						<div class="col-12">
+							<ul class="energyScale">
+								<li>A</li>
+								<li>B</li>
+								<li>C</li>
+								<li>D</li>
+								<li>E</li>
+								<li>F</li>
+								<li>G</li>
+								<li class="selected">H</li>
+							</ul>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="">Emission de CO2</label>
+								<input type="text" class="form-control" id="gas_emission" name="gas_emission" placeholder="en kg CO2 / m&sup2; /an" value="<?=$_POST['gas_emission'] ?? ''?>">
+							</div>
+						</div>
+						<div class="col-12">
+							<ul class="gasScale">
+								<li>A</li>
+								<li>B</li>
+								<li>C</li>
+								<li>D</li>
+								<li>E</li>
+								<li>F</li>
+								<li>G</li>
+								<li class="selected">H</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="form-group my-1">
-				<label for="carrez_size">Surface Carrez (en m²)</label> <span class="error">* <?= form_error('carrez_size') ?></span>
-				<input type="text" id="carrez_size" name="carrez_size" class="form-control" value="<?= $_POST['carrez_size'] ?? '' ?>">
-			</div>
-			<div class="form-group my-1">
-				<label for="rooms_numbers">Nombre de pièces</label> <span class="error">* <?= form_error('rooms_numbers') ?></span>
-				<input type="text" id="rooms_numbers" name="rooms_numbers" class="form-control" value="<?= $_POST['rooms_numbers'] ?? '' ?>">
-			</div>
-			<div class="form-group my-1">
-				<label for="bedroom_numbers">Nombre de chambres</label> <span class="error">* <?= form_error('bedroom_numbers') ?></span>
-				<input type="text" id="bedroom_numbers" name="bedroom_numbers" class="form-control" value="<?= $_POST['bedroom_numbers'] ?? '' ?>">
-			</div>
-			<div class="form-group my-1">
-				<label for="id_outside_conditions">Extérieur</label> <span class="error">* <?= form_error('id_outside_conditions') ?></span>
-				<select name="id_outside_conditions" id="outside_conditions" class="form-control">
-					<option value="" selected >Veuillez choisir une condition</option>
-					<?php foreach ($outsideConditionList as $outsideCondition): ?>
-						<option value="<?= $outsideCondition->id ?>" <?= isset($_POST['id_outside_conditions']) && $_POST['id_outside_conditions'] == $outsideCondition->id ? 'selected' : '' ?>><?= $outsideCondition->name ?></option>
-					<?php endforeach; ?>
-				</select>
+			<div class="card-footer clearfix">
+				<button type="button" data-target="#tab-2" class="next btn btn-secondary float-left">Précédent</button>
+				<button type="button" data-target="#tab-4" class="previous btn btn-secondary float-right">Suivant</button>
 			</div>
 		</div>
-	</div>
-	<div class="row justify-content-around my-5">
-		<a href="<?= site_url().'/estate' ?>" class="btn btn-secondary col-4">Retour</a>
-		<input type="submit" class="form-control btn btn-success col-4" name="createEstate">
-	</div>
+
+		<!-- formulaire quatrième partie -->
+		<div class="card tab" id="tab-4">
+			<div class="card-header">
+				<h2>Enregistrer un bien (4/4)</h2>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-12">
+								<h3>Photos</h3>
+							</div>
+							<div class="col-12 p-4">
+								<div class="border row" id="image-preview">
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="image-upload">Charger les images</label>
+									<input type="file" name="" multiple id="image-upload" class="form-control">
+									<input type="text" id="images" hidden>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-12">
+								<h3>A proximité</h3>
+							</div>
+							<div class="col-12 p-4">
+								<div class="row border" id="facilities-list">
+
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label for="">Ajouter un élément</label>
+									<select id="facilities-select" class="custom-select">
+										<option value="" selected>Ajouter un élément</option>
+										<option value="1">Lorem 1</option>
+										<option value="2">Lorem 2</option>
+										<option value="3">Lorem 3</option>
+										<option value="4">Lorem 4</option>
+										<option value="5">Lorem 5</option>
+										<option value="6">Lorem 6</option>
+									</select>
+									<input type="text" name="facilities" hidden id="falicities">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer clearfix">
+				<button type="button" data-target="#tab-3" class="next btn btn-secondary float-left">Précédent</button>
+			</div>
+		</div>
+			<button type="submit" class="btn btn-success float-right mt-3">Enregistrer le bien</button>
 	<?php form_close() ?>
 </div>
