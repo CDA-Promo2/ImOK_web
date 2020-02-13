@@ -58,7 +58,7 @@ class Appointment extends CI_Controller {
         $data['employees'] = $this->Employee_model->getAll();
         $data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
                                                         ->add('Liste des rendez-vous', site_url('appointment'))
-                                                        ->add('Création des rendez-vous', site_url('appointment/create'))
+                                                        ->add('Création du rendez-vous', site_url('appointment/create'))
                                                         ->createView();
 
     // Modification de l'affichage des erreurs
@@ -88,6 +88,10 @@ class Appointment extends CI_Controller {
                 $data['appointment_types'] = $this->Appointment_types_model->getAll();
                 $data['customers'] = $this->Customer_model->getCustomers();
                 $data['employees'] = $this->Employee_model->getAll();
+                $data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+                                                                ->add('Liste des rendez-vous', site_url('appointment'))
+                                                                ->add('Modification du rendez-vous', site_url('appointment/create'))
+                                                                ->createView();
                 // Si le formulaire de modification a été submit
                 if ($_POST) {
                     // Modification de l'affichage des erreurs

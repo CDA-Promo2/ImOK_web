@@ -5,7 +5,7 @@ class Customer extends CI_Controller {
         parent::__construct();
         $this->load->model(['Customer_model', 'City_model', 'Status_model', 'Appointment_model', 'Mandate_model']);
         $this->load->helper(['url', 'form', 'date']);
-        $this->load->library(['form_validation', 'pagination']);
+        $this->load->library(['form_validation', 'pagination','breadcrumbcomponent']);
     }
     // Méthode gérant la page d'accueil
     public function index() {
@@ -15,6 +15,9 @@ class Customer extends CI_Controller {
 
         //Récupération de tout les clients
         $data['customers'] = $this->Customer_model->getCustomers();
+        $data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+                                                        ->add('Liste des clients', site_url('customer'))
+                                                        ->createView();
 
         //configuration de la pagination
         $this->load->config('pagination');
@@ -37,6 +40,10 @@ class Customer extends CI_Controller {
             $data['title'] = "Ajouter un Client";
             // Récupération du crédit
             $data['marital_status'] = $this->Status_model->getStatus();
+            $data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+                                                            ->add('Liste des clients', site_url('customer'))
+                                                            ->add('Création du client', site_url('customer/create'))
+                                                            ->createView();
             // $data['cities'] = $this->City_model->getAll();
 
         // Modification de l'affichage des erreurs
@@ -61,7 +68,11 @@ class Customer extends CI_Controller {
         public function details($id = 0) {
             $data['title'] = 'Informations du client';
             $data['client'] = $this->Customer_model->getClientById($id);            
-            $data['appointements'] = $this->Appointment_model->getAppointmentByIdCustomers($id);            
+            $data['appointements'] = $this->Appointment_model->getAppointmentByIdCustomers($id); 
+            $data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+                                                            ->add('Liste des clients', site_url('customer'))
+                                                            ->add('Information du client', site_url('customer/details'))
+                                                            ->createView();           
             
             $this->load->view('common/_header', $data);
             $this->load->view('customer/details', $data);
@@ -75,6 +86,10 @@ class Customer extends CI_Controller {
         // Récupération des status
         $data['marital_status'] = $this->Status_model->getStatus();
         $data['cities'] = $this->City_model->getAll();
+        $data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+                                                        ->add('Liste des clients', site_url('customer'))
+                                                        ->add('Modification du client', site_url('customer/edit'))
+                                                        ->createView();  
         // Si le formulaire de modification a été submit
         if ($_POST) {
             // Modification de l'affichage des erreurs

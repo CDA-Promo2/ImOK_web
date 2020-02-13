@@ -12,12 +12,15 @@ class Estate extends CI_Controller
 			'Outside_conditions_model', 'Furniture_model', 'Room_type_model', 'Windows_type_model',
 			'Ground_covering_model', 'Wall_covering_model', 'Heating_type_model', 'Customer_model']);
 		$this->load->helper(['url', 'url_helper', 'form', 'date']);
-		$this->load->library(['form_validation']);
+		$this->load->library(['form_validation', 'BreadCrumbComponent']);
 	}
 	public function index()
 	{
 		$data['title'] = 'Accueil de biens';
 		$data['estateList'] = $this->Estate_model->getAllEstates();
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+														->add('Liste des Biens', site_url('estate'))
+														->createView();	
 
 		// Chargement des vues, avec envoi du tableau $data
 		$this->load->view('common/_header', $data);
@@ -28,6 +31,10 @@ class Estate extends CI_Controller
 		$data = $this->load_estate_componenents();
 
 		$data['title'] = 'Ajout d\'un bien';
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+														->add('Liste des Biens', site_url('estate'))
+														->add('Création du Bien', site_url('estate/create'))
+														->createView();	
 
 
 		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
@@ -56,6 +63,10 @@ class Estate extends CI_Controller
 		$data['title'] = 'Modification d\'un bien';
 
 		$data['estate'] = $this->Estate_model->getEstates($id);
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+														->add('Liste des Biens', site_url('estate'))
+														->add('Modification du Bien', site_url('estate/edit'))
+														->createView();	
 
 		$this->load->view('common/_header', $data);
 		$this->load->view('estate/edit', $data);
@@ -107,5 +118,18 @@ class Estate extends CI_Controller
 		$data['estateTypeList'] = $this->Estate_types_model->getAll();
 		$data['expositionsList'] = $this->Exposition_model->getAll();
 		return $data;
+	}
+
+	public function details($id) {
+		$data['title'] = 'Details bien';
+		$data['estate'] = $this->Estate_model->getEstates($id);
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+														->add('Liste des Biens', site_url('estate'))
+														->add('Information du Bien', site_url('estate/details'))
+														->createView();	
+
+		$this->load->view('common/_header', $data);
+		$this->load->view('estate/details', $data);
+		$this->load->view('common/_footer', $data);
 	}
 }
