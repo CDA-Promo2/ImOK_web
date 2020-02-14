@@ -19,6 +19,9 @@ class Employee extends CI_Controller{
 
 		$data['title'] = 'Accueil';
 		$data['role'] = $this->Employee_model->getRole($_SESSION['user']->id_roles);
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+														->add('Liste des employés', site_url('customer'))
+														->createView();
 
 		$data['dashboard'][2] = array('performance','agenda','estate','customer','message');
 		$data['dashboard'][3] = array('agenda','performance','estate','customer','message');
@@ -41,7 +44,7 @@ class Employee extends CI_Controller{
 		$data['employees'] = $this->Employee_model->getAll();
 		$data['breadcrumb'] = $breadcrumb = $this->breadcrumbcomponent
 			->add('Accueil', site_url())
-			->add('Liste des employés', site_url('appointment'))
+			->add('Liste des employés', site_url('employee'))
 			->createView();
 
 		$this->load->view('common/_header', $data);
@@ -62,6 +65,10 @@ class Employee extends CI_Controller{
 
 		$data['roles'] = $this->Role_model->getAll();
 		$data['title'] = 'Enregistrer un nouvel collaborateur';
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+														->add('Liste des clients', site_url('employee'))
+														->add('Création de l\'employé', site_url('employee/create'))
+														->createView();
 
 		$this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
 
@@ -97,6 +104,10 @@ class Employee extends CI_Controller{
 		$data['employee'] = $this->Employee_model->getById($id);
 		$data['roles'] = $this->Role_model->getAll();
 		$data['title'] = 'Profil de '.$data['employee']->firstname.' '.$data['employee']->lastname;
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+														->add('Liste des clients', site_url('employee'))
+														->add('Modification de l\'employé', site_url('employee/edit'))
+														->createView();
 
 		$this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
 
