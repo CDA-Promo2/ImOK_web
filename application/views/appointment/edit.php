@@ -3,16 +3,11 @@
     <?= form_error(); ?>
             <?= form_open_multipart(); ?>
             <div class="row justify-content-between my-5">
-                <div class="form col-md-4">
+                <div class="form col-md-6">
 
                     <div class="form-group my-1">
                         <label for="date_start">Date et heure de début</label> <?= form_error('date_start') ?>
                         <input type="text" id="date_start" name="date_start" class="form-control" value="<?= $appointment->date_start ?? '' ?>">
-                    </div>
-
-                    <div class="form-group my-1">
-                        <label for="date_end">Date et heure de fin</label> <?= form_error('date_end') ?>
-                        <input type="text" id="date_end" name="date_end" class="form-control" value="<?= $appointment->date_end ?? '' ?>">
                     </div>
 
                     <div class="form-group my-1">
@@ -30,7 +25,16 @@
                                 <?php endforeach; ?>
                         </select>
                     </div>
+                              
+                </div>
 
+                <div class="col-md-6">
+
+                    <div class="form-group my-1">
+                        <label for="date_end">Date et heure de fin</label> <?= form_error('date_end') ?>
+                        <input type="text" id="date_end" name="date_end" class="form-control" value="<?= $appointment->date_end ?? '' ?>">
+                    </div>
+                    
                     <div class="form-group my-1">
                         <label for="id_customers">Client</label><?= form_error('id_customers') ?>
                         <select name="id_customers" class="form-control">
@@ -42,59 +46,23 @@
                     </div>
 
                     <div class="form-group my-1">
-                        <label for="id_employees">collaborateur</label><?= form_error('id_employees') ?>
+                        <label for="id_employees">Employé</label><?= form_error('id_employees') ?>
                         <select name="id_employees" class="form-control">
-                            <option value="0" selected disabled>Veuillez choisir un collaborateur</option>
+                            <option value="0" selected disabled>Veuillez choisir un Employé</option>
                                 <?php foreach ($employees as $employee): ?>
                                     <option value="<?= $employee->id ?>" <?= $appointment->id_employees == $employee->id ? 'selected' : '' ?>><?= $employee->id ?>. <?= $employee->lastname . ' ' . $employee->firstname  ?></option>
                                 <?php endforeach; ?>
                         </select>
                     </div>
 
+                </div>
+                                
+            </div>   
+
                     <div class="row justify-content-around my-5">
                         <a href="<?= site_url('appointment/') ?>" class="btn btn-secondary col-4">Retour</a>
                         <input type="submit" class="form-control btn btn-success col-4" name="update">
-                    </div>
-                              
-                </div>
-
-                <div class="col-md-8">
-
-                    <table class="table table-hover text-center shadow border bg-white">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Date</th>
-                                <th>Heure</th>
-                                <th>Type</th>
-                                <th>Client</th>
-                                <th>collaborateur</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($appointments as $appointment) { ?>
-
-                                <?php
-                                $time  = $appointment->date_start;
-                                $time_start = explode(" ", $time);
-                                ?>
-
-                                <tr>
-                                    <td><?php echo $time_start[0] ?></td>
-                                    <td><?php echo $time_start[1] ?></td>
-                                    <td><?= $appointment->description ?></td>
-                                    <td><?= $appointment->firstnameCustomers . ' ' . $appointment->lastnameCustomers  ?></td>
-                                    <td><?= $appointment->firstnameEmployees . ' ' . $appointment->lastnameEmployees  ?></td>
-                                    <td><a style="float:right" href="<?= site_url('appointment/edit/' . $appointment->id) ?>" class="btn btn-outline-secondary mx-1"><i class="fas fa-edit"></i></a></td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-
-        
-                </div>
-                                
-            </div>                       
+                    </div>                    
     
         </div>
     

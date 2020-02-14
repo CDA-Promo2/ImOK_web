@@ -109,8 +109,8 @@ ul.typeahead.dropdown-menu {
 
 /** Full calendar **/
 
-.fc-h-event {
-	color: #FFF;
+.fc-event-container {
+	color: #FFF !important;
 	background-color: #337ab7;
 }
 
@@ -301,3 +301,15 @@ FIN DE CREATION DES BIENS
 	display: inline;
 	font-size: 1.5rem;
 }
+
+/** Détail des biens **/
+
+.center-vertical {
+	vertical-align: -webkit-baseline-middle;
+}
+
+.cbox {
+	background-color: #f0f0f0;
+	padding: 20px 29px 20px;
+}
+/** Fin des détails de bien **/

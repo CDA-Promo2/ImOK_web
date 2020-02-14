@@ -22,7 +22,7 @@
 		<div class="form-group my-1 required">
 			<label for="id_marital_status">Statut</label><?= form_error('id_marital_status') ?>
 			<select name="id_marital_status" class="form-control">
-				<option value="0" selected disabled>Veuillez choisir un Status</option>
+				<option value="0" selected>Veuillez choisir un Status</option>
 				<?php foreach ($marital_status as $status): ?>
 					<option value="<?= $status->id ?>" <?= $_POST && $_POST['id_marital_status'] == $status->id ? 'selected' : '' ?>><?= $status->id ?>. <?= $status->name ?></option>
 				<?php endforeach; ?>

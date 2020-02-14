@@ -20,30 +20,24 @@ class Appointment extends CI_Controller {
         $data['appointment_types'] = $this->Appointment_types_model->getAll();
         $data['customers'] = $this->Customer_model->getCustomers();
         $data['employees'] = $this->Employee_model->getAll();
-		$data['breadcrumb'] = $breadcrumb = $this->breadcrumbcomponent->add('Accueil', site_url())
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
 																	  ->add('Liste des rendez-vous', site_url('appointment'))
-																	  ->createView();
-        // $data['appointments'] = $this->Appointment_model->getAppointments();
-        // $data['employees'] = $this->Employee_model->getAll();
-
-        //configuration de la pagination
-        // $this->load->config('pagination');
-        // $config = $this->config->item('pagination_config');
-        // $config['total_rows'] = $this->Appointment_model->countAll();
-        // $config['base_url'] = site_url('appointment/index');
-        // $this->pagination->initialize($config);
-        // $data['pagination'] = $this->pagination->create_links();
-
+                                                                      ->createView();
+                                                                      
         //Configuration du calendrier
-        $data['result'] = $this->db->get("appointments")->result();
-
-        foreach ($data['result'] as $key => $value) {
+        foreach ($data['appointments'] as $key => $value) {
             $data['data'][$key]['title'] = $value->note;
             $data['data'][$key]['start'] = $value->date_start;
-            $data['data'][$key]['end'] = $value->date_end;
-            $data['data'][$key]['id_customers'] = $value->id_customers;
-            $data['data'][$key]['id_appointment_types'] = $value->id_appointment_types;
-            $data['data'][$key]['id_employees'] = $value->id_employees;
+            $data['data'][$key]['firstnameCustomers'] = $value->firstnameCustomers;
+            $data['data'][$key]['lastnameCustomers'] = $value->lastnameCustomers;
+            $data['data'][$key]['firstnameEmployees'] = $value->firstnameEmployees;
+            $data['data'][$key]['lastnameEmployees'] = $value->lastnameEmployees;
+            $data['data'][$key]['description'] = $value->description;
+            $data['data'][$key]['mailCustomers'] = $value->mailCustomers;
+            $data['data'][$key]['phoneCustomers'] = $value->phoneCustomers;
+            $data['data'][$key]['streetCustomers'] = $value->streetCustomers;
+            $data['data'][$key]['citiesCustomers'] = $value->citiesCustomers;
+            $data['data'][$key]['codeCustomers'] = $value->codeCustomers;
             $data['data'][$key]['backgroundColor'] = "#337ab7";
         }
 
@@ -62,6 +56,10 @@ class Appointment extends CI_Controller {
         $data['appointment_types'] = $this->Appointment_types_model->getAll();
         $data['customers'] = $this->Customer_model->getCustomers();
         $data['employees'] = $this->Employee_model->getAll();
+        $data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+                                                        ->add('Liste des rendez-vous', site_url('appointment'))
+                                                        ->add('Création des rendez-vous', site_url('appointment/create'))
+                                                        ->createView();
 
     // Modification de l'affichage des erreurs
         $this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
@@ -99,7 +97,7 @@ class Appointment extends CI_Controller {
                         // On appel la méthodes du model Client afin de mettre à jour le client d'id = $id
                         $this->Appointment_model->updateAppointments($id);
                         // Puis on se redirige vers l'accueil
-                        redirect(base_url());
+                        redirect(base_url('index.php/appointment'));
                     }
                 }
                 // Récupération des informations du client choisi
@@ -114,5 +112,19 @@ class Appointment extends CI_Controller {
                     $this->load->view('common/_footer', $data);
                 }
             }
+
+            // Méthodes gérant la suppression d'un rendez-vous
+        public function delete() {
+        // On récupère l'id du rendez-vous que l'on souhaite supprimer
+        $id = $this->uri->segment(2);
+        // S'il n'y a pas d'id -> page 404
+        if (empty($id)) {
+            show_404();
+        } else {
+            // On appel la méthodes du model Client afin de supprimer le rendez-vous d'id = $id
+            $appointment = $this->Appointment_model->deleteAppointment($id);
+            redirect(base_url('index.php/appointment'));
+        }
+    }
 
 }

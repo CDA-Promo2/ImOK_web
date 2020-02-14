@@ -1,156 +1,232 @@
-<div class="row justify-content-end mr-5">
-	<a href="../edit/<?= $estate->id ?>" class="btn btn-outline-secondary">Modifier le bien</a>
-</div>
-<div class="row mt-4">
-	<div class="col-10">
-		<p>A Amiens</p>
-	</div>
-	<div class="col-2">
-		<p>Prix : 111 000 €</p>
-	</div>
-</div>
-<p>A Vendre Appartement 5 pièces de 35m²</p>
+<?php
 
-<div class="row justify-content-center my-4">
-	<img src="https://picsum.photos/800/450" alt="image du bien">
-</div><div class="row justify-content-around my-4">
-	<img src="https://picsum.photos/190/120" alt="image 2 du bien">
-	<img src="https://picsum.photos/190/121" alt="image 3 du bien">
-	<img src="https://picsum.photos/190/122" alt="image 4 du bien">
-</div>
-<div class="row mx-4">
-	<p>Description :</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consequuntur cumque eum laborum perferendis quaerat, quibusdam! Beatae et ex ipsam iste labore, magni placeat quaerat quas quo quod reiciendis soluta! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci asperiores deleniti deserunt dolor dolores eum explicabo illum nostrum officia qui quod sapiente sint ullam, unde velit, voluptatem. Aliquid, officia.</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto debitis fugit ipsum iure, libero magni minus nam nihil omnis provident, quos, saepe. Aut delectus ipsum nobis odit, quas voluptas voluptate.</p>
-</div>
-<div class="row my-3">
-	<div class="col-6">
-		<div class="mt-5">
-			<b>GENERAL</b>
-			<table class="table">
-				<tr>
-					<td>Prix :</td>
-					<td>111 000 €</td>
-				</tr>
-				<tr>
-					<td>Type de bien :</td>
-					<td>Appartement</td>
-				</tr>
-				<tr>
-					<td>Nombre de pièces :</td>
-					<td>5</td>
-				</tr>
-				<tr>
-					<td>Nombre de chambre :</td>
-					<td>2</td>
-				</tr>
-			</table>
+$sizes  = $estate->size;
+$size = explode(".", $sizes);
+
+$prices  = $estate->price;
+$price = explode(".", $prices);
+
+$carrez_sizes = $estate->carrez_size;
+$carrez_size = explode(".", $carrez_sizes);
+
+?>
+
+<div class="container p-5">
+
+	<div class="row justify-content-center my-4">
+		<div class="col-12">
+			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+						<img class="d-block w-100" src="https://picsum.photos/800/450" alt="First slide">
+						</div>
+						<div class="carousel-item">
+						<img class="d-block w-100" src="https://picsum.photos/800/450" alt="Second slide">
+						</div>
+						<div class="carousel-item">
+						<img class="d-block w-100" src="https://picsum.photos/800/450" alt="Third slide">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+					</div>
+				</div>
+				<div class="col-10 h4 my-2">
+					<p><strong class="center-vertical"><?= $estate->estate_type ? $estate->estate_type : '' ?> <?= $size[0] ? ' - '.$size[0].' m²' : '' ?> <?= $estate->rooms_numbers ? ' - '.$estate->rooms_numbers.' pièces' : '' ?></strong></p>
+				</div>
+				<div class="col-2 h4 my-2 shadow text-center bg-danger text-white">
+					<p><strong class="center-vertical"><?= $price[0] ?? 'nc' ?> €</strong></p>
+				</div>
+			</div>
+		
+						
+	<div class="row">
+		<div class="col-8">
+			<p class="h4">Bien situé au <strong><?= $estate->street ?? 'nc' ?></strong></p>
+			<p class="my-5"><?= $estate->description ?? 'Il n\'y a pas de description de renseignée' ?></p>
 		</div>
-		<div class="mt-5">
-			<b>ENERGIE</b>
-			<table class="table">
-				<tr>
-					<td>Conso annuelle :</td>
-					<td>5 KWh/m2</td>
-				</tr>
-				<tr>
-					<td>Gaz à effet de serre :</td>
-					<td>172 CO2/m2/an</td>
-				</tr>
-				<tr>
-					<td>Type de chauffage :</td>
-					<td>Electrique</td>
-				</tr>
-			</table>
-		</div>
-		<div class="mt-5">
-			<b>LOCALISATION</b>
-			<table class="table">
-				<tr>
-					<td>Ville :</td>
-					<td>Amiens</td>
-				</tr>
-				<tr>
-					<td>Code postal :</td>
-					<td>80000</td>
-				</tr>
-				<tr>
-					<td>Disctrict :</td>
-					<td>Petit Saint-Jean</td>
-				</tr>
-				<tr>
-					<td>Adresse :</td>
-					<td>12 rue la-bas</td>
-				</tr>
-				<tr>
-					<td>Exposition :</td>
-					<td>Sud-Est</td>
-				</tr>
-			</table>
+		<div class="col-4">
+			<h3 class="text-bold h6 text-uppercase">Collaborateur en charge du bien</h3>
+			<div class="cbox">
+				<p class="my-3 bold h5 text-uppercase">Felix Romain</p>
+				<p class="text-danger"><a href="tel:0646715313"><span class="btn btn-outline-danger rounded-circle bg-white"><i class="fas fa-phone"></i></span></a> Appeler</p>
+				<p class="text-danger"><a href="mailto:felix.romain@hotmail.fr"><span class="btn btn-outline-danger rounded-circle bg-white"><i class="fas fa-envelope"></i></span></a> Envoyer un mail</p>
+			</div>
 		</div>
 	</div>
-	<div class="col-6">
-		<div class="mt-5">
-			<b>FINANCIER</b>
-			<table class="table">
-				<tr>
-					<td>Charge copropriété :</td>
-					<td>0 €</td>
-				</tr>
-				<tr>
-					<td>Charge annuelle :</td>
-					<td>200 €</td>
-				</tr>
-				<tr>
-					<td>Taxe d'habitation :</td>
-					<td>250 €</td>
-				</tr>
-				<tr>
-					<td>Taxe foncière :</td>
-					<td>300 €</td>
-				</tr>
-			</table>
+
+	<div class="row">
+		<div class="col-8">
+		<div class="row my-3">
+		<div class="col-6">
+			<div class="mt-5">
+				<b>GENERAL</b>
+				<table class="table">
+					<tr>
+						<td>Prix :</td>
+						<td><?= $price[0] ? $price[0].' €' : 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Type de bien :</td>
+						<td><?= $estate->estate_type ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Nombre de pièces :</td>
+						<td><?= $estate->rooms_numbers ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Nombre de chambre :</td>
+						<td><?= $estate->bedrooms_numbers ?? 'nc' ?></td>
+					</tr>
+				</table>
+			</div>
+			<div class="mt-5">
+				<b>ENERGIE</b>
+				<table class="table">
+					<tr>
+						<td>Conso annuelle :</td>
+						<td><?= $estate->energy_consumption ? $estate->energy_consumption.' KWh/m2' : 'nc'?></td>
+					</tr>
+					<tr>
+						<td>Gaz à effet de serre :</td>
+						<td><?= $estate->gas_emission ? $estate->gas_emission.' CO2/m2/an' : 'nc'?></td>
+					</tr>
+					<tr>
+						<td>Type de chauffage :</td>
+						<td><?= $estate->id_heating_types ?? 'nc' ?></td>
+					</tr>
+				</table>
+			</div>
+			<div class="mt-5">
+				<b>LOCALISATION</b>
+				<table class="table">
+					<tr>
+						<td>Ville :</td>
+						<td><?= $estate->city ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Code postal :</td>
+						<td><?= $estate->zip_code ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Adresse :</td>
+						<td><?= $estate->street ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Exposition :</td>
+						<td><?= $estate->exposition ?? 'nc' ?></td>
+					</tr>
+				</table>
+			</div>
 		</div>
-		<div class="mt-5">
-			<b>CARACTERISTIQUE</b>
-			<table class="table">
-				<tr>
-					<td>Surface :</td>
-					<td>32 m²</td>
-				</tr>
-				<tr>
-					<td>Surface Carrez :</td>
-					<td>30 m²</td>
-				</tr>
-				<tr>
-					<td>Condition Exterieur :</td>
-					<td>Bien</td>
-				</tr>
-				<tr>
-					<td>Rénovation à prévoir :</td>
-					<td>non</td>
-				</tr>
-				<tr>
-					<td>Etage :</td>
-					<td>6ème</td>
-				</tr>
-				<tr>
-					<td>Nombre d'étage :</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>Date de construction :</td>
-					<td>Après 2003</td>
-				</tr>
-				<tr>
-					<td>Mitoyenneté :</td>
-					<td>oui</td>
-				</tr>
-				<tr>
-					<td>Copropriété :</td>
-					<td>non</td>
-				</tr>
-			</table>
+		<div class="col-6">
+			<div class="mt-5">
+				<b>FINANCIER</b>
+				<table class="table">
+					<tr>
+						<td>Charge copropriété :</td>
+						<td><?= $estate->condominium_fees ? $estate->condominium_fees.' €' : 'nc'?></td>
+					</tr>
+					<tr>
+						<td>Charge annuelle :</td>
+						<td><?= $estate->annual_fees ? $estate->annual_fees.' €' : 'nc'?></td>
+					</tr>
+					<tr>
+						<td>Taxe d'habitation :</td>
+						<td><?= $estate->housing_tax ? $estate->housing_tax.' €' : 'nc'?></td>
+					</tr>
+					<tr>
+						<td>Taxe foncière :</td>
+						<td><?= $estate->property_tax ? $estate->property_tax.' €' : 'nc'?></td>
+					</tr>
+				</table>
+			</div>
+			<div class="mt-5">
+				<b>CARACTERISTIQUE</b>
+				<table class="table">
+					<tr>
+						<td>Surface :</td>
+						<td><?= $size[0] ? $size[0].' m²' : 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Surface Carrez :</td>
+						<td><?= $carrez_size[0] ? $carrez_size[0].' m2' : 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Condition Exterieur :</td>
+						<td><?= $estate->outside_condition ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Rénovation à prévoir :</td>
+						<td><?= $estate->renovation ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Etage :</td>
+						<td><?= $estate->floor ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Nombre d'étage :</td>
+						<td><?= $estate->floor_number ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Date de construction :</td>
+						<td><?= $estate->period ?? 'nc' ?></td>
+					</tr>
+					<tr>
+						<td>Mitoyenneté :</td>
+						<td><?= $estate->condominium ? 'oui' : 'non' ?></td>
+					</tr>
+					<tr>
+						<td>Copropriété :</td>
+						<td><?= $estate->joint_ownership ? 'oui' : 'non' ?></td>
+					</tr>
+				</table>
+		</div>
+			</div>
 		</div>
 	</div>
-</div>
+		<div class="col-4 my-5">
+			<h3 class="text-bold h6 text-uppercase">Propiétaire du bien</h3>
+				<div class="cbox">
+					<p class="my-3 bold h5 text-uppercase"><?= $estate->owner_lastname .' '. $estate->owner_firsname ?></p>
+					<p class="text-danger"><a href="tel:0722158736"><span class="btn btn-outline-danger rounded-circle bg-white"><i class="fas fa-phone"></i></span></a> Appeler</p>
+					<p class="text-danger"><a href="mailto:se.hinard@gmail.com"><span class="btn btn-outline-danger rounded-circle bg-white"><i class="fas fa-envelope"></i></span></a> Envoyer un mail</p>
+				</div>
+				<div class="mt-5">
+					<a href="../edit/<?= $estate->id ?>" class="btn btn-outline-secondary">Modifier le bien</a>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
