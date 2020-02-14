@@ -26,8 +26,7 @@ class Estate extends CI_Controller
 		$data = $this->load_estate_componenents();
 		$data['title'] = 'Ajout d\'un bien';
 
-		// Modification de l'affichage des erreurs
-		$this->form_validation->set_error_delimiters('<br><small class="alert alert-danger p-1">', '</small>');
+
 		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
 		// form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
 		if ($this->form_validation->run() === TRUE) {
@@ -35,8 +34,6 @@ class Estate extends CI_Controller
 			$this->Estate_model->createEstate();
 			$lastId = $this->db->insert_id();
 			redirect(base_url('index.php/estate/details/'.$lastId));
-		}else{
-			var_dump($this->form_validation->error_array());
 		}
 
 		// Chargement des vues, avec envoi du tableau $data
@@ -71,7 +68,6 @@ class Estate extends CI_Controller
 	}
 
 	public function load_estate_componenents(){
-		$data['cities']	= $this->City_model->getAll();
 		$data['dates']	= $this->Build_date_model->getAll();
 		$data['furnituresList'] = $this->Furniture_model->getAll();
 		$data['roomTypeList'] = $this->Room_type_model->getAll();

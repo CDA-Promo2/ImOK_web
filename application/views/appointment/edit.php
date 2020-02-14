@@ -42,9 +42,9 @@
                     </div>
 
                     <div class="form-group my-1">
-                        <label for="id_employees">Employé</label><?= form_error('id_employees') ?>
+                        <label for="id_employees">collaborateur</label><?= form_error('id_employees') ?>
                         <select name="id_employees" class="form-control">
-                            <option value="0" selected disabled>Veuillez choisir un Employé</option>
+                            <option value="0" selected disabled>Veuillez choisir un collaborateur</option>
                                 <?php foreach ($employees as $employee): ?>
                                     <option value="<?= $employee->id ?>" <?= $appointment->id_employees == $employee->id ? 'selected' : '' ?>><?= $employee->id ?>. <?= $employee->lastname . ' ' . $employee->firstname  ?></option>
                                 <?php endforeach; ?>
@@ -67,7 +67,7 @@
                                 <th>Heure</th>
                                 <th>Type</th>
                                 <th>Client</th>
-                                <th>Employé</th>
+                                <th>collaborateur</th>
                                 <th></th>
                             </tr>
                         </thead>

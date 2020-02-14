@@ -1,9 +1,14 @@
-<h2 class="text-center">Enregistrer un nouvel employé</h2>
+<div class="background"></div>
+<div class="background-filter"></div>
+
+<div class="container">
+
+<h2 class="text-center my-5">Enregistrer un nouvel collaborateur</h2>
 
 <div class="row justify-content-center">
 	<div class="col-md-8 col-lg-6">
 		<?= form_error() ?>
-		<form action="<?=site_url('employee/create')?>" method="POST" class="border shadow p-2 rounded">
+		<div method="POST" class="border shadow p-2 rounded bg-white">
 			<?= form_open_multipart(); ?>
 			<div class="row">
 				<div class="col-md-6">
@@ -49,6 +54,9 @@
 				</div>
 			<?php } ?>
 			<button type="submit" class="btn btn-primary form-control">Enregistrer</button>
-		</form>
+		</div>
 	</div>
+</div>
+
+
 </div>

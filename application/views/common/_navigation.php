@@ -3,12 +3,16 @@
 
 <aside id="mainNavigation" class="p-2 shadow">
 	<button type=button class="navigation-close btn d-block d-md-none ml-auto"><i class="fas fa-times"></i></button>
-	<div class="userProfile mt-2 text-center">
+	<div class="pl-2 mt-2 mb-4 d-flex align-items-baseline brand">
+		<img src="<?= base_url('assets/img/imok.svg')?> ">
+		<span>You're OK !</span>
+	</div>
+	<div class="userProfile mt-2 pl-2 pr-5">
 		<a href="<?= site_url('employee/edit/'.$_SESSION['user']->id) ?>" title="Modifier le profil">
 			<?php if(read_file(base_url('upload/img/avatar/avatar'.$_SESSION['user']->id.'.jpg'))) { ?>
-				<img src="<?= base_url('upload/img/avatar/avatar'.$_SESSION['user']->id.'.jpg') ?>" alt="<?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?>" class="img-fluid w-50 hover hover-up">
+				<img src="<?= base_url('upload/img/avatar/avatar'.$_SESSION['user']->id.'.jpg') ?>" alt="<?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?>" class="img-fluid rounded hover hover-up">
 			<?php }else{ ?>
-				<img src="<?= base_url('upload/img/avatar/defaultAvatar.png') ?>" alt="<?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?>" class="img-fluid w-50 hover hover-up">
+				<img src="<?= base_url('upload/img/avatar/defaultAvatar.png') ?>" alt="<?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?>" class="img-fluid rounded hover hover-up">
 			<?php } ?>
 		</a>
 		<p class="mb-0"><?= $_SESSION['user']->firstname .' '. $_SESSION['user']->lastname?></p>
@@ -26,10 +30,10 @@
 		<?php if($_SESSION['user']->id_roles == 1){ ?>
 		<ul>
 			<li class="menu-group">
-				<h3 class="menu-title">Employés</h3>
+				<h3 class="menu-title">Collaborateurs</h3>
 				<ul class="menu-content">
-					<li><a href="<?= site_url('employee/list')?>" title="Liste des clients">Liste des employés</a></li>
-					<li><a href="<?= site_url('employee/create')?>" title="Enregistrer un client">Enregistrer un employé</a></li>
+					<li><a href="<?= site_url('employee/list')?>" title="Liste des clients">Liste des collaborateurs</a></li>
+					<li><a href="<?= site_url('employee/create')?>" title="Enregistrer un client">Enregistrer un collaborateur</a></li>
 				</ul>
 			</li>
 		</ul>

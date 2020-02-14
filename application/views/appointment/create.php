@@ -47,9 +47,9 @@
 		    </div>
 
             <div class="form-group my-1">
-			    <label for="id_employees">Employé</label>
+			    <label for="id_employees">collaborateur</label>
 			    <select name="id_employees" class="form-control" id="id_employees">
-				    <option value="0" selected disabled>Veuillez choisir un Employé</option>
+				    <option value="0" selected disabled>Veuillez choisir un collaborateur</option>
 				        <?php foreach ($employees as $employee): ?>
 					        <option value="<?= $employee->id ?>" <?= $_POST && $_POST['id_employees'] == $employee->id ? 'selected' : '' ?>><?= $employee->id ?>. <?= $employee->lastname . ' ' . $employee->firstname  ?></option>
 				        <?php endforeach; ?>

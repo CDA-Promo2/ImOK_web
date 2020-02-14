@@ -3,7 +3,7 @@
     <div class="row justify-content-end">
             <form action="" method="get">
             <select name="employee">
-				        <option value="0" selected disabled>Choisir un employé</option>
+				        <option value="0" selected disabled>Choisir un collaborateur</option>
 				          <?php foreach ($employees as $employee): ?>
 					        <option value="<?php isset($_GET['employee']) ? $_GET['employee'] : '' ?>"><?= $employee->id ?>. <?= $employee->firstname ?></option>
 			          	<?php endforeach; ?>

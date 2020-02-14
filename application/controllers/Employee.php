@@ -6,7 +6,7 @@ class Employee extends CI_Controller{
 		parent::__construct();
 		$this->load->model(['Employee_model','Role_model','City_model']);
 		$this->load->helper(['form','url']);
-		$this->load->library(['form_validation', 'pagination','email']);
+		$this->load->library(['form_validation', 'pagination','email','BreadCrumbComponent']);
 	}
 
 	public function index(){
@@ -24,6 +24,7 @@ class Employee extends CI_Controller{
 		$data['dashboard'][3] = array('agenda','performance','estate','customer','message');
 		$data['dashboard'][4] = array('customer','agenda','estate','performance','message');
 
+
 		$this->load->view('common/_header', $data);
 		$this->load->view('employee/index', $data);
 		$this->load->view('common/_footer', $data);
@@ -36,9 +37,12 @@ class Employee extends CI_Controller{
 			show_404();
 		}
 
-		$data['title'] = 'Liste des employés';
-
+		$data['title'] = 'Liste des collaborateurs';
 		$data['employees'] = $this->Employee_model->getAll();
+		$data['breadcrumb'] = $breadcrumb = $this->breadcrumbcomponent
+			->add('Accueil', site_url())
+			->add('Liste des employés', site_url('appointment'))
+			->createView();
 
 		$this->load->view('common/_header', $data);
 		$this->load->view('employee/list', $data);
@@ -57,14 +61,14 @@ class Employee extends CI_Controller{
 		}
 
 		$data['roles'] = $this->Role_model->getAll();
-		$data['title'] = 'Enregistrer un nouvel employé';
+		$data['title'] = 'Enregistrer un nouvel collaborateur';
 
 		$this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
 
 		if ($this->form_validation->run() === TRUE) {
 			//Génération d'un password aléatoire
 			$random_password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#!?') , 0 , 8 );
-			//Création de l'employé
+			//Création de l'collaborateur
 			$userId = $this->Employee_model->create($random_password);
 			if($userId) {
 				$user = $this->Employee_model->getById($userId);

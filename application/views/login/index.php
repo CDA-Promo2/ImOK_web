@@ -1,9 +1,15 @@
 
+	<div class="background"></div>
+
 	<div class="row justify-content-center mt-5">
 		<div class="col-12 col-md-6 col-lg-4">
 			<div class="card bg-light">
 				<div class="card-header">
-					<h4 class="card-title">
+					<div class="mb-4 d-flex justify-content-center align-items-baseline brand">
+						<img src="<?= base_url('assets/img/imok.svg')?> ">
+						<span>You're OK !</span>
+					</div>
+					<h4 class="card-title text-center">
 						<div class="fa fa-lock"></div>
 						Connectez-vous
 					</h4>

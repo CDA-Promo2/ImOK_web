@@ -237,3 +237,67 @@ CREATION DES BIENS
 /*
 FIN DE CREATION DES BIENS
 */
+
+
+.form-error{
+	position: absolute;
+	color: crimson;
+	font-size: 12px;
+	pointer-events: none;
+	white-space: nowrap;
+	bottom: 0;
+}
+.form-error:before{
+	font-family: "Font Awesome 5 Free"; font-weight: 900;
+	content:"\f071";
+	position: relative;
+	bottom: 1px;
+	margin-right: 2px;
+
+}
+
+
+.brand img{
+	width: 80px;
+}
+.brand span{
+	font-family: sans-serif;
+	font-size: 14px;
+	font-weight: bolder;
+	text-transform: uppercase;
+	transform: scaleY(2) translateY(-2px);
+}
+
+.background{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100vh;
+	z-index: -100;
+	background-image: url('../../img/background.jpg');
+	background-size: cover;
+}
+.background-filter{
+	background-color: white;
+	opacity: .9;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100vh;
+	z-index: -99;
+}
+
+
+.breadcrumb{
+	background-color: transparent;
+	font-size: 1.5rem;
+}
+.breadcrumb .breadcrumb-item a{
+	text-decoration: none;
+}
+.breadcrumb h1{
+	display: inline;
+	font-size: 1.5rem;
+}

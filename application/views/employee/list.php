@@ -1,11 +1,16 @@
-<h2 class="text-center my-5">Liste des employés</h2>
+<div class="background"></div>
+<div class="background-filter"></div>
+
+<div class="container">
+
+<?= $breadcrumb ?>
 
 <div class="row justify-content-center text-center">
 
 
 <?php if($employees){ ?>
 	<div class="col-md-8 col-lg-6">
-		<table class="table table-hover border shadow">
+		<table class="table table-hover border shadow bg-white">
 			<thead class="thead-dark">
 			<tr>
 				<th>Nom</th>
@@ -30,7 +35,9 @@
 	</div>
 
 <?php }else{ ?>
-	<p>Aucun employé n'est enregistré</p>
+	<p>Aucun collaborateur n'est enregistré</p>
 <?php } ?>
 
+</div>
+	
 </div>

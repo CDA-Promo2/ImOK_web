@@ -23,13 +23,13 @@ class BreadcrumbComponent
 	public function createView(){
 		if($this->breadcrumbs){
 
-			$view = "<nav aria-label=\"breadcrumb\"> <ol class=\"breadcrumb\">";
+			$view = "<nav aria-label=\"breadcrumb\"> <ol class=\"breadcrumb my-5\">";
 			$length = count($this->breadcrumbs)-1;
 
 			foreach($this->breadcrumbs as $key => $crumb){
 
 				if($length == $key ){
-					$view .="<li class=\"breadcrumb-item active\" aria-current='page'>".$crumb['title']."</li>";
+					$view .="<li class=\"breadcrumb-item active\" aria-current='page'><h1>".$crumb['title']."</h1></li>";
 				}else{
 					$view .="<li class=\"breadcrumb-item\"><a href=\"".$crumb['href']."\">" .$crumb['title']."</a></li>";
 				}

@@ -1,5 +1,4 @@
 <div class="container">
-	<?= form_error() ?>
 	<?= form_open_multipart(); ?>
 		<!-- formulaire premiere partie -->
 		<div class="tab card" id="tab-1">
@@ -12,10 +11,10 @@
 						<h3>Informations générales</h3>
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">
-							<label for="id_customers">Propriétaire</label>
+						<div class="form-group required">
+							<label for="id_customers">Propriétaire</label><?= form_error('id_customers') ?>
 							<select type="text" name="id_customers" id="id_customers" class="form-control">
-								<option value="" selected disabled>Choisissez un client</option>
+								<option selected disabled>Choisissez un client</option>
 								<?php foreach ($customerList as $customer): ?>
 									<option value="<?= $customer->id ?>" <?= isset($_POST['id_customers']) && $_POST['id_customers'] == $customer->id ? 'selected' : '' ?> ><?= $customer->lastname ?> <?= $customer->firstname ?></option>
 								<?php endforeach; ?>
@@ -23,10 +22,10 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">
-							<label for="id_estate_types">Type de bien</label>
+						<div class="form-group required">
+							<label for="id_estate_types">Type de bien</label><?= form_error('id_estate_types') ?>
 							<select type="text" name="id_estate_types" id="id_estate_types" class="form-control">
-								<option value="" selected disabled>Choisissez un type de bien</option>
+								<option selected disabled>Choisissez un type de bien</option>
 								<?php foreach ($estateTypeList as $estateType): ?>
 									<option value="<?= $estateType->id ?>" <?= isset($_POST['id_estate_types']) && $_POST['id_estate_types'] == $estateType->id ? 'selected' : '' ?>><?= $estateType->name ?></option>
 								<?php endforeach; ?>
@@ -37,21 +36,21 @@
 						<h3>Addresse</h3>
 						<div class="row">
 							<div class="col-12">
-								<div class="form-group">
-									<label for="street">Addresse</label>
+								<div class="form-group required">
+									<label for="street">Addresse</label><?= form_error('street') ?>
 									<input type="text" name="street" id="street" class="form-control" value="<?= $_POST['street'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="complement">Complément d'addresse</label>
+									<label for="complement">Complément d'addresse</label><?= form_error('complement') ?>
 									<input type="text" name="complement" id="complement" class="form-control" value="<?= $_POST['complement'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-12">
-								<div class="form-group">
-									<label for="city">Ville</label>
-									<input type="hidden" id="id_cities" name="id_cities" value=""/>
+								<div class="form-group required">
+									<label for="city">Ville</label><?= form_error('id_cities') ?>
+									<input type="text" id="id_cities" name="id_cities" value="" style="height: 20px;">
 									<input id="city" name="city" class="typeahead form-control" type="text" value="">
 								</div>
 							</div>
@@ -62,37 +61,37 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<label for="size">Surface</label>
+									<label for="size">Surface</label><?= form_error('size') ?>
 									<input type="text" id="size" name="size" class="form-control" value="<?= $_POST['size'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="carrez_size">Surface (loi Carrez)</label>
+									<label for="carrez_size">Surface (loi Carrez)</label><?= form_error('carrez_size') ?>
 									<input type="text" id="carrez_size" name="carrez_size" class="form-control" value="<?= $_POST['carrez_size'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="rooms_numbers">Nb de pièces</label>
+									<label for="rooms_numbers">Nb de pièces</label><?= form_error('rooms_numbers') ?>
 									<input type="text" id="rooms_numbers" name="rooms_numbers" class="form-control" value="<?= $_POST['rooms_numbers'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="bedroom_numbers">Nb de chambres</label>
+									<label for="bedroom_numbers">Nb de chambres</label><?= form_error('bedrooms_numbers') ?>
 									<input type="text" id="bedroom_numbers" name="bedroom_numbers" class="form-control" value="<?= $_POST['bedroom_numbers'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="floor">Etage ?</label>
+									<label for="floor">Etage ?</label><?= form_error('floor') ?>
 									<input type="text" id="floor" name="floor" class="form-control" value="<?= $_POST['floor'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="floor_number">Nb d'étages</label>
+									<label for="floor_number">Nb d'étages</label><?= form_error('floor_number') ?>
 									<input type="text" id="floor_number" name="floor_number" class="form-control" value="<?= $_POST['floor_number'] ?? '' ?>">
 								</div>
 							</div>
@@ -104,15 +103,15 @@
 					<div class="col-12">
 						<div class="d-flex justify-content-start">
 								<div class="custom-control custom-checkbox mr-3">
-									<input type="checkbox" class="custom-control-input" id="joint_ownership" name="joint_ownership">
+									<input type="checkbox" class="custom-control-input" id="joint_ownership" name="joint_ownership" value="1">
 									<label class="custom-control-label" for="joint_ownership">Copropriété</label>
 								</div>
 								<div class="custom-control custom-checkbox mr-3">
-									<input type="checkbox" class="custom-control-input" id="condominium" name="condominium">
+									<input type="checkbox" class="custom-control-input" id="condominium" name="condominium" value="1">
 									<label class="custom-control-label" for="condominium">Mitoyenneté</label>
 								</div>
 								<div class="custom-control custom-checkbox mr-3">
-									<input type="checkbox" class="custom-control-input" id="renovation" name="renovation">
+									<input type="checkbox" class="custom-control-input" id="renovation" name="renovation" value="1">
 									<label class="custom-control-label" for="renovation">Rénnovations à prévoir</label>
 								</div>
 						</div>
@@ -121,9 +120,9 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group">
-									<label for="id_outside_conditions">Etat extérieur</label>
+									<label for="id_outside_conditions">Etat extérieur</label><?= form_error('id_outside_conditions') ?>
 									<select type="text" name="id_outside_conditions" id="id_outside_conditions" class="form-control">
-										<option value="" selected disabled>Choisir un état général</option>
+										<option selected disabled>Choisir un état général</option>
 										<?php foreach ($outsideConditionList as $outsideCondition): ?>
 											<option value="<?= $outsideCondition->id ?>" <?= isset($_POST['id_outside_conditions']) && $_POST['id_outside_conditions'] == $outsideCondition->id ? 'selected' : '' ?>><?= $outsideCondition->name ?></option>
 										<?php endforeach; ?>
@@ -132,9 +131,9 @@
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="id_expositions">Exposition</label>
+									<label for="id_expositions">Exposition</label><?= form_error('id_expositions') ?>
 									<select type="text" name="id_expositions" id="id_expositions" class="form-control">
-										<option value="" selected disabled>Choisir une exposition</option>
+										<option selected disabled>Choisir une exposition</option>
 										<?php foreach ($expositionsList as $exposition): ?>
 											<option value="<?= $exposition->id ?>" <?= isset($_POST['id_expositions']) && $_POST['id_expositions'] == $exposition->id ? 'selected' : '' ?>><?= $exposition->name ?></option>
 										<?php endforeach; ?>
@@ -145,7 +144,7 @@
 					</div>
 					<div class="col-md-6 mt-3">
 						<div class="form-group">
-							<label for="description">Description</label>
+							<label for="description">Description</label><?= form_error('description') ?>
 							<textarea name="description" id="description" class="form-control"></textarea>
 						</div>
 					</div>
@@ -177,7 +176,7 @@
 								<div class="form-group">
 									<label for="room_types">Type de pièce</label>
 									<select type="text" class="form-control" name="room_types" id="room_types">
-										<option value="" selected disabled>Selectionnez un type de pièce</option>
+										<option selected disabled>Selectionnez un type de pièce</option>
 										<?php foreach ($roomTypeList as $roomType): ?>
 											<option value="<?= $roomType->id ?>" <?= isset($_POST['room_types']) && $_POST['room_types'] == $roomType->id ? 'selected' : '' ?>><?= $roomType->name ?></option>
 										<?php endforeach; ?>
@@ -200,7 +199,7 @@
 								<div class="form-group">
 									<label for="windows_types">Type de fenêtre</label>
 									<select type="text" class="form-control" name="windows_types" id="windows_types">
-										<option value="" selected disabled>Selectionnez un type de fenètres</option>
+										<option selected disabled>Selectionnez un type de fenètres</option>
 										<?php foreach ($windowsTypeList as $windowsType): ?>
 											<option value="<?= $windowsType->id ?>" <?= isset($_POST['windows_types']) && $_POST['windows_types'] == $windowsType->id ? 'selected' : '' ?>><?= $windowsType->name ?></option>
 										<?php endforeach; ?>
@@ -211,7 +210,7 @@
 								<div class="form-group">
 									<label for="wall_coverings">Revêtement mural</label>
 									<select type="text" class="form-control" name="wall_coverings" id="wall_coverings">
-										<option value="" selected disabled>Selectionnez un revêtement</option>
+										<option selected disabled>Selectionnez un revêtement</option>
 										<?php foreach ($wallCoveringsList as $wallCovering): ?>
 											<option value="<?= $wallCovering->id ?>" <?= isset($_POST['wall_coverings']) && $_POST['wall_coverings'] == $wallCovering->id ? 'selected' : '' ?>><?= $wallCovering->name ?></option>
 										<?php endforeach; ?>
@@ -222,7 +221,7 @@
 								<div class="form-group">
 									<label for="ground_coverings">Revêtement au sol</label>
 									<select type="text" class="form-control" name="ground_coverings" id="ground_coverings">
-										<option value="" selected disabled>Selectionnez un revêtement</option>
+										<option selected disabled>Selectionnez un revêtement</option>
 										<?php foreach ($groundCoveringsList as $groundCovering): ?>
 											<option value="<?= $groundCovering->id ?>" <?= isset($_POST['ground_coverings']) && $_POST['ground_coverings'] == $groundCovering->id ? 'selected' : '' ?>><?= $groundCovering->name ?></option>
 										<?php endforeach; ?>
@@ -376,7 +375,7 @@
 								<div class="form-group">
 									<label for="">Ajouter un élément</label>
 									<select id="facilities-select" class="custom-select">
-										<option value="" selected>Ajouter un élément</option>
+										<option selected>Ajouter un élément</option>
 										<option value="1">Lorem 1</option>
 										<option value="2">Lorem 2</option>
 										<option value="3">Lorem 3</option>
