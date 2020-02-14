@@ -1,4 +1,5 @@
 <?php
+
 $sizes  = $estate->size;
 $size = explode(".", $sizes);
 
@@ -52,8 +53,8 @@ $carrez_size = explode(".", $carrez_sizes);
 						<strong><?= $estate->city ? 'à '.$estate->city : '' ?></strong>
 					</h3>
 				</div>
-				<div class="col-2 h6 my-2 shadow text-center bg-danger text-white">
-					<p><strong class="center-vertical"><?= $price[0] ?? 'nc' ?> €</strong></p>
+				<div class="col-2 h4 my-2 shadow text-center bg-danger text-white">
+					<p><strong class="center-vertical"><?= $price[0] ?? 'NC' ?> €</strong></p>
 				</div>
 			</div>
 		
@@ -89,19 +90,19 @@ $carrez_size = explode(".", $carrez_sizes);
 				<table class="table">
 					<tr>
 						<td>Prix :</td>
-						<td><?= $price[0] ? $price[0].' €' : 'nc' ?></td>
+						<td><?= $price[0] ? $price[0].' €' : 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Type de bien :</td>
-						<td><?= $estate->estate_type ?? 'nc' ?></td>
+						<td><?= $estate->estate_type ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Nombre de pièces :</td>
-						<td><?= $estate->rooms_numbers ?? 'nc' ?></td>
+						<td><?= $estate->rooms_numbers ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Nombre de chambre :</td>
-						<td><?= $estate->bedrooms_numbers ?? 'nc' ?></td>
+						<td><?= $estate->bedrooms_numbers ?? 'NC' ?></td>
 					</tr>
 				</table>
 			</div>
@@ -110,15 +111,15 @@ $carrez_size = explode(".", $carrez_sizes);
 				<table class="table">
 					<tr>
 						<td>Conso annuelle :</td>
-						<td><?= $estate->energy_consumption ? $estate->energy_consumption.' KWh/m2' : 'nc'?></td>
+						<td><?= $estate->energy_consumption ? $estate->energy_consumption.' KWh/m2' : 'NC'?></td>
 					</tr>
 					<tr>
 						<td>Gaz à effet de serre :</td>
-						<td><?= $estate->gas_emission ? $estate->gas_emission.' CO2/m2/an' : 'nc'?></td>
+						<td><?= $estate->gas_emission ? $estate->gas_emission.' CO2/m2/an' : 'NC'?></td>
 					</tr>
 					<tr>
 						<td>Type de chauffage :</td>
-						<td><?= $estate->id_heating_types ?? 'nc' ?></td>
+						<td><?= $estate->heating_type ?? 'NC' ?></td>
 					</tr>
 				</table>
 			</div>
@@ -127,19 +128,19 @@ $carrez_size = explode(".", $carrez_sizes);
 				<table class="table">
 					<tr>
 						<td>Ville :</td>
-						<td><?= $estate->city ?? 'nc' ?></td>
+						<td><?= $estate->city ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Code postal :</td>
-						<td><?= $estate->zip_code ?? 'nc' ?></td>
+						<td><?= $estate->zip_code ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Adresse :</td>
-						<td><?= $estate->street ?? 'nc' ?></td>
+						<td><?= $estate->street ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Exposition :</td>
-						<td><?= $estate->exposition ?? 'nc' ?></td>
+						<td><?= $estate->exposition ?? 'NC' ?></td>
 					</tr>
 				</table>
 			</div>
@@ -150,19 +151,19 @@ $carrez_size = explode(".", $carrez_sizes);
 				<table class="table">
 					<tr>
 						<td>Charge copropriété :</td>
-						<td><?= $estate->condominium_fees ? $estate->condominium_fees.' €' : 'nc'?></td>
+						<td><?= $estate->condominium_fees ? $estate->condominium_fees.' €' : 'NC'?></td>
 					</tr>
 					<tr>
 						<td>Charge annuelle :</td>
-						<td><?= $estate->annual_fees ? $estate->annual_fees.' €' : 'nc'?></td>
+						<td><?= $estate->annual_fees ? $estate->annual_fees.' €' : 'NC'?></td>
 					</tr>
 					<tr>
 						<td>Taxe d'habitation :</td>
-						<td><?= $estate->housing_tax ? $estate->housing_tax.' €' : 'nc'?></td>
+						<td><?= $estate->housing_tax ? $estate->housing_tax.' €' : 'NC'?></td>
 					</tr>
 					<tr>
 						<td>Taxe foncière :</td>
-						<td><?= $estate->property_tax ? $estate->property_tax.' €' : 'nc'?></td>
+						<td><?= $estate->property_tax ? $estate->property_tax.' €' : 'NC'?></td>
 					</tr>
 				</table>
 			</div>
@@ -171,31 +172,31 @@ $carrez_size = explode(".", $carrez_sizes);
 				<table class="table">
 					<tr>
 						<td>Surface :</td>
-						<td><?= $size[0] ? $size[0].' m²' : 'nc' ?></td>
+						<td><?= $size[0] ? $size[0].' m²' : 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Surface Carrez :</td>
-						<td><?= $carrez_size[0] ? $carrez_size[0].' m2' : 'nc' ?></td>
+						<td><?= $carrez_size[0] ? $carrez_size[0].' m2' : 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Condition Exterieur :</td>
-						<td><?= $estate->outside_condition ?? 'nc' ?></td>
+						<td><?= $estate->outside_condition ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Rénovation à prévoir :</td>
-						<td><?= $estate->renovation ?? 'nc' ?></td>
+						<td><?= $estate->renovation ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Etage :</td>
-						<td><?= $estate->floor ?? 'nc' ?></td>
+						<td><?= $estate->floor ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Nombre d'étage :</td>
-						<td><?= $estate->floor_number ?? 'nc' ?></td>
+						<td><?= $estate->floor_number ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Date de construction :</td>
-						<td><?= $estate->period ?? 'nc' ?></td>
+						<td><?= $estate->period ?? 'NC' ?></td>
 					</tr>
 					<tr>
 						<td>Mitoyenneté :</td>

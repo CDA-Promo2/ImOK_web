@@ -14,6 +14,7 @@ if(!isset($noLoginRequired) && !isset($_SESSION['user'])){
 		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="<?= base_url('assets/common/css/bootstrap.min.css') ?>">
+	<link rel="stylesheet" href="<?= base_url('assets/common/css/trumbowyg.min.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/app/css/style.css') ?>">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">

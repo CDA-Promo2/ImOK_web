@@ -6,7 +6,7 @@ class Employee extends CI_Controller{
 		parent::__construct();
 		$this->load->model(['Employee_model','Role_model','City_model']);
 		$this->load->helper(['form','url']);
-		$this->load->library(['form_validation', 'pagination','email','BreadCrumbComponent']);
+		$this->load->library(['form_validation', 'pagination','email','BreadcrumbComponent']);
 	}
 
 	public function index() {
