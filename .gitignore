@@ -13,6 +13,10 @@ application/logs/*
 
 composer.lock
 
+user_guide/
+system/
+upload/img/
+
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*

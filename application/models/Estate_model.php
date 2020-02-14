@@ -21,16 +21,20 @@ class Estate_model extends CI_Model {
 			'id_customers' =>  $this->input->post('id_customers'),
 			'id_cities' => $this->input->post('id_cities'),
 			'street' => $this->input->post('street'),
-			'id_outside_conditions' => $this->input->post('outside_conditions'),
-			'id_estate_types' => $this->input->post('estate_types'),
+			'complement' => $this->input->post('complement'),
+			'renovation' => $this->input->post('renovation'),
+			'id_estate_types' => $this->input->post('id_estate_types'),
 			'floor' => $this->input->post('floor'),
-			'id_build_Dates' => $this->input->post('build_date'),
+			'id_build_dates' => $this->input->post('id_build_dates'),
 			'condominium' => $this->input->post('condominium'),
+			'joint_ownership' => $this->input->post('joint_ownership'),
 			'floor_number' => $this->input->post('floor_number'),
+			'id_expositions' => $this->input->post('id_expositions'),
 			'size' => $this->input->post('size'),
 			'carrez_size' => $this->input->post('carrez_size'),
 			'rooms_numbers' => $this->input->post('rooms_numbers'),
 			'bedroom_numbers' => $this->input->post('bedroom_numbers'),
+			'id_outside_conditions' => $this->input->post('id_outside_conditions'),
 		];
 
 		//purge les entrées vides (en faire une fonction ?)

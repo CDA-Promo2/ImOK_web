@@ -100,6 +100,13 @@ ul.typeahead.dropdown-menu {
 	height: 100%;
 }
 
+.error{
+	color: red;
+}
+.alert-danger{
+	bottom: 8px;
+}
+
 .form-group.required label:after{
 	content:"*";
 	color: red;

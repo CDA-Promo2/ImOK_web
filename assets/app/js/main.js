@@ -19,10 +19,10 @@ $(function(){
 });
 
 
-/**
- * AUTOCOMPLETION VILLE
- */
 $(function(){
+	/**
+	 * AUTOCOMPLETION VILLE
+	 **/
 	$('input.typeahead').typeahead({
 		delay: 100,
 		items: 30,
@@ -47,9 +47,6 @@ $(function(){
 	});
 });
 
-/**
- * GESTION DU CREATE DES RDV
- */
 
 
 /**

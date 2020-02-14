@@ -1,6 +1,5 @@
 <div class="container">
 	<?= $breadcrumb ?>
-git
     <div class="d-flex justify-content-between">
         <h1><?= $title ?></h1>
         <div>

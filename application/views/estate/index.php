@@ -28,7 +28,7 @@
 				
 				<div class="card">
 					<a class="link-wrapper" href="estate/details/<?= $estate->id ?>"></a>
-					<img class="card-img-top" src="https://picsum.photos/300/200" alt="Card image cap">
+					<img class="card-img-top" src="https://picsum.photos/300/200?random=<?= mt_rand(1,20) ?>" alt="Card image cap">
 					<div class="card-body">
 						<p class="small mb-0">Type mandat <?= $estate->estate_type ? ' - ' . $estate->estate_type : '' ?></p>
 						<p class="small mb-0"><?= $estate->rooms_numbers ? $estate->rooms_numbers.' pièces' : '' ?><?= $estate->city ? ' - '.$estate->city : '' ?></p>

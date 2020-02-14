@@ -4,7 +4,8 @@ defined('BASEPATH') OR exist('No direct script access allowed');
 
 class Estate extends CI_Controller
 {
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
 		$this->load->model(['Build_date_model', 'City_model', 'District_model',
 			'Estate_model', 'Estate_types_model', 'Exposition_model', 'Heating_types_model',
@@ -13,7 +14,8 @@ class Estate extends CI_Controller
 		$this->load->helper(['url', 'url_helper', 'form', 'date']);
 		$this->load->library(['form_validation']);
 	}
-	public function index() {
+	public function index()
+	{
 		$data['title'] = 'Accueil de biens';
 		$data['estateList'] = $this->Estate_model->getAllEstates();
 
@@ -24,6 +26,7 @@ class Estate extends CI_Controller
 	}
 	public function create() {
 		$data = $this->load_estate_componenents();
+
 		$data['title'] = 'Ajout d\'un bien';
 
 
@@ -58,13 +61,37 @@ class Estate extends CI_Controller
 		$this->load->view('estate/edit', $data);
 		$this->load->view('common/_footer', $data);
 	}
-	public function details($id) {
-		$data['title'] = 'Details bien';
-		$data['estate'] = $this->Estate_model->getEstates($id);
+	public function uploadImage($id)
+	{
+		// On compte le nombre de photo
+		$count = count($_FILES['estate_pic']['name']);
+		// S'il n'existe pas, on crée le dossier
+		if (!is_dir('upload/img/estate/'.$id)) {
+			mkdir('./upload/img/estate/' . $id, 0775, TRUE);
+		}
 
-		$this->load->view('common/_header', $data);
-		$this->load->view('estate/details', $data);
-		$this->load->view('common/_footer', $data);
+		for($i=0;$i<$count;$i++)
+		{
+			if(!empty($_FILES['estate_pic']['name'][$i]))
+			{
+				$_FILES['file']['name'] = $_FILES['estate_pic']['name'][$i];
+				$_FILES['file']['type'] = $_FILES['estate_pic']['type'][$i];
+				$_FILES['file']['tmp_name'] = $_FILES['estate_pic']['tmp_name'][$i];
+				$_FILES['file']['error'] = $_FILES['estate_pic']['error'][$i];
+				$_FILES['file']['size'] = $_FILES['estate_pic']['size'][$i];
+
+				// Config de l'upload
+				$config['upload_path'] = 'upload/img/estate/'.$id;
+				$config['allowed_types'] = 'jpg|jpeg|png|gif';
+				$config['max_size'] = '2048';
+				$config['file_name'] = $_FILES['estate_pic']['name'][$i];
+
+				$this->load->library('upload',$config);
+
+				$this->upload->do_upload('file');
+
+			}
+		}
 	}
 
 	public function load_estate_componenents(){
