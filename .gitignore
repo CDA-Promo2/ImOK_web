@@ -12,9 +12,6 @@ application/logs/*
 !application/*/.htaccess
 
 composer.lock
-
-user_guide/
-system/
 upload/img/
 
 user_guide_src/build/*
