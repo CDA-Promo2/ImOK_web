@@ -7,7 +7,7 @@ class Appointment extends CI_Controller {
         parent::__construct();
         $this->load->model(['Appointment_model', 'Appointment_types_model', 'Employee_model', 'Customer_model']);
         $this->load->helper(['url', 'form', 'date']);
-        $this->load->library(['form_validation', 'pagination','breadcrumbcomponent']);
+        $this->load->library(['form_validation', 'pagination','BreadcrumbComponent']);
     }
 
     // Méthode gérant la page d'accueil

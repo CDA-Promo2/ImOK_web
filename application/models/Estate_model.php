@@ -18,6 +18,7 @@ class Estate_model extends CI_Model {
 	// Créer un nouveau bien
 	public function createEstate() {
 		$data = [
+			// Input partie 1
 			'id_customers' =>  $this->input->post('id_customers'),
 			'id_cities' => $this->input->post('id_cities'),
 			'street' => $this->input->post('street'),
@@ -35,9 +36,19 @@ class Estate_model extends CI_Model {
 			'rooms_numbers' => $this->input->post('rooms_numbers'),
 			'bedroom_numbers' => $this->input->post('bedroom_numbers'),
 			'id_outside_conditions' => $this->input->post('id_outside_conditions'),
+			'description' => $this->input->post('description'),
+			// Input partie 3
+			'price' => $this->input->post('price'),
+			'property_tax' => $this->input->post('property_tax'),
+			'housing_tax' => $this->input->post('housing_tax'),
+			'condominium_fees' => $this->input->post('condominium_fees'),
+			'annual_fees' => $this->input->post('annual_fees'),
+			'id_heating_types' => $this->input->post('id_heating_types'),
+			'energy_consumption' => $this->input->post('energy_consumption'),
+			'gas_emission' => $this->input->post('gas_emission'),
 		];
 
-		//purge les entrées vides (en faire une fonction ?)
+		//Purge les entrées vides (en faire une fonction ?)
 		foreach ($data as $i => $value){
 			if(empty($value)){
 				unset($data[$i]);

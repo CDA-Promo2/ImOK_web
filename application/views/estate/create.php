@@ -1,4 +1,6 @@
 <div class="container">
+	<?php var_dump($_POST) ?>
+	<?php var_dump($_FILES); ?>
 	<?= form_open_multipart(); ?>
 		<!-- formulaire premiere partie -->
 		<div class="tab card" id="tab-1">
@@ -50,8 +52,8 @@
 							<div class="col-12">
 								<div class="form-group required">
 									<label for="city">Ville</label><?= form_error('id_cities') ?>
-									<input type="text" id="id_cities" name="id_cities" value="" style="height: 20px;">
-									<input id="city" name="city" class="typeahead form-control" type="text" value="">
+									<input type="hidden" id="id_cities" name="id_cities" value="<?= $_POST['id_cities'] ?? '' ?>" style="height: 20px;">
+									<input id="city" name="city" class="typeahead form-control" type="text" value="<?= $_POST['city'] ?? '' ?>">
 								</div>
 							</div>
 						</div>
@@ -85,7 +87,7 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="floor">Etage ?</label><?= form_error('floor') ?>
+									<label for="floor">Quel étage ?</label><?= form_error('floor') ?>
 									<input type="text" id="floor" name="floor" class="form-control" value="<?= $_POST['floor'] ?? '' ?>">
 								</div>
 							</div>
@@ -103,18 +105,21 @@
 					<div class="col-12">
 						<div class="d-flex justify-content-start">
 								<div class="custom-control custom-checkbox mr-3">
-									<input type="checkbox" class="custom-control-input" id="joint_ownership" name="joint_ownership" value="1">
+									<input type="checkbox" class="custom-control-input" id="joint_ownership" name="joint_ownership" value="1"<?= isset($_POST['joint_ownership'] ) && $_POST['joint_ownership'] ? 'checked' : '' ?>>
 									<label class="custom-control-label" for="joint_ownership">Copropriété</label>
 								</div>
 								<div class="custom-control custom-checkbox mr-3">
-									<input type="checkbox" class="custom-control-input" id="condominium" name="condominium" value="1">
+									<input type="checkbox" class="custom-control-input" id="condominium" name="condominium" value="1"<?= isset($_POST['condominium']) && $_POST['condominium'] ? 'checked' : '' ?>>
 									<label class="custom-control-label" for="condominium">Mitoyenneté</label>
 								</div>
 								<div class="custom-control custom-checkbox mr-3">
-									<input type="checkbox" class="custom-control-input" id="renovation" name="renovation" value="1">
+									<input type="checkbox" class="custom-control-input" id="renovation" name="renovation" value="1"<?= isset($_POST['renovations']) && $_POST['renovation'] ? 'checked' : '' ?>>
 									<label class="custom-control-label" for="renovation">Rénnovations à prévoir</label>
 								</div>
 						</div>
+						<?= form_error('joint_ownership') ?>
+						<?= form_error('condominium') ?>
+						<?= form_error('renovation') ?>
 					</div>
 					<div class="col-md-6 mt-3">
 						<div class="row">
@@ -145,7 +150,7 @@
 					<div class="col-md-6 mt-3">
 						<div class="form-group">
 							<label for="description">Description</label><?= form_error('description') ?>
-							<textarea name="description" id="description" class="form-control"></textarea>
+							<textarea name="description" id="description" class="form-control trumbowyg"><?= $_POST['description'] ?? '' ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -174,7 +179,7 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group">
-									<label for="room_types">Type de pièce</label>
+									<label for="room_types">Type de pièce</label><?= form_error('room_types') ?>
 									<select type="text" class="form-control" name="room_types" id="room_types">
 										<option selected disabled>Selectionnez un type de pièce</option>
 										<?php foreach ($roomTypeList as $roomType): ?>
@@ -185,19 +190,19 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="room-size">Surface</label>
-									<input type="text" class="form-control" name="room-size" id="room-size">
+									<label for="room-size">Surface</label><?= form_error('room_size') ?>
+									<input type="text" class="form-control" name="room_size" id="room-size">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="room-carrezSize">Surface (Carrez)</label>
-									<input type="text" class="form-control" name="room-carrezSize" id="room-carrezSize">
+									<label for="room-carrezSize">Surface (Carrez)</label><?= form_error('room_carrezSize') ?>
+									<input type="text" class="form-control" name="room_carrezSize" id="room-carrezSize">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="windows_types">Type de fenêtre</label>
+									<label for="windows_types">Type de fenêtre</label><?= form_error('windows_types') ?>
 									<select type="text" class="form-control" name="windows_types" id="windows_types">
 										<option selected disabled>Selectionnez un type de fenètres</option>
 										<?php foreach ($windowsTypeList as $windowsType): ?>
@@ -208,7 +213,7 @@
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="wall_coverings">Revêtement mural</label>
+									<label for="wall_coverings">Revêtement mural</label><?= form_error('wall_coverings') ?>
 									<select type="text" class="form-control" name="wall_coverings" id="wall_coverings">
 										<option selected disabled>Selectionnez un revêtement</option>
 										<?php foreach ($wallCoveringsList as $wallCovering): ?>
@@ -219,7 +224,7 @@
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="ground_coverings">Revêtement au sol</label>
+									<label for="ground_coverings">Revêtement au sol</label><?= form_error('ground_coverings') ?>
 									<select type="text" class="form-control" name="ground_coverings" id="ground_coverings">
 										<option selected disabled>Selectionnez un revêtement</option>
 										<?php foreach ($groundCoveringsList as $groundCovering): ?>
@@ -253,8 +258,8 @@
 				<div class="row">
 					<div class="col-md-6 offset-md-3">
 						<div class="form-group">
-							<h3 class="text-center">Prix de vente</h3>
-							<input type="text" name="price" id="price" class="form-control" value="<?=$_POST['price'] ?? ''?>">
+							<h3 class="text-center">Prix de vente</h3><?= form_error('price') ?>
+							<input type="text" name="price" id="price" class="form-control" value="<?= $_POST['price'] ?? ''?>">
 						</div>
 					</div>
 					<div class="col-12">
@@ -265,25 +270,25 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group">
-									<label for="">Taxe foncière</label>
-									<input type="text" class="form-control" name="property_tax" id="property_tax" value="<?=$_POST['property_tax'] ?? ''?>">
+									<label for="property_tax">Taxe foncière</label> <?= form_error('property_tax') ?>
+									<input type="text" class="form-control" name="property_tax" id="property_tax" value="<?= $_POST['property_tax'] ?? ''?>">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="">Taxe d'habitation</label>
-									<input type="text" class="form-control" name="housing_tax" id="housing_tax" value="<?=$_POST['housing_tax'] ?? ''?>">
+									<label for="housing_tax">Taxe d'habitation</label> <?= form_error('housing_tax') ?>
+									<input type="text" class="form-control" name="housing_tax" id="housing_tax" value="<?= $_POST['housing_tax'] ?? ''?>">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="">Charges de copropriétés</label>
-									<input type="text" class="form-control" name="condominium_fees" id="condominium_fees" value="<?=$_POST['condominium_fees'] ?? ''?>">
+									<label for="condominium_fees">Charges de copropriétés</label> <?= form_error('condominium_fees') ?>
+									<input type="text" class="form-control" name="condominium_fees" id="condominium_fees" value="<?= $_POST['condominium_fees'] ?? ''?>">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="">Charges annuelles</label>
+									<label for="annual_fees">Charges annuelles</label> <?= form_error('annual_fees') ?>
 									<input type="text" class="form-control" name="annual_fees" id="annual_fees" value="<?=$_POST['annual_fees'] ?? ''?>">
 								</div>
 							</div>
@@ -293,7 +298,18 @@
 						<h3>Consommation</h3>
 						<div class="col-12">
 							<div class="form-group">
-								<label for="">Consommation énergétique</label>
+								<label for="id_heating_types">Type de chauffage</label> <?= form_error('id_heating_types') ?>
+								<select type="text" class="form-control" name="id_heating_types" id="id_heating_types">
+									<option selected disabled>Selectionnez un revêtement</option>
+									<?php foreach ($heatingTypesList as $heatingTypes): ?>
+										<option value="<?= $heatingTypes->id ?>" <?= isset($_POST['id_heating_types']) && $_POST['id_heating_types'] == $heatingTypes->id ? 'selected' : '' ?>><?= $heatingTypes->name ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="">Consommation énergétique</label> <?= form_error('energy_consumption') ?>
 								<input type="text" class="form-control" name="energy_consumption" id="energy_consumption" placeholder="en kWhEP / m&sup2; /an" value="<?=$_POST['energy_consumption'] ?? ''?>">
 							</div>
 						</div>
@@ -311,7 +327,7 @@
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label for="">Emission de CO2</label>
+								<label for="">Emission de CO2</label> <?= form_error('gas_emission') ?>
 								<input type="text" class="form-control" id="gas_emission" name="gas_emission" placeholder="en kg CO2 / m&sup2; /an" value="<?=$_POST['gas_emission'] ?? ''?>">
 							</div>
 						</div>
@@ -355,7 +371,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="image-upload">Charger les images</label>
-									<input type="file" name="" multiple id="image-upload" class="form-control">
+									<input type="file" name="image-upload[]" multiple="" id="image-upload" class="form-control">
 									<input type="text" id="images" hidden>
 								</div>
 							</div>

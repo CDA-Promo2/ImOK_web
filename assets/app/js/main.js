@@ -29,11 +29,17 @@ $(function(){
 		source:  function (query, process) {
 			let url = new URL(window.location.href);
 			let split = url.pathname.split('/');
-			let path = '/' + split[1] + '/' + split[2] + '/search';
+			// let path = '/' + split[1] + '/' + split[2] + '/search';
+			let path = '/' + split[1] + '/search';
+			console.log(url);
+			console.log(split);
+			console.log(path);
 			return $.get(path, { query: query }, function (data) {
+			// return $.get('/estate/search', { query: query }, function (data) {
 				// var url = new URL(window.location.href);
 				// var split = url.pathname.split('/');
 				// console.log(split);
+				// console.log(data);
 				data = $.parseJSON(data);
 				return process(data);
 			});
@@ -46,7 +52,6 @@ $(function(){
 		}
 	});
 });
-
 
 
 /**
@@ -133,7 +138,7 @@ $('#image-upload').change(function(e){
 
 	$('#image-preview').html(html);
 
-})
+});
 
 $('#facilities-select option').click(function(e){
 	//on recupere la valeur
@@ -145,10 +150,23 @@ $('#facilities-select option').click(function(e){
 	//on cree le JSON
 
 	console.log(e.target.text);
-})
-
-
-
+});
 /**
  * FIN DE CREATION DES BIENS
  */
+
+
+/**
+ * CONFIGURATION DU WYSIWYG
+ */
+$(document).ready(function() {
+	$.trumbowyg.svgPath = '/assets/img/icons.svg';
+	$('#description').trumbowyg({
+		btns: [
+			['undo', 'redo'], // Only supported in Blink browsers
+			['strong', 'em', 'underline'],
+			['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+			['horizontalRule']
+		]
+	});
+});

@@ -11,7 +11,7 @@ class Estate extends CI_Controller
 			'Estate_model', 'Estate_types_model', 'Exposition_model', 'Heating_types_model',
 			'Outside_conditions_model', 'Furniture_model', 'Room_type_model', 'Windows_type_model',
 			'Ground_covering_model', 'Wall_covering_model', 'Heating_type_model', 'Customer_model']);
-		$this->load->helper(['url', 'url_helper', 'form', 'date']);
+		$this->load->helper(['url', 'url_helper', 'form', 'date', 'directory']);
 		$this->load->library(['form_validation']);
 	}
 	public function index()
@@ -24,18 +24,18 @@ class Estate extends CI_Controller
 		$this->load->view('estate/index', $data);
 		$this->load->view('common/_footer', $data);
 	}
-	public function create() {
+	public function create()
+	{
 		$data = $this->load_estate_componenents();
 
 		$data['title'] = 'Ajout d\'un bien';
-
-
-		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
-		// form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
+		// S'il n'a pas d'erreurs
 		if ($this->form_validation->run() === TRUE) {
-
+			// On crée le bien
 			$this->Estate_model->createEstate();
+			// On récupère son id
 			$lastId = $this->db->insert_id();
+			$this->uploadImage($lastId);
 			redirect(base_url('index.php/estate/details/'.$lastId));
 		}
 
@@ -44,14 +44,32 @@ class Estate extends CI_Controller
 		$this->load->view('estate/create', $data);
 		$this->load->view('common/_footer', $data);
 	}
-	public function search() {
+
+	public function search()
+	{
 		$term = $this->input->get('term');
 		$this->db->like('name', $term);
 		$this->db->or_like('zip_code', $term);
 		$data = $this->db->get('cities')->result();
+
 		echo json_encode($data);
 	}
-	public function edit($id){
+
+	public function details($id)
+	{
+		$data['title'] = 'Details bien';
+		$data['estate'] = $this->Estate_model->getEstates($id);
+
+		$path = 'upload/img/estate/'.$id;
+		$map = directory_map($path);
+
+		$this->load->view('common/_header', $data);
+		$this->load->view('estate/details', $data);
+		$this->load->view('common/_footer', $data);
+	}
+
+	public function edit($id)
+	{
 		$data = $this->load_estate_componenents();
 		$data['title'] = 'Modification d\'un bien';
 
@@ -61,10 +79,11 @@ class Estate extends CI_Controller
 		$this->load->view('estate/edit', $data);
 		$this->load->view('common/_footer', $data);
 	}
+
 	public function uploadImage($id)
 	{
 		// On compte le nombre de photo
-		$count = count($_FILES['estate_pic']['name']);
+		$count = count($_FILES['image-upload']['name']);
 		// S'il n'existe pas, on crée le dossier
 		if (!is_dir('upload/img/estate/'.$id)) {
 			mkdir('./upload/img/estate/' . $id, 0775, TRUE);
@@ -72,19 +91,18 @@ class Estate extends CI_Controller
 
 		for($i=0;$i<$count;$i++)
 		{
-			if(!empty($_FILES['estate_pic']['name'][$i]))
+			if(!empty($_FILES['image-upload']['name'][$i]))
 			{
-				$_FILES['file']['name'] = $_FILES['estate_pic']['name'][$i];
-				$_FILES['file']['type'] = $_FILES['estate_pic']['type'][$i];
-				$_FILES['file']['tmp_name'] = $_FILES['estate_pic']['tmp_name'][$i];
-				$_FILES['file']['error'] = $_FILES['estate_pic']['error'][$i];
-				$_FILES['file']['size'] = $_FILES['estate_pic']['size'][$i];
-
+				$_FILES['file']['name'] = $_FILES['image-upload']['name'][$i];
+				$_FILES['file']['type'] = $_FILES['image-upload']['type'][$i];
+				$_FILES['file']['tmp_name'] = $_FILES['image-upload']['tmp_name'][$i];
+				$_FILES['file']['error'] = $_FILES['image-upload']['error'][$i];
+				$_FILES['file']['size'] = $_FILES['image-upload']['size'][$i];
 				// Config de l'upload
 				$config['upload_path'] = 'upload/img/estate/'.$id;
 				$config['allowed_types'] = 'jpg|jpeg|png|gif';
 				$config['max_size'] = '2048';
-				$config['file_name'] = $_FILES['estate_pic']['name'][$i];
+				$config['file_name'] = $_FILES['image-upload']['name'][$i];
 
 				$this->load->library('upload',$config);
 
@@ -94,7 +112,8 @@ class Estate extends CI_Controller
 		}
 	}
 
-	public function load_estate_componenents(){
+	public function load_estate_componenents()
+	{
 		$data['dates']	= $this->Build_date_model->getAll();
 		$data['furnituresList'] = $this->Furniture_model->getAll();
 		$data['roomTypeList'] = $this->Room_type_model->getAll();
@@ -106,6 +125,7 @@ class Estate extends CI_Controller
 		$data['customerList'] = $this->Customer_model->getCustomers();
 		$data['estateTypeList'] = $this->Estate_types_model->getAll();
 		$data['expositionsList'] = $this->Exposition_model->getAll();
+
 		return $data;
 	}
 }
