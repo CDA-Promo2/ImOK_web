@@ -123,8 +123,8 @@ $floor = [
 	'label' => 'Etage',
 	'rules' => ['trim','required','max_length[5]','integer']
 ];
-$id_build_date = [
-	'field' => 'id_build_date',
+$id_build_dates = [
+	'field' => 'id_build_dates',
 	'label' => 'Type de bien',
 	'rules' => ['trim','required','max_length[5]','regex_match[/^[0-9]{1}$/]']
 ];
@@ -174,6 +174,52 @@ $id_outside_conditions = [
 	'rules' => ['trim','required','max_length[1]','integer']
 ];
 
+$id_heating_types = [
+	'field' => 'id_heating_types',
+	'label' => 'Type de chauffage',
+	'rules' => ['trim','required','max_length[5]','integer']
+];
+$energy_consumption = [
+	'field' => 'energy_consumption',
+	'label' => 'Valeur de conso annuelle',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+$gas_emission = [
+	'field' => 'gas_emission',
+	'label' => 'Valeur gaz à effet de serre',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+$condominium_fees = [
+	'field' => 'condominium_fees',
+	'label' => 'Charge de copropriété',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+$annual_fees = [
+	'field' => 'annual_fees',
+	'label' => 'Charge annuelle',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+$price = [
+	'field' => 'price',
+	'label' => 'Prix de vente',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+$housing_tax = [
+	'field' => 'housing_tax',
+	'label' => 'Taxe d\'habitation',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+$property_tax = [
+	'field' => 'property_tax',
+	'label' => 'Taxe foncière',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+$rent = [
+	'field' => 'rent',
+	'label' => 'Loyer mensuel',
+	'rules' => ['trim','required','max_length[5]','decimal']
+];
+
 //Routes
 //Selon la route, nous définissons les rêgles à appeller
 $config = [
@@ -186,6 +232,6 @@ $config = [
 	'appointment/edit' => [$date_start, $date_end, $note, $id_appointment_types, $id_customers, $id_employees],
 	'employee/passwordrecovery/1' => [$mail],
 	'employee/passwordrecovery/2' => [$password,$password_confirm],
-	'estate/create' => [$id_customers, $id_cities, $id_district, $street, $complement, $renovation, $id_estate_types, $floor, $id_build_date, $condominium, $joint_ownership,
+	'estate/create' => [$id_customers, $id_cities, $id_district, $street, $complement, $renovation, $id_estate_types, $floor, $id_build_dates, $condominium, $joint_ownership,
 		$floor_number, $id_expositions, $size, $carrez_size, $rooms_numbers, $bedroom_numbers, $id_outside_conditions]
 ];

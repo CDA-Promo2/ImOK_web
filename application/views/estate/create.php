@@ -1,6 +1,7 @@
 <h1 class="text-center"><?= $title ?></h1>
 <hr>
 <div class="container">
+	<?php var_dump($_POST); ?>
 	<?= form_error() ?>
 	<?= form_open_multipart(); ?>
 	<div class="row justify-content-center">
@@ -16,12 +17,12 @@
 			</div>
 			<div class="form-group my-1">
 				<label for="city">Ville</label> <span class="error">* <?= form_error('id_cities') ?></span>
-				<input type="hidden" id="id_cities" name="id_cities" value=""/>
-				<input id="city" name="city" class="typeahead form-control" type="text" value="">
+				<input type="hidden" id="id_cities" name="id_cities" value="<?= $_POST['id_cities'] ?? ''?>"/>
+				<input id="city" name="city" class="typeahead form-control" type="text" value="<?= $_POST['city'] ?? '' ?>">
 			</div>
 			<div class="form-group my-1">
 				<label for="district">Secteur</label> <?= form_error('district') ?>
-				<input type="text" id="district" name="district" class="form-control" value="<?= $_POST['id_cities'] ?? '' ?>">
+				<input type="text" id="district" name="district" class="form-control" value="<?= $_POST['district'] ?? '' ?>">
 			</div>
 			<div class="form-group my-1">
 				<label for="street">Adresse</label> <span class="error">* <?= form_error('street') ?></span>
@@ -55,11 +56,11 @@
 				<input type="text" id="floor" name="floor" class="form-control" value="<?= $_POST['floor'] ?? '' ?>">
 			</div>
 			<div class="form-group my-1">
-				<label for="id_build_date">Date de construction</label> <span class="error">* <?= form_error('id_build_date') ?></span>
-				<select name="id_build_date" id="build_date" class="form-control">
+				<label for="id_build_dates">Date de construction</label> <span class="error">* <?= form_error('id_build_dates') ?></span>
+				<select name="id_build_dates" id="id_build_dates" class="form-control">
 					<option value="" selected >---</option>
 					<?php foreach ($dates as $date): ?>
-						<option value="<?= $date->id ?>" <?= isset($_POST['id_build_date']) && $_POST['id_build_date'] == $date->id ? 'selected' : '' ?>><?= $date->period ?></option>
+						<option value="<?= $date->id ?>" <?= isset($_POST['id_build_dates']) && $_POST['id_build_dates'] == $date->id ? 'selected' : '' ?>><?= $date->period ?></option>
 					<?php endforeach; ?>
 				</select>
 			</div>
