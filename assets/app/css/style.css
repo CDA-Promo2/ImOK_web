@@ -297,16 +297,21 @@ FIN DE CREATION DES BIENS
 }
 
 
-.breadcrumb{
-	background-color: transparent;
-	font-size: 1.5rem;
+#breadcrumb{
+
 }
+.breadcrumb{
+	background-color: transparent!important;
+	font-size: 24px;
+	padding-left: 0px!important;
+}
+
 .breadcrumb .breadcrumb-item a{
 	text-decoration: none;
 }
 .breadcrumb h1{
 	display: inline;
-	font-size: 1.5rem;
+	font-size: 24px;
 }
 
 /** Détail des biens **/
@@ -320,3 +325,10 @@ FIN DE CREATION DES BIENS
 	padding: 20px 29px 20px;
 }
 /** Fin des détails de bien **/
+
+
+.estate-list{
+	height: 800px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

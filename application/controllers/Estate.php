@@ -12,7 +12,7 @@ class Estate extends CI_Controller
 			'Outside_conditions_model', 'Furniture_model', 'Room_type_model', 'Windows_type_model',
 			'Ground_covering_model', 'Wall_covering_model', 'Heating_type_model', 'Customer_model']);
 		$this->load->helper(['url', 'url_helper', 'form', 'date']);
-		$this->load->library(['form_validation']);
+		$this->load->library(['form_validation','BreadcrumbComponent']);
 	}
 	public function index()
 	{
@@ -92,6 +92,19 @@ class Estate extends CI_Controller
 
 			}
 		}
+	}
+
+	public function details($id) {
+		$data['estate'] = $this->Estate_model->getEstates($id);
+		$data['title'] = 'Détails de l\'annnonce n°'.$data['estate']->id;
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+			->add('Liste des Biens', site_url('estate'))
+			->add('Détails de l\'annnonce n°'.$data['estate']->id, site_url('estate/details'))
+			->createView();
+
+		$this->load->view('common/_header', $data);
+		$this->load->view('estate/details', $data);
+		$this->load->view('common/_footer', $data);
 	}
 
 	public function load_estate_componenents(){

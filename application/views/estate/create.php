@@ -1,8 +1,16 @@
+<div class="background"></div>
+<div class="background-filter"></div>
+
 <div class="container">
+
+	<?= $breadcrumb ?? '<div class="my-5">breadcrumbs</div>' ?>
+
+	<div class="bg-white shadow">
 	<?= form_open_multipart(); ?>
 		<!-- formulaire premiere partie -->
 		<div class="tab card" id="tab-1">
-			<div class="card-header">
+			<div class="card-header text-center clearfix">
+				<button type="button" data-parent="#tab-1" data-target="#tab-2" class="previous btn btn-secondary float-right">Suivant</button>
 				<h2>Enregistrer un bien (1/4)</h2>
 			</div>
 			<div class="card-body">
@@ -150,14 +158,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer clearfix">
-				<button type="button" data-parent="#tab-1" data-target="#tab-2" class="previous btn btn-secondary float-right">Suivant</button>
-			</div>
 		</div>
 
 		<!-- formulaire deuxième partie -->
 		<div class="card tab" id="tab-2">
-			<div class="card-header">
+			<div class="card-header text-center clearfix">
+				<button type="button" data-target="#tab-1" class="next btn btn-secondary float-left">Précédent</button>
+				<button type="button" data-target="#tab-3" class="previous btn btn-secondary float-right">Suivant</button>
 				<h2>Enregistrer un bien (2/4)</h2>
 			</div>
 			<div class="card-body">
@@ -238,15 +245,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer clearfix">
-				<button type="button" data-target="#tab-1" class="next btn btn-secondary float-left">Précédent</button>
-				<button type="button" data-target="#tab-3" class="previous btn btn-secondary float-right">Suivant</button>
-			</div>
 		</div>
 
 		<!-- formulaire troisième partie -->
 		<div class="card tab" id="tab-3">
-			<div class="card-header">
+			<div class="card-header text-center clearfix">
+				<button type="button" data-target="#tab-2" class="next btn btn-secondary float-left">Précédent</button>
+				<button type="button" data-target="#tab-4" class="previous btn btn-secondary float-right">Suivant</button>
 				<h2>Enregistrer un bien (3/4)</h2>
 			</div>
 			<div class="card-body">
@@ -330,15 +335,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer clearfix">
-				<button type="button" data-target="#tab-2" class="next btn btn-secondary float-left">Précédent</button>
-				<button type="button" data-target="#tab-4" class="previous btn btn-secondary float-right">Suivant</button>
-			</div>
 		</div>
 
 		<!-- formulaire quatrième partie -->
 		<div class="card tab" id="tab-4">
-			<div class="card-header">
+			<div class="card-header text-center clearfix">
+				<button type="button" data-target="#tab-3" class="next btn btn-secondary float-left">Précédent</button>
 				<h2>Enregistrer un bien (4/4)</h2>
 			</div>
 			<div class="card-body">
@@ -390,10 +392,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer clearfix">
-				<button type="button" data-target="#tab-3" class="next btn btn-secondary float-left">Précédent</button>
-			</div>
 		</div>
+		<div class="card-footer clearfix">
 			<button type="submit" class="btn btn-success float-right mt-3">Enregistrer le bien</button>
+		</div>
 	<?php form_close() ?>
+	</div>
 </div>

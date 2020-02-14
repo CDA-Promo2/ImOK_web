@@ -1,5 +1,4 @@
 <?php
-
 $sizes  = $estate->size;
 $size = explode(".", $sizes);
 
@@ -11,20 +10,28 @@ $carrez_size = explode(".", $carrez_sizes);
 
 ?>
 
-<div class="container p-5">
+
+<div class="background"></div>
+<div class="background-filter"></div>
+
+<div class="container">
+	<?= $breadcrumb ?? '<div class="my-5">breadcrumbs</div>' ?>
+</div>
+
+<div class="container bg-white px-2 py-1 shadow">
 
 	<div class="row justify-content-center my-4">
 		<div class="col-12">
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-						<img class="d-block w-100" src="https://picsum.photos/800/450" alt="First slide">
+						<img class="d-block w-100" src="https://picsum.photos/id/42/800/450" alt="First slide">
 						</div>
 						<div class="carousel-item">
-						<img class="d-block w-100" src="https://picsum.photos/800/450" alt="Second slide">
+						<img class="d-block w-100" src="https://picsum.photos/id/43/800/450" alt="Second slide">
 						</div>
 						<div class="carousel-item">
-						<img class="d-block w-100" src="https://picsum.photos/800/450" alt="Third slide">
+						<img class="d-block w-100" src="https://picsum.photos/id/44/800/450" alt="Third slide">
 						</div>
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -38,9 +45,14 @@ $carrez_size = explode(".", $carrez_sizes);
 					</div>
 				</div>
 				<div class="col-10 h4 my-2">
-					<p><strong class="center-vertical"><?= $estate->estate_type ? $estate->estate_type : '' ?> <?= $size[0] ? ' - '.$size[0].' m²' : '' ?> <?= $estate->rooms_numbers ? ' - '.$estate->rooms_numbers.' pièces' : '' ?></strong></p>
+					<h3>
+						<?= $estate->estate_type ? $estate->estate_type : '' ?>
+						<?= $size[0] ? ' de '.$size[0].' m²' : '' ?>
+						<?= $estate->rooms_numbers ? ' - '.$estate->rooms_numbers.' pièces' : '' ?>
+						<strong><?= $estate->city ? 'à '.$estate->city : '' ?></strong>
+					</h3>
 				</div>
-				<div class="col-2 h4 my-2 shadow text-center bg-danger text-white">
+				<div class="col-2 h6 my-2 shadow text-center bg-danger text-white">
 					<p><strong class="center-vertical"><?= $price[0] ?? 'nc' ?> €</strong></p>
 				</div>
 			</div>
@@ -48,8 +60,15 @@ $carrez_size = explode(".", $carrez_sizes);
 						
 	<div class="row">
 		<div class="col-8">
-			<p class="h4">Bien situé au <strong><?= $estate->street ?? 'nc' ?></strong></p>
-			<p class="my-5"><?= $estate->description ?? 'Il n\'y a pas de description de renseignée' ?></p>
+			<p class="h4">
+				<i class="fas fa-map-marker-alt text-info"></i>
+				<?= $estate->street ?? 'nc' ?>
+				<?= $estate->complement ? ', '.$estate->complement : ''?>
+				<?= $estate->zip_code ? '<br>'.$estate->zip_code : ''?>
+				<?= $estate->city ? ' '.$estate->city : ''?>
+
+			</p>
+			<p class="mt-3"><?= $estate->description ?? 'Aucune description renseignée...' ?></p>
 		</div>
 		<div class="col-4">
 			<h3 class="text-bold h6 text-uppercase">Collaborateur en charge du bien</h3>
@@ -199,7 +218,10 @@ $carrez_size = explode(".", $carrez_sizes);
 					<p class="text-danger"><a href="mailto:se.hinard@gmail.com"><span class="btn btn-outline-danger rounded-circle bg-white"><i class="fas fa-envelope"></i></span></a> Envoyer un mail</p>
 				</div>
 				<div class="mt-5">
-					<a href="../edit/<?= $estate->id ?>" class="btn btn-outline-secondary">Modifier le bien</a>
+					<a href="../edit/<?= $estate->id ?>" class="d-block btn btn-info">
+						<i class="fa fa-pen"></i>
+						Mettre à jour le bien
+					</a>
 				</div>
 			</div>
 		</div>
