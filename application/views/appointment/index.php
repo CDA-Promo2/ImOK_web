@@ -1,7 +1,6 @@
-<div class="container p-5 my-5 panel-group shadow">
-<?php var_dump($appointments); ?>
+<div class="container">
 	<?= $breadcrumb ?>
-    
+git
     <div class="d-flex justify-content-between">
         <h1><?= $title ?></h1>
         <div>
@@ -11,7 +10,6 @@
     <?php $this->load->view('/partials/_calendar_script.php') ?>
     <?php $this->load->view('/common/_appointments.php') ?>
     <?php $this->load->view('/appointment/event.php') ?>
-    <?php $this->load->view('/appointment/delete.php') ?>
 
 </div>
 
