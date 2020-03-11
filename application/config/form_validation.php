@@ -214,6 +214,17 @@ $property_tax = [
 	'rules' => ['trim','max_length[5]','decimal']
 ];
 
+$facilities_array = [
+	'field' => 'room_array',
+	'label' => 'Tableau de facilities',
+	'rules' => ['trim', 'regex_match[/^[a-zA-ZÉéèô \/,]*$/]']
+];
+//$room_array = [
+//	'field' => 'facilities_array',
+//	'label' => 'Tableau des pièces',
+//	'rules' => ['trim', 'regex_match[/^[a-zA-ZÉéèô \/,]*$/]']
+//];
+
 //Routes
 //Selon la route, nous définissons les rêgles à appeller
 $config = [
@@ -228,7 +239,7 @@ $config = [
 	'employee/passwordrecovery/2' => [$password,$password_confirm],
 	'estate/create' => [$id_customers, $id_cities, $street, $complement, $renovation, $id_estate_types, $floor, $id_build_dates, $condominium, $joint_ownership,
 		$floor_number, $id_expositions, $size, $carrez_size, $rooms_numbers, $bedroom_numbers, $id_outside_conditions, $id_heating_types, $energy_consumption,
-		$gas_emission, $condominium_fees, $annual_fees, $price, $housing_tax, $property_tax]
+		$gas_emission, $condominium_fees, $annual_fees, $price, $housing_tax, $property_tax, $facilities_array]
 ];
 
 

@@ -10,8 +10,8 @@ class Estate extends CI_Controller
 		$this->load->model(['Build_date_model', 'City_model', 'District_model',
 			'Estate_model', 'Estate_types_model', 'Exposition_model', 'Heating_types_model',
 			'Outside_conditions_model', 'Furniture_model', 'Room_type_model', 'Windows_type_model',
-			'Ground_covering_model', 'Wall_covering_model', 'Heating_type_model', 'Customer_model']);
-		$this->load->library(['form_validation', 'BreadCrumbComponent']);
+			'Ground_covering_model', 'Wall_covering_model', 'Heating_type_model', 'Customer_model', 'Facility_model']);
+		$this->load->library(['form_validation', 'BreadcrumbComponent']);
 		$this->load->helper(['url', 'url_helper', 'form', 'date', 'directory']);
 	}
 	public function index()
@@ -27,8 +27,9 @@ class Estate extends CI_Controller
 		$this->load->view('estate/index', $data);
 		$this->load->view('common/_footer', $data);
 	}
-	public function create() {
-		$data = $this->load_estate_componenents();
+	public function create()
+	{
+		$data = $this->load_estate_components();
 
 		$data['title'] = 'Ajout d\'un bien';
 		// S'il n'a pas d'erreurs
@@ -37,10 +38,10 @@ class Estate extends CI_Controller
 														->add('Création du Bien', site_url('estate/create'))
 														->createView();
 
-
 		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
 		// form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
 		if ($this->form_validation->run() === TRUE) {
+//		if ($_POST) {
 			// On crée le bien
 			$this->Estate_model->createEstate();
 			// On récupère son id
@@ -65,6 +66,15 @@ class Estate extends CI_Controller
 		echo json_encode($data);
 	}
 
+	/**
+	 * Récupère le JSON contenant les pièces du bien
+	 */
+	public function loadRooms()
+	{
+		$data = json_encode($_GET['roomString']);
+		echo $data;
+	}
+
 	public function details($id)
 	{
 		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
@@ -73,9 +83,11 @@ class Estate extends CI_Controller
 			->createView();
 		$data['title'] = 'Details bien';
 		$data['estate'] = $this->Estate_model->getEstates($id);
+		$data['id'] = $id;
 
+		// On récupère les images de l'estate dans son dossier
 		$path = 'upload/img/estate/'.$id;
-		$map = directory_map($path);
+		$data['imageList'] = directory_map($path);
 
 		$this->load->view('common/_header', $data);
 		$this->load->view('estate/details', $data);
@@ -84,7 +96,7 @@ class Estate extends CI_Controller
 
 	public function edit($id)
 	{
-		$data = $this->load_estate_componenents();
+		$data = $this->load_estate_components();
 		$data['title'] = 'Modification d\'un bien';
 
 		$data['estate'] = $this->Estate_model->getEstates($id);
@@ -130,7 +142,7 @@ class Estate extends CI_Controller
 		}
 	}
 
-	public function load_estate_componenents()
+	public function load_estate_components()
 	{
 		$data['dates']	= $this->Build_date_model->getAll();
 		$data['furnituresList'] = $this->Furniture_model->getAll();
@@ -143,6 +155,7 @@ class Estate extends CI_Controller
 		$data['customerList'] = $this->Customer_model->getCustomers();
 		$data['estateTypeList'] = $this->Estate_types_model->getAll();
 		$data['expositionsList'] = $this->Exposition_model->getAll();
+		$data['facilitiesList'] = $this->Facility_model->getAll();
 
 		return $data;
 	}

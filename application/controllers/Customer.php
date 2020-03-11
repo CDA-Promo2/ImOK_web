@@ -5,7 +5,7 @@ class Customer extends CI_Controller {
         parent::__construct();
         $this->load->model(['Customer_model', 'City_model', 'Status_model', 'Appointment_model', 'Mandate_model']);
         $this->load->helper(['url', 'form', 'date']);
-        $this->load->library(['form_validation', 'pagination','breadcrumbcomponent']);
+        $this->load->library(['form_validation', 'pagination','breadcrumbComponent']);
     }
     // Méthode gérant la page d'accueil
     public function index() {
