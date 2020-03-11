@@ -37,6 +37,8 @@ class Estate_model extends CI_Model {
 			'bedroom_numbers' => $this->input->post('bedroom_numbers'),
 			'id_outside_conditions' => $this->input->post('id_outside_conditions'),
 			'description' => $this->input->post('description'),
+			// Input partie 2
+			'rooms' => $this->input->post('room_string'),
 			// Input partie 3
 			'price' => $this->input->post('price'),
 			'property_tax' => $this->input->post('property_tax'),
@@ -46,6 +48,9 @@ class Estate_model extends CI_Model {
 			'id_heating_types' => $this->input->post('id_heating_types'),
 			'energy_consumption' => $this->input->post('energy_consumption'),
 			'gas_emission' => $this->input->post('gas_emission'),
+			// Input partie 4
+			'facilities' => $this->input->post('facilities-array'),
+
 		];
 
 		//Purge les entrées vides (en faire une fonction ?)
@@ -54,6 +59,8 @@ class Estate_model extends CI_Model {
 				unset($data[$i]);
 			}
 		}
+
+//		var_dump($data);die;
 
 		$data = $this->security->xss_clean($data);
 		return $this->db->insert('estates', $data);

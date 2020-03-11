@@ -25,15 +25,17 @@ $carrez_size = explode(".", $carrez_sizes);
 		<div class="col-12">
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-						<img class="d-block w-100" src="https://picsum.photos/id/42/800/450" alt="First slide">
-						</div>
-						<div class="carousel-item">
-						<img class="d-block w-100" src="https://picsum.photos/id/43/800/450" alt="Second slide">
-						</div>
-						<div class="carousel-item">
-						<img class="d-block w-100" src="https://picsum.photos/id/44/800/450" alt="Third slide">
-						</div>
+						<?php if (!empty($imageList)): ?>
+							<?php foreach ($imageList as $key => $image): ?>
+								<div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
+									<img class="d-block w-100" src="<?= base_url('upload/img/estate/'. $id . '/' . $image) ?>" alt="First slide">
+								</div>
+							<?php endforeach; ?>
+						<?php else : ?>
+							<div class="carousel-item active">
+								<img class="d-block w-100" src="<?= base_url('upload/img/estate/no-image.png') ?>" alt="Pas d'image enregistré">
+							</div>
+						<?php endif ?>
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>

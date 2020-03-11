@@ -69,13 +69,13 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<label for="size">Surface</label><?= form_error('size') ?>
+									<label for="size">Surface (en m²)</label><?= form_error('size') ?>
 									<input type="text" id="size" name="size" class="form-control" value="<?= $_POST['size'] ?? '' ?>">
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="carrez_size">Surface (loi Carrez)</label><?= form_error('carrez_size') ?>
+									<label for="carrez_size">Surface Carrez (en m²)</label><?= form_error('carrez_size') ?>
 									<input type="text" id="carrez_size" name="carrez_size" class="form-control" value="<?= $_POST['carrez_size'] ?? '' ?>">
 								</div>
 							</div>
@@ -162,7 +162,6 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- formulaire deuxième partie -->
 		<div class="card tab" id="tab-2">
 			<div class="card-header text-center clearfix">
@@ -176,33 +175,35 @@
 						<h3>Pièces</h3>
 					</div>
 					<div class="col-md-6">
-						<div class="h-100 border p-3" id="room-list">
-
-						</div>
+						<input type="hidden" name="room_array" id="room_array" value="">
+						<input type="hidden" name="room_string" id="room_string" value="">
+						<div class="h-100 border p-3" id="room_list"></div>
 					</div>
 					<div class="col-md-6">
 						<div class="row">
 							<div class="col-12">
+								<input type="hidden" id="room_id" value="">
 								<div class="form-group">
 									<label for="room_types">Type de pièce</label><?= form_error('room_types') ?>
 									<select type="text" class="form-control" name="room_types" id="room_types">
 										<option selected disabled>Selectionnez un type de pièce</option>
 										<?php foreach ($roomTypeList as $roomType): ?>
-											<option value="<?= $roomType->id ?>" <?= isset($_POST['room_types']) && $_POST['room_types'] == $roomType->id ? 'selected' : '' ?>><?= $roomType->name ?></option>
+											<option value="<?= $roomType->name ?>" <?= isset($_POST['room_types']) && $_POST['room_types'] == $roomType->id ? 'selected' : '' ?>><?= $roomType->name ?></option>
+<!--											<option value="--><?//= $roomType->id ?><!--" --><?//= isset($_POST['room_types']) && $_POST['room_types'] == $roomType->id ? 'selected' : '' ?><!-->--><?//= $roomType->name ?><!--</option>-->
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="room-size">Surface</label><?= form_error('room_size') ?>
-									<input type="text" class="form-control" name="room_size" id="room-size">
+									<label for="room_size">Surface (en m²)</label><?= form_error('room_size') ?>
+									<input type="text" class="form-control" name="room_size" id="room_size">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="room-carrezSize">Surface (Carrez)</label><?= form_error('room_carrezSize') ?>
-									<input type="text" class="form-control" name="room_carrezSize" id="room-carrezSize">
+									<label for="room_carrezSize">Surface Carrez (en m²)</label><?= form_error('room_carrezSize') ?>
+									<input type="text" class="form-control" name="room_carrezSize" id="room_carrezSize">
 								</div>
 							</div>
 							<div class="col-12">
@@ -211,7 +212,8 @@
 									<select type="text" class="form-control" name="windows_types" id="windows_types">
 										<option selected disabled>Selectionnez un type de fenètres</option>
 										<?php foreach ($windowsTypeList as $windowsType): ?>
-											<option value="<?= $windowsType->id ?>" <?= isset($_POST['windows_types']) && $_POST['windows_types'] == $windowsType->id ? 'selected' : '' ?>><?= $windowsType->name ?></option>
+											<option value="<?= $windowsType->name ?>" <?= isset($_POST['windows_types']) && $_POST['windows_types'] == $windowsType->id ? 'selected' : '' ?>><?= $windowsType->name ?></option>
+<!--											<option value="--><?//= $windowsType->id ?><!--" --><?//= isset($_POST['windows_types']) && $_POST['windows_types'] == $windowsType->id ? 'selected' : '' ?><!-->--><?//= $windowsType->name ?><!--</option>-->
 										<?php endforeach; ?>
 									</select>
 								</div>
@@ -222,7 +224,8 @@
 									<select type="text" class="form-control" name="wall_coverings" id="wall_coverings">
 										<option selected disabled>Selectionnez un revêtement</option>
 										<?php foreach ($wallCoveringsList as $wallCovering): ?>
-											<option value="<?= $wallCovering->id ?>" <?= isset($_POST['wall_coverings']) && $_POST['wall_coverings'] == $wallCovering->id ? 'selected' : '' ?>><?= $wallCovering->name ?></option>
+											<option value="<?= $wallCovering->name ?>" <?= isset($_POST['wall_coverings']) && $_POST['wall_coverings'] == $wallCovering->id ? 'selected' : '' ?>><?= $wallCovering->name ?></option>
+<!--											<option value="--><?//= $wallCovering->id ?><!--" --><?//= isset($_POST['wall_coverings']) && $_POST['wall_coverings'] == $wallCovering->id ? 'selected' : '' ?><!-->--><?//= $wallCovering->name ?><!--</option>-->
 										<?php endforeach; ?>
 									</select>
 								</div>
@@ -233,13 +236,14 @@
 									<select type="text" class="form-control" name="ground_coverings" id="ground_coverings">
 										<option selected disabled>Selectionnez un revêtement</option>
 										<?php foreach ($groundCoveringsList as $groundCovering): ?>
-											<option value="<?= $groundCovering->id ?>" <?= isset($_POST['ground_coverings']) && $_POST['ground_coverings'] == $groundCovering->id ? 'selected' : '' ?>><?= $groundCovering->name ?></option>
+											<option value="<?= $groundCovering->name ?>" <?= isset($_POST['ground_coverings']) && $_POST['ground_coverings'] == $groundCovering->id ? 'selected' : '' ?>><?= $groundCovering->name ?></option>
+<!--											<option value="--><?//= $groundCovering->id ?><!--" --><?//= isset($_POST['ground_coverings']) && $_POST['ground_coverings'] == $groundCovering->id ? 'selected' : '' ?><!-->--><?//= $groundCovering->name ?><!--</option>-->
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
 							<div class="col-12">
-								<button type="button" class="w-100 btn btn-primary d-block">
+								<button id="add_room" type="button" class="w-100 btn btn-primary d-block">
 									<i class="fa fa-pen"></i>
 									Ajouter une pièce
 								</button>
@@ -350,7 +354,6 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- formulaire quatrième partie -->
 		<div class="card tab" id="tab-4">
 			<div class="card-header text-center clearfix">
@@ -383,21 +386,18 @@
 								<h3>A proximité</h3>
 							</div>
 							<div class="col-12 p-4">
-								<div class="row border" id="facilities-list">
-
+								<input type="hidden" name="facilities_array" id="facilities_array" value="">
+								<div class="border" id="facilities-list">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
 									<label for="">Ajouter un élément</label>
-									<select id="facilities-select" class="custom-select">
-										<option selected>Ajouter un élément</option>
-										<option value="1">Lorem 1</option>
-										<option value="2">Lorem 2</option>
-										<option value="3">Lorem 3</option>
-										<option value="4">Lorem 4</option>
-										<option value="5">Lorem 5</option>
-										<option value="6">Lorem 6</option>
+									<select id="facilities-select" class="custom-select" name="facilities-select">
+										<option selected disabled>Ajouter un élément</option>
+										<?php foreach ($facilitiesList as $facility): ?>
+											<option value="<?= $facility->id ?>"><?= $facility->name ?></option>
+										<?php endforeach; ?>
 									</select>
 									<input type="text" name="facilities" hidden id="falicities">
 								</div>
