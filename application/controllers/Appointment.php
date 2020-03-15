@@ -38,6 +38,8 @@ class Appointment extends CI_Controller {
             $data['data'][$key]['streetCustomers'] = $value->streetCustomers;
             $data['data'][$key]['citiesCustomers'] = $value->citiesCustomers;
             $data['data'][$key]['codeCustomers'] = $value->codeCustomers;
+            $data['data'][$key]['id_customers'] = $value->id_customers;
+            $data['data'][$key]['id_employees'] = $value->id_employees;
             $data['data'][$key]['backgroundColor'] = "#337ab7";
         }
 
@@ -80,7 +82,7 @@ class Appointment extends CI_Controller {
     }
 
              // Méthode gérant la modification d'un client
-             public function edit($id = 0) {
+             public function edit($id_customers = 0, $id_employees = 0, $date_start = 0) {
                 // Titre de la page
                 $data['title'] = "Modification du rendez-vous ";
                 // Récupération des données
@@ -97,15 +99,17 @@ class Appointment extends CI_Controller {
                     // Modification de l'affichage des erreurs
                     $this->form_validation->set_error_delimiters('<small class="alert alert-danger p-1 ml-1 ">', '</small>');
                     // S'il n'y a pas eu d'erreurs lors de l'application des règles de sécurités
+                    
                     if ($this->form_validation->run() === TRUE) {
                         // On appel la méthodes du model Client afin de mettre à jour le client d'id = $id
-                        $this->Appointment_model->updateAppointments($id);
+                        $this->Appointment_model->updateAppointments($id_customers, $id_employees, $date_start);
                         // Puis on se redirige vers l'accueil
                         redirect(base_url('index.php/appointment'));
                     }
+
                 }
                 // Récupération des informations du client choisi
-                $data['appointment'] = $this->Appointment_model->getAppointmentById($id);
+                $data['appointment'] = $this->Appointment_model->getAppointmentByIds($id_customers, $id_employees, $date_start);
                 // Si les informations sont vides, alors le client d'id = $id n'existe pas
                 if (empty($data['appointment'])) {
                     show_404();

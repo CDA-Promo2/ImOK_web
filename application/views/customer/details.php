@@ -91,8 +91,9 @@
 						</table>
 					<?php } ?>
 				</div>
+
 				<div class="card-footer">
-					<a href="<?= site_url('appointment/create/') ?>" class="btn btn-info float-right">
+					<a href="<?= site_url('appointment/create/?id='.$client->id) ?>" class="btn btn-info float-right">
 						<i class="far fa-calendar-alt mr-2"></i>
 						Prendre RDV avec ce client</a>
 				</div>

@@ -58,3 +58,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['estate/create'] = 'estate/create';
 
 $route['employee/edit/(:any)'] = 'employee/edit/$1';
+$route['Appointment/edit/(:any)/(:any)/(:any)'] = 'employee/edit/$1/$2/$3';

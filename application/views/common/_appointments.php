@@ -87,7 +87,7 @@
 
         $('#show_event .modal-footer').html(
           `<div class="d-flex justify-content-between">
-          <a href="appointment/edit/${e.id}" class="btn btn-secondary"><i class="fas fa-pen"></i> Modifier le rendez-vous</a>
+          <a href="/appointment/edit/${e.id_customers}/${e.id_employees}/${start_date[0]}:${start_date[1]}" class="btn btn-secondary"><i class="fas fa-pen"></i> Modifier le rendez-vous</a>
           <button type="button" data-toggle="modal" data-target="#delete${e.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer le rendez-vous</button>
           </div>`
         );
