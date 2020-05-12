@@ -36,7 +36,7 @@ class Appointment_model extends CI_Model {
         return $this->db->insert('appointments', $data);
     }
 
-    public function updateAppointments($id) {
+    public function updateAppointments($id_customers, $id_employees, $date_start) {
         $data = array(
             'date_start' => $this->input->post('date_start'),
             'note' => $this->input->post('note'),
@@ -44,8 +44,11 @@ class Appointment_model extends CI_Model {
             'id_customers' => $this->input->post('id_customers'),
             'id_employees' => $this->input->post('id_employees'),
         );
-        $this->db->where('id', $id);
+        $this->db->where('id_customers', $id_customers);
+        $this->db->where('id_employees', $id_employees);
+        $this->db->where('date_start', $date_start);
         $data = $this->security->xss_clean($data);
+        
         return $this->db->update('appointments', $data);
     }
 
@@ -59,12 +62,14 @@ class Appointment_model extends CI_Model {
             }
 
             // Méthode pour récupérer les info d'un client
-            public function getAppointmentById($id) {
+            public function getAppointmentByIds($id_customers, $id_employees, $date_start) {
                 $this->db->select(['appointments.*', 'date_start']);
                 $this->db->join('appointment_types', 'appointments.id_appointment_types = appointment_types.id');
                 $this->db->join('customers', 'appointments.id_customers = customers.id');
                 $this->db->join('employees', 'appointments.id_employees = employees.id');
-                $this->db->where('appointments.id', $id);
+                $this->db->where('appointments.id_customers', $id_customers);
+                $this->db->where('appointments.id_employees', $id_employees);
+                $this->db->where('appointments.date_start', $date_start);
                 $query = $this->db->get('appointments');
                 return $query->row();
             }

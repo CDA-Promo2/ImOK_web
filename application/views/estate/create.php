@@ -1,3 +1,5 @@
+<?php var_dump($_POST); ?>
+
 <div class="background"></div>
 <div class="background-filter"></div>
 

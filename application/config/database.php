@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'database',
 	'username' => 'root',
-	'password' => 'rootpass',
+	'password' => '71npafAXaR15nckqp5',
 	'database' => 'imok',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
