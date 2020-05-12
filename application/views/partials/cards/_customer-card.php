@@ -1,3 +1,3 @@
 <div class="card p-2">
-	<p>Clients</p>
+	<h4 class="card-title">Clients</h4>
 </div>

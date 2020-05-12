@@ -340,3 +340,72 @@ FIN DE CREATION DES BIENS
 .trumbowyg-box{
 	margin: 0px;
 }
+
+
+.leaflet-popup-content{
+	width: 160px;
+}
+.leaflet-popup-content h4{
+	font-size: 16px;
+}
+.leaflet-popup-content a{
+	font-size: 16px;
+	display: block;
+	text-align: right;
+	margin-top: 10px;
+}
+
+
+.carousel-image{
+	height: 400px;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.main-card,
+.secondary-cards{
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 20px);
+	justify-content: center;
+}
+.main-card .card,
+.secondary-cards .card{
+	position: relative;
+	margin-top: 10px;
+	flex-grow: 1;
+	width: 100%;
+	box-shadow: 10px 10px 10px #eee;
+	border-radius: 20px;
+	transition: .2s ease-in-out;
+}
+
+.main-card .card .card-title,
+.secondary-cards .card .card-title{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-transform: uppercase;
+	font-size: 2vw;
+}
+
+.main-card .card:hover,
+.secondary-cards .card:hover{
+	position: relative;
+	margin-top: 10px;
+	flex-grow: 1;
+	width: 100%;
+	box-shadow: 10px 10px 10px #eee;
+	border-radius: 20px;
+	transform: translateY(-5px);
+	cursor: pointer;
+}
+
+@media all and (max-width: 991px){
+	.main-card,
+	.secondary-cards{
+		height: calc(50vh - 20px);
+	}
+}

@@ -352,3 +352,43 @@ $(document).ready(function()
 		$('#ground_coverings').val('');
 	}
 });
+
+
+
+/**
+ * OPEN STREET MAP
+ */
+$(function(){
+	//FOR EACH MAP
+	$('[data-map]').each(function(){
+		//GET THE MAP ID AND BASIC DATA (LAT, LON, ZOOM-LEVEL)
+		const id = $(this).attr('id');
+		let pos = JSON.parse( $(this).attr('data-map') );
+
+		//INIT MAP
+		const currentMap = L.map(id).setView([pos[0], pos[1]], pos[2]);
+		L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png').addTo(currentMap);
+
+		//FIND AND INIT MARKERS
+		$(this).find('.marker').each(function(){
+			let address = $(this).attr('data-address');
+			let zipcode = $(this).attr('data-zipcode');
+			let content = $(this).html();
+			let focus = $(this).hasClass('focus');
+
+			$.get(`https://api-adresse.data.gouv.fr/search/?q=${address}&postcode=${zipcode}` , false, (data) => {
+				if(data.features.length > 0){
+					let pos = data.features[0].geometry.coordinates.reverse();
+					let marker = L.marker(pos).addTo(currentMap);
+					marker.bindPopup(content);
+					if(focus){
+						currentMap.zoomIn(8).setView([pos[0],pos[1]]);
+					}
+				}
+			}, 'JSON');
+
+		});
+	});
+});
+
+

@@ -23,7 +23,15 @@
 					<?php form_close() ?>
 				</div>
 				<div class="col-12 mt-3">
-					<img src="<?=base_url('assets/img/map.jpg')?>" alt="" class="img-fluid">
+					<div id="map" style="height: 600px; width: auto;" data-map="[47,3,6]">
+						<?php foreach($estateList as $estate) { ?>
+							<span class="marker" data-address="<?=$estate->street?>>" data-zipcode="<?=$estate->zip_code?>" hidden>
+								<h4><?= $estate->id . ' - ' . ($estate->estate_type ? $estate->estate_type : 'Non renseigné') ?></h4>
+								<img class="img-fluid w-100" src="https://picsum.photos/300/200?random=<?= mt_rand(1,20) ?>" alt="Card image cap">
+								<a href="estate/details/<?= $estate->id ?>">Voir le bien</a>
+							</span>
+						<?php }?>
+					</div>
 				</div>
 			</div>
 		</div>
