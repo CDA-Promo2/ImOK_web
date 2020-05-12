@@ -155,12 +155,12 @@ $id_expositions = [
 $size = [
 	'field' => 'size',
 	'label' => 'Surface',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $carrez_size = [
 	'field' => 'carrez_size',
 	'label' => 'Surface (loi Carrez)',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $rooms_numbers = [
 	'field' => 'rooms_numbers',
@@ -186,37 +186,37 @@ $id_heating_types = [
 $energy_consumption = [
 	'field' => 'energy_consumption',
 	'label' => 'Valeur de conso annuelle',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $gas_emission = [
 	'field' => 'gas_emission',
 	'label' => 'Valeur gaz à effet de serre',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $condominium_fees = [
 	'field' => 'condominium_fees',
 	'label' => 'Charge de copropriété',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $annual_fees = [
 	'field' => 'annual_fees',
 	'label' => 'Charge annuelle',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $price = [
 	'field' => 'price',
 	'label' => 'Prix de vente',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[10]','integer']
 ];
 $housing_tax = [
 	'field' => 'housing_tax',
 	'label' => 'Taxe d\'habitation',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $property_tax = [
 	'field' => 'property_tax',
 	'label' => 'Taxe foncière',
-	'rules' => ['trim','max_length[5]','decimal']
+	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 
 $facilities_array = [

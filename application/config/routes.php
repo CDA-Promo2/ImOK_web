@@ -56,6 +56,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['estate/create'] = 'estate/create';
+$route['estate/tempUpload/{$id}'] = 'estate/tempUpload/$1';
 
 $route['employee/edit/(:any)'] = 'employee/edit/$1';
 $route['Appointment/edit/(:any)/(:any)/(:any)'] = 'employee/edit/$1/$2/$3';

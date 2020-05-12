@@ -158,7 +158,7 @@
 					<div class="col-md-6 mt-3">
 						<div class="form-group">
 							<label for="description">Description</label><?= form_error('description') ?>
-							<textarea name="description" id="description" class="form-control trumbowyg"><?= $_POST['description'] ?? '' ?></textarea>
+							<textarea name="description" id="description" class="form-control trumbowyg"><?= isset($_POST['description']) ?? '' ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -178,7 +178,8 @@
 					</div>
 					<div class="col-md-6">
 						<input type="hidden" name="room_array" id="room_array" value="">
-						<input type="hidden" name="room_string" id="room_string" value="">
+						<?php // On utilise htmlentities afin que la value prenne l'entiéreté du tableau JSON des rooms ?>
+						<input type="hidden" name="room_string" id="room_string" value="<?= isset($_POST['room_string']) ? htmlentities($_POST['room_string']) : '' ?>">
 						<div class="h-100 border p-3" id="room_list"></div>
 					</div>
 					<div class="col-md-6">
@@ -388,7 +389,7 @@
 								<h3>A proximité</h3>
 							</div>
 							<div class="col-12 p-4">
-								<input type="hidden" name="facilities_array" id="facilities_array" value="">
+								<input type="hidden" name="facilities_array" id="facilities_array" value="<?= $_POST['facilities_array'] ?? '' ?>">
 								<div class="border" id="facilities-list">
 								</div>
 							</div>
