@@ -12,13 +12,15 @@ class Employee extends CI_Controller{
 	public function index() {
 
 
-		if($_SESSION['user']->first_connection){
+		if(isset($_SESSION['user']) && $_SESSION['user']->first_connection){
 			redirect(site_url('employee/password/'.$_SESSION['user']->id));
 		}
 
 
 		$data['title'] = 'Accueil';
-		$data['role'] = $this->Employee_model->getRole($_SESSION['user']->id_roles);
+		if(isset($_SESSION['user'])) {
+			$data['role'] = $this->Employee_model->getRole($_SESSION['user']->id_roles);
+		}
 		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
 														->add('Liste des employés', site_url('customer'))
 														->createView();

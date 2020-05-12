@@ -117,27 +117,77 @@ function between(x,min,max){
 	return (x>=min && x<=max);
 }
 
+$(document).ready(function()
+{
+	$('#image-upload').change(function (e)
+	{
+		var html = '';
 
-$('#image-upload').change(function(e){
+		// file_data : regroupe toutes les images
+		var file_data = $('#image-upload').prop('files');
+		var form_data = new FormData();
 
-	var html = '';
+		// Pour chaque images, on l'ajout au FormData
+		for (let [key, value] of Object.entries(file_data)) {
+			form_data.append(key, value);
+		}
+		$.ajax({
+			url: 'http://imok.local.fr/estate/tempUpload/100', // point to server-side PHP script
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: form_data,
+			type: 'post',
+			success: function(data){
+				console.log(data);
+			}
+		});
+	});
+});
 
-	var files = e.target.files;
-	for (file of files){
-		var src = URL.createObjectURL(file);
-		html += '<div class="col-md-6 p-3"><div class="thumbnail-image" style="background-image: url('+src+');"></div></div>';
-	}
-
-	$('#image-preview').html(html);
-
+$('body').on('click', '.deleteImage', function (e)
+{
+	// var file = document.getElementById('image-upload').files[0];
+	// console.log(file);
+	console.log($(this).attr("data-target"));
 });
 
 /**
  * Gestion des facilities
  */
+function show_facilities() {
+
+	// On récup les facilities du bien
+	var facilitiesList = $('#facilities_array').val();
+	var facilitiesArray = facilitiesList.split(',');
+
+	for (const elem of facilitiesArray) {
+		let append = 	`<div class="d-flex justify-content-between border-bottom px-4 pb-2 pt-3"> 
+									<p class="mb-0 facilityName">${elem}</p> 
+									<div> 
+										<i class="fas fa-times-circle btn btn-danger deleteFacility"></i> 
+									</div> 
+								</div>`;
+
+		$('#facilities-list').append(append);
+
+		$('#facilities-select option:contains(' + elem + ')').attr({disabled: true });
+	}
+}
+
 $(document).ready(function(){
 
-	var facilitiesList = [];
+	// Si nous modifions un bien, on récupère et on affiche les facilities déjà présentes
+	if ($('#facilities_array').val()) {
+		show_facilities();
+
+		var facilitiesValue = $('#facilities_array').val();
+		var facilitiesList = facilitiesValue.split(',');
+
+		// Sinon on commence avec une liste vide
+	} else {
+		var facilitiesList = [];
+	}
 
 	$('#facilities-select option').click(function(e){
 
@@ -148,19 +198,15 @@ $(document).ready(function(){
 
 			facilitiesList.push(e.target.text);
 
-			// On vide le tableau pusi on affiche tout
-			$('#facilities-list').empty();
-			for (const elem of facilitiesList)
-			{
-				let append = 	`<div class="d-flex justify-content-between border-bottom px-4 pb-2 pt-3"> 
-									<p class="mb-0 facilityName">${elem}</p> 
-									<div> 
-										<i class="fas fa-times-circle btn btn-danger deleteFacility"></i> 
-									</div> 
-								</div>`;
+			let append = 	`<div class="d-flex justify-content-between border-bottom px-4 pb-2 pt-3"> 
+								<p class="mb-0 facilityName">${e.target.text}</p> 
+								<div> 
+									<i class="fas fa-times-circle btn btn-danger deleteFacility"></i> 
+								</div> 
+							</div>`;
 
-				$('#facilities-list').append(append);
-			}
+			$('#facilities-list').append(append);
+
 			$('#facilities_array').val(facilitiesList.toString());
 		}
 	});
@@ -179,7 +225,6 @@ $(document).ready(function(){
 		$('#facilities-select option:contains(' + facilityName + ')').attr({disabled: false });
 
 		$('#facilities_array').val(facilitiesList.toString());
-		console.log(facilitiesList);
 	});
 });
 
@@ -208,33 +253,54 @@ $(document).ready(function() {
  */
 $(document).ready(function()
 {
+	// Correspond on nombre de pièce présente sur le bien, permets de ciblé les biens en cas de suppression / modification
 	var roomNumber = 0;
-	var estateRooms = [];
+	var estateRooms = $('#room_string').val();
+
+	// S'il y a déja des pièces (récupérées par un $_POST ou en cas d'update), on les affiche
+	if (estateRooms)
+	{
+		// On change le JSON en tableau d'objet
+		var estateJson = JSON.parse(estateRooms);
+
+		for(let room of estateJson)
+		{
+			let append = 	`<div class="d-flex justify-content-between border-bottom px-4 pb-2 pt-3"> 
+								<p class="mb-0 estateRoom" id="${roomNumber}">${room.room_types}</p> 
+								<div> 
+									<i class="fas fa-edit btn btn-primary editRoom mr-2" data-target="${roomNumber}"></i>
+									<i class="fas fa-times-circle btn btn-danger deleteRoom" data-target="${roomNumber}"></i> 
+								</div> 
+							</div>`;
+
+			$('#room_list').append(append);
+
+			roomNumber++;
+		}
+	}
+	// S'il y avait déjà des pièces
+	estateRooms = estateRooms ? JSON.parse($('#room_string').val()) : [];
 
 	$('#add_room').click(function()
 	{
-		// On récupère les valeurs de la pièce
+		// On récupère le nom de la pièce, on l'utilisera dans l'affichage
 		let roomType = $('#room_types').val();
-		let roomSize = +$('#room_size').val();
-		let roomCarrezSize = +$('#room_carrezSize').val();
-		let windowsTypes = $('#windows_types').val();
-		let wallCovering = $('#wall_coverings').val();
-		let groungCovering = $('#ground_coverings').val();
 
+		// En cas de modification d'une pièce in récupère l'id de la room
 		var room_id = $('#room_id').val();
 
-		// On réalise un tableau avec ces valeurs
+		// On réalise un tableau avec les valeurs de la pièce
 		let roomCarac = {
 			id: room_id ? +room_id : roomNumber,
 			room_types: roomType,
-			room_size: roomSize,
-			room_carrezSize: roomCarrezSize,
-			windows_types: windowsTypes,
-			wall_coverings: wallCovering,
-			ground_coverings: groungCovering
+			room_size: +$('#room_size').val(),
+			room_carrezSize: +$('#room_carrezSize').val(),
+			windows_types: $('#windows_types').val(),
+			wall_coverings: $('#wall_coverings').val(),
+			ground_coverings: $('#ground_coverings').val()
 		};
 
-		// Si un id est présent dans l'input hidden alors c'est que l'on modifie une pièce
+		// Si un id est présent dans l'input hidden room_id alors c'est que l'on modifie une pièce
 		if (room_id) {
 			// On parcours le JSON afin de retrouver la bonne pièce
 			for(let room in estateRooms) {
@@ -270,8 +336,8 @@ $(document).ready(function()
 		// Puis on vide le formulaire
 		clearRoomForm();
 
-		let roomString = JSON.stringify(estateRooms);
-		$('#room_string').val(roomString);
+		// On mets à jour l'input contenant les pièces du bien avec la version string du JSON
+		$('#room_string').val(JSON.stringify(estateRooms));
 	});
 
 	// Sur le body on déclenche la fonction en cliquant sur l'élément ayant la classe 'estateRoom'
@@ -285,25 +351,19 @@ $(document).ready(function()
 		$('#add_room').removeClass( "btn btn-primary" )
 			.addClass( "btn btn-info modify" )
 			.html( "<i class=\"fa fa-pen\"></i> Modifier la pièce" );
-		// On parcours le JSON afin de retrouver la bonne pièce
-		for(let room in estateRooms) {
-			if (estateRooms[room].id == targetId){
-				// On récupère les valeurs de la pièce dans le tableau de pièce
-				// let idRoom = estateRooms[targetId]['id'];
-				let roomType = estateRooms[room]['room_types'];
-				let roomSize = estateRooms[room]['room_size'];
-				let roomCarrezSize = estateRooms[room]['room_carrezSize'];
-				let windowsTypes = estateRooms[room]['windows_types'];
-				let wallCovering = estateRooms[room]['wall_coverings'];
-				let groungCovering = estateRooms[room]['ground_coverings'];
 
-				// Et on les affiche
-				$('#room_types').val(roomType);
-				$('#room_size').val(roomSize);
-				$('#room_carrezSize').val(roomCarrezSize);
-				$('#windows_types').val(windowsTypes);
-				$('#wall_coverings').val(wallCovering);
-				$('#ground_coverings').val(groungCovering);
+		// On parcours le JSON afin de retrouver la bonne pièce
+		for(let room in estateRooms)
+		{
+			if (estateRooms[room].id == targetId)
+			{
+				// On récupère les valeurs de la pièce dans le tableau de pièce et on les affiche
+				$('#room_types').val(estateRooms[room]['room_types']);
+				$('#room_size').val(estateRooms[room]['room_size']);
+				$('#room_carrezSize').val(estateRooms[room]['room_carrezSize']);
+				$('#windows_types').val(estateRooms[room]['windows_types']);
+				$('#wall_coverings').val(estateRooms[room]['wall_coverings']);
+				$('#ground_coverings').val(estateRooms[room]['ground_coverings']);
 
 				break;
 			}
@@ -316,21 +376,25 @@ $(document).ready(function()
 		let targetId = $(this).attr('data-target');
 
 		let choice = confirm('Supprimer cette pièce ?')
-		if (choice == true){
-			for(let room in estateRooms) {
-				if (estateRooms[room].id == targetId){
+		if (choice == true)
+		{
+			for(let room in estateRooms)
+			{
+				if (estateRooms[room].id == targetId)
+				{
 					estateRooms.splice(room,1);
 					break;
 				}
 			}
-
-			// Si le formulaire est sur la room que l'on supprime
+			// On nettoie le tableau du undefined crée par la suppression de l'élément
 			estateRooms.filter(function(x) {
 				return x !== undefined;
 			});
+			// On enlève l'élem du DOM
 			$('#'+ targetId).parent().remove();
-			if (targetId == $('#room_id').val()) {
-				// On vide le form et on change le bouton
+			// Si le formulaire était sur la pièce que l'on a supprimée, on le vide et on change le bouton
+			if (targetId == $('#room_id').val())
+			{
 				clearRoomForm();
 				$('#add_room').removeClass( "btn btn-info" )
 					.addClass( "btn btn-primary" )
@@ -338,9 +402,8 @@ $(document).ready(function()
 				$('#room_id').val('');
 			}
 		}
-
-		let roomString = JSON.stringify(estateRooms);
-		$('#room_string').val(roomString);
+		// Enfin, on mets à jour l'input contenant les pièces du bien avec la version string du JSON
+		$('#room_string').val(JSON.stringify(estateRooms));
 	});
 
 	function clearRoomForm() {
