@@ -18,11 +18,10 @@ $(function(){
 	});
 });
 
-
+/**
+ * AUTOCOMPLETION VILLE
+ **/
 $(function(){
-	/**
-	 * AUTOCOMPLETION VILLE
-	 **/
 	$('input.typeahead').typeahead({
 		delay: 100,
 		items: 30,
@@ -32,6 +31,9 @@ $(function(){
 			// let path = '/' + split[1] + '/' + split[2] + '/search';
 			let path = '/' + split[1] + '/search';
 			return $.get(path, { query: query }, function (data) {
+				console.log(url);
+				console.log(split);
+
 				data = $.parseJSON(data);
 				return process(data);
 			});
@@ -47,7 +49,7 @@ $(function(){
 
 
 /**
- * CREATION DES BIENS
+ * MENU CREATION DES BIENS
  */
 
 //si on clique sur un bouton next ou previous
@@ -117,6 +119,9 @@ function between(x,min,max){
 	return (x>=min && x<=max);
 }
 
+/**
+ * UPLOAD TEMPORAIRE IMAGE
+ */
 $(document).ready(function()
 {
 	$('#image-upload').change(function (e)
@@ -145,6 +150,9 @@ $(document).ready(function()
 	});
 });
 
+/**
+ * SUPPRESSION IMAGE TEMPORAIRE
+ */
 $('body').on('click', '.deleteImage', function (e)
 {
 	// var file = document.getElementById('image-upload').files[0];
@@ -249,11 +257,11 @@ $(document).ready(function() {
 });
 
 /**
- *	RÉCUPÉRATION DES BIENS
+ *	GESTION DES PIECES
  */
 $(document).ready(function()
 {
-	// Correspond on nombre de pièce présente sur le bien, permets de ciblé les biens en cas de suppression / modification
+	// Correspond on nombre de pièce présente sur le bien, permets de cibler les biens en cas de suppression / modification
 	var roomNumber = 0;
 	var estateRooms = $('#room_string').val();
 
