@@ -29,7 +29,7 @@ $(function(){
 			let url = new URL(window.location.href);
 			let split = url.pathname.split('/');
 			// let path = '/' + split[1] + '/' + split[2] + '/search';
-			let path = '/' + split[1] + '/search';
+			let path = '/' + split[3] + '/search';
 			return $.get(path, { query: query }, function (data) {
 				console.log(url);
 				console.log(split);
