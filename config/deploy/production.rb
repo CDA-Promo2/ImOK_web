@@ -12,6 +12,12 @@
 # role-based syntax
 # ==================
 
+role :app, %w{am_armanddimok@54.37.71.121}
+set :ssh_options, {
+    auth_methods: %w(password),
+    password: "mdzwYgGHPT_8"
+}
+
 # Defines a role with one or multiple servers. The primary server in each
 # group is considered to be the first unless any hosts have the primary
 # property set. Specify the username and a domain or IP for the server.
