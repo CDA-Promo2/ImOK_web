@@ -145,38 +145,10 @@ class Estate extends CI_Controller
 
 	public function tempUpload($fileName)
 	{
-//		var_dump($_FILES);
-
 		$tmp_name = uniqid();
 
 		var_dump($tmp_name);
 
-//		// On crée le dossier s'il n'existe pas
-//		if (!is_dir('upload/img/estate/'.$fileName)) {
-//			mkdir('./upload/img/estate/' . $fileName, 0775, TRUE);
-//		}
-//
-//		foreach ($_FILES as $key => $value)
-//		{
-//			$_FILES['file']['name'] = $value['name'];
-//			$_FILES['file']['type'] = $value['type'];
-//			$_FILES['file']['tmp_name'] = $value['tmp_name'];
-//			$_FILES['file']['error'] = $value['error'];
-//			$_FILES['file']['size'] = $value['size'];
-//
-//			// Config de l'upload
-//			$config['upload_path'] = 'upload/img/estate/'.$fileName;
-//			$config['allowed_types'] = 'jpg|jpeg|png|gif';
-//			$config['max_size'] = '2048';
-//			$config['file_name'] = $value['name'];
-//
-//			$this->load->library('upload',$config);
-//
-//			if ( !$this->upload->do_upload('file')) {
-//				// something went really wrong show error page
-//				var_dump($this->upload->display_errors());
-//			}
-//		}
 	}
 
 	public function load_estate_components()
