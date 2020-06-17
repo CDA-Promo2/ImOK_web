@@ -138,17 +138,22 @@ class Estate extends CI_Controller
 				$this->load->library('upload',$config);
 
 				$this->upload->do_upload('file');
-
 			}
 		}
 	}
 
 	public function tempUpload($fileName)
 	{
+		echo json_encode($_POST);
+		die;
+
+		echo json_encode($fileName);
+
 		$tmp_name = uniqid();
 
-		var_dump($tmp_name);
+		$this->uploadImage('tmp/'.$tmp_name);
 
+		echo json_encode($tmp_name);
 	}
 
 	public function load_estate_components()

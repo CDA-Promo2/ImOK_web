@@ -28,11 +28,11 @@ $(function(){
 		source:  function (query, process) {
 			let url = new URL(window.location.href);
 			let split = url.pathname.split('/');
-			// let path = '/' + split[1] + '/' + split[2] + '/search';
-			let path = '/' + split[3] + '/search';
+			let path = '/' + split[1] + '/search';
 			return $.get(path, { query: query }, function (data) {
-				console.log(url);
-				console.log(split);
+				// console.log(url);
+				console.log(url.pathname);
+				// console.log(path);
 
 				data = $.parseJSON(data);
 				return process(data);
@@ -124,30 +124,20 @@ function between(x,min,max){
  */
 $(document).ready(function()
 {
-	$('#image-upload').change(function (e)
-	{
-		var html = '';
-
-		// file_data : regroupe toutes les images
-		var file_data = $('#image-upload').prop('files');
-		var form_data = new FormData();
-
-		// Pour chaque images, on l'ajout au FormData
-		for (let [key, value] of Object.entries(file_data)) {
-			form_data.append(key, value);
-		}
-		$.ajax({
-			url: 'http://imok.local.fr/estate/tempUpload/100', // point to server-side PHP script
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: form_data,
-			type: 'post',
-			success: function(data){
-				console.log(data);
-			}
-		});
-	});
+	// $('#image-upload').change(function (e)
+	// {
+	// 	let imageData = document.getElementById('image-upload');
+	// 	console.log(imageData.files)
+	//
+	// 	fetch('http://imok.local.fr/estate/tempUpload/100', {
+	// 		method: 'POST',
+	// 		body: JSON.stringify({
+	// 			imageData: imageData.files
+	// 		})
+	// 	})
+	// 		.then(response => response.json())
+	// 		.then(json => console.log(json))
+	// });
 });
 
 /**
@@ -155,8 +145,6 @@ $(document).ready(function()
  */
 $('body').on('click', '.deleteImage', function (e)
 {
-	// var file = document.getElementById('image-upload').files[0];
-	// console.log(file);
 	console.log($(this).attr("data-target"));
 });
 

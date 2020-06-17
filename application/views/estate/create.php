@@ -377,7 +377,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="image-upload">Charger les images</label>
-									<input type="file" name="image-upload[]" multiple="" id="image-upload" class="form-control">
+									<input type="file" name="image-upload[]" multiple id="image-upload" class="form-control">
 									<input type="text" id="images" hidden>
 								</div>
 							</div>
