@@ -238,7 +238,7 @@ $(document).ready(function(){
  * CONFIGURATION DU WYSIWYG
  */
 $(document).ready(function() {
-	$.trumbowyg.svgPath = '/assets/img/icons.svg';
+	$.trumbowyg.svgPath = base_url + '/assets/img/icons.svg';
 	$('#description').trumbowyg({
 		btns: [
 			['undo', 'redo'], // Only supported in Blink browsers
