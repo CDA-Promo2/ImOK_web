@@ -21,32 +21,37 @@ $(function(){
 /**
  * AUTOCOMPLETION VILLE
  **/
-$(function(){
-	$('input.typeahead').typeahead({
-		delay: 100,
-		items: 30,
-		source:  function (query, process) {
-			let url = new URL(window.location.href);
-			let split = url.pathname.split('/');
-			let path = '/' + split[1] + '/search';
-			return $.get(path, { query: query }, function (data) {
-				// console.log(url);
-				console.log(url.pathname);
-				// console.log(path);
+$(document).ready(function() {
+	const citySearch = document.getElementById('city-search')
+	const cityHelper = document.getElementById('city-helper')
+	const cityId = document.getElementById('city-id')
 
-				data = $.parseJSON(data);
-				return process(data);
-			});
-		},
-		displayText: function (item) {
-			return item.name + ' (' + item.zip_code + ')';
-		},
-		afterSelect: function (data) {
-			$("#id_cities").val(data.id);
+	function updateCityInput(e) {
+		console.log(e.target.getAttribute('data-city'))
+		citySearch.value = e.target.innerHTML
+		cityId.value = e.target.getAttribute('data-city')
+		cityHelper.innerHTML = ''
+	}
+
+	citySearch.onkeyup = () => {
+		let value = citySearch.value
+		if (value.length > 1) {
+			fetch(base_url + '/cities/search?term=' + value)
+				.then(resp => resp.json())
+				.then(data => {
+					console.log(data)
+					cityHelper.innerHTML = '<ul>' + data.map(city =>
+						`<li data-city="${city.id}">${city.name} (${city.zip_code})</li>`
+					).join('') + '</ul>'
+					for (let city of cityHelper.getElementsByTagName('li')) {
+						city.addEventListener('click', (e) => {
+							updateCityInput(e)
+						})
+					}
+				})
 		}
-	});
+	}
 });
-
 
 /**
  * MENU CREATION DES BIENS
