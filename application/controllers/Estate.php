@@ -19,8 +19,8 @@ class Estate extends CI_Controller
 		$data['title'] = 'Accueil de biens';
 		$data['estateList'] = $this->Estate_model->getAllEstates();
 		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
-														->add('Liste des Biens', site_url('estate'))
-														->createView();
+			->add('Liste des Biens', site_url('estate'))
+			->createView();
 
 		// Chargement des vues, avec envoi du tableau $data
 		$this->load->view('common/_header', $data);
@@ -34,25 +34,44 @@ class Estate extends CI_Controller
 		$data['title'] = 'Ajout d\'un bien';
 		// S'il n'a pas d'erreurs
 		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
-														->add('Liste des Biens', site_url('estate'))
-														->add('Création du Bien', site_url('estate/create'))
-														->createView();
+			->add('Liste des Biens', site_url('estate'))
+			->add('Création du Bien', site_url('estate/create'))
+			->createView();
 
 		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
-		// form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
 		if ($this->form_validation->run() === TRUE) {
-//		if ($_POST) {
-			// On crée le bien
 			$this->Estate_model->createEstate();
-			// On récupère son id
-			$lastId = $this->db->insert_id();
-			$this->uploadImage($lastId);
-			redirect(base_url('index.php/estate/details/'.$lastId));
+			$id = $this->db->insert_id();
+			$this->uploadImage($id);
+			redirect(base_url('index.php/estate/details/'.$id));
 		}
 
 		// Chargement des vues, avec envoi du tableau $data
 		$this->load->view('common/_header', $data);
 		$this->load->view('estate/create', $data);
+		$this->load->view('common/_footer', $data);
+	}
+
+	public function edit($id)
+	{
+		$data = $this->load_estate_components();
+		$data['title'] = 'Modification d\'un bien';
+
+		$data['estate'] = $this->Estate_model->getEstates($id);
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+			->add('Liste des Biens', site_url('estate'))
+			->add('Modification du Bien', site_url('estate/edit'))
+			->createView();
+
+		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
+		if ($this->form_validation->run() === TRUE) {
+			$this->Estate_model->updateEstate($id);
+			$this->uploadImage($id);
+			redirect(base_url('index.php/estate/details/'.$id));
+		}
+
+		$this->load->view('common/_header', $data);
+		$this->load->view('estate/edit', $data);
 		$this->load->view('common/_footer', $data);
 	}
 
@@ -94,22 +113,6 @@ class Estate extends CI_Controller
 		$this->load->view('common/_footer', $data);
 	}
 
-	public function edit($id)
-	{
-		$data = $this->load_estate_components();
-		$data['title'] = 'Modification d\'un bien';
-
-		$data['estate'] = $this->Estate_model->getEstates($id);
-		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
-														->add('Liste des Biens', site_url('estate'))
-														->add('Modification du Bien', site_url('estate/edit'))
-														->createView();
-
-		$this->load->view('common/_header', $data);
-		$this->load->view('estate/edit', $data);
-		$this->load->view('common/_footer', $data);
-	}
-
 	public function uploadImage($id)
 	{
 		// On compte le nombre de photo
@@ -144,16 +147,10 @@ class Estate extends CI_Controller
 
 	public function tempUpload($fileName)
 	{
-		echo json_encode($_POST);
-		die;
-
-		echo json_encode($fileName);
-
-		$tmp_name = uniqid();
-
-		$this->uploadImage('tmp/'.$tmp_name);
-
-		echo json_encode($tmp_name);
+//		echo json_encode($fileName);
+//		$tmp_name = uniqid();
+//		$this->uploadImage('tmp/'.$tmp_name);
+//		echo json_encode($tmp_name);
 	}
 
 	public function load_estate_components()
