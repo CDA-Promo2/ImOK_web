@@ -27,7 +27,6 @@ $(document).ready(function() {
 	const cityId = document.getElementById('city-id')
 
 	function updateCityInput(e) {
-		console.log(e.target.getAttribute('data-city'))
 		citySearch.value = e.target.innerHTML
 		cityId.value = e.target.getAttribute('data-city')
 		cityHelper.innerHTML = ''
@@ -39,7 +38,6 @@ $(document).ready(function() {
 			fetch(base_url + '/cities/search?term=' + value)
 				.then(resp => resp.json())
 				.then(data => {
-					console.log(data)
 					cityHelper.innerHTML = '<ul>' + data.map(city =>
 						`<li data-city="${city.id}">${city.name} (${city.zip_code})</li>`
 					).join('') + '</ul>'
@@ -51,6 +49,40 @@ $(document).ready(function() {
 				})
 		}
 	}
+});
+
+/**
+ * 	RECHERCHE DE BIENS
+ */
+$(document).ready(function () {
+
+	const inputSearch = document.getElementById('search-estate');
+	const estateList = document.getElementById('estate-card');
+
+	inputSearch.onkeyup = () => {
+		let value = inputSearch.value
+		fetch(base_url + 'estate/searchEstate?term=' + value)
+			.then(resp => resp.json())
+			.then(data => {
+				estateList.innerHTML = ''
+				for (const estate of data) {
+					estateList.innerHTML +=
+						`<div class="col-11 mb-2">
+						<div class="card">
+							<a class="link-wrapper" href="estate/details/${estate.id}"></a>
+							<img class="card-img-top" src="https://picsum.photos/300/200?random=${ Math.floor(Math.random() * 21)}" alt="Card image cap">
+							<div class="card-body">
+								<p class="small mb-0">Type de bien : ${estate.estate_type}</p>
+								<p class="small mb-0">${estate.rooms_numbers ? estate.rooms_numbers : '-'} pièce(s)</p>
+								<p class="small mb-0">Ville : ${estate.city ? estate.city : '-'}</p>
+								<p class="small mb-0">Prix : ${estate.price ? estate.price : '-'} €</p>
+							</div>
+						</div>
+					</div>`
+				}
+			})
+	}
+
 });
 
 /**

@@ -75,6 +75,16 @@ class Estate extends CI_Controller
 		$this->load->view('common/_footer', $data);
 	}
 
+	public function searchEstate()
+	{
+		$term = $this->input->get('term');
+		$this->db->like('city', $term);
+		$this->db->or_like('zip_code', $term);
+		$data = $this->db->get('estate_view')->result();
+
+		echo json_encode($data);
+	}
+
 	public function search()
 	{
 		$term = $this->input->get('term');
