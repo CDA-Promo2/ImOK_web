@@ -3,6 +3,8 @@
 
 <div class="container">
 
+	<?php var_dump($_POST) ?>
+
 	<?= $breadcrumb ?? '<div class="my-5">breadcrumbs</div>' ?>
 
 	<div class="bg-white shadow">
@@ -58,8 +60,8 @@
 							<div class="col-12">
 								<div class="form-group required">
 									<label for="city-search">Ville</label><?= form_error('id_cities') ?>
-									<input type="hidden" id="city-id" name="city-id" value="<?= $_POST['id_cities'] ?? '' ?>" style="height: 20px;">
-									<input id="city-search" name="city-search" class="typeahead form-control" type="text" value="<?= $_POST['city'] ?? '' ?>">
+									<input type="hidden" id="city-id" name="city-id" value="<?= $_POST['city-id'] ?? '' ?>" style="height: 20px;">
+									<input id="city-search" name="city-search" class="typeahead form-control" type="text" value="<?= $_POST['city-search'] ?? '' ?>">
 									<div id="city-helper"></div>
 								</div>
 							</div>

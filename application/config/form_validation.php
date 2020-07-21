@@ -32,7 +32,7 @@ $id_marital_status = [
 	'rules' => ['trim','required','max_length[1]','integer']
 ];
 $id_cities = [
-	'field' => 'id_cities',
+	'field' => 'city-id',
 	'label' => 'Ville',
 	'rules' => ['trim','required','max_length[5]','integer']
 ];
