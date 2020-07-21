@@ -20,7 +20,7 @@ class Estate_model extends CI_Model {
 		$data = [
 			// Input partie 1
 			'id_customers' =>  $this->input->post('id_customers'),
-			'id_cities' => $this->input->post('id_cities'),
+			'id_cities' => $this->input->post('city-id'),
 			'street' => $this->input->post('street'),
 			'complement' => $this->input->post('complement'),
 			'renovation' => $this->input->post('renovation'),
