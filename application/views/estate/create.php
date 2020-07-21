@@ -2,9 +2,6 @@
 <div class="background-filter"></div>
 
 <div class="container">
-
-	<?php var_dump($_POST) ?>
-
 	<?= $breadcrumb ?? '<div class="my-5">breadcrumbs</div>' ?>
 
 	<div class="bg-white shadow">
