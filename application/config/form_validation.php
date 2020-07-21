@@ -155,12 +155,12 @@ $id_expositions = [
 $size = [
 	'field' => 'size',
 	'label' => 'Surface',
-	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
+	'rules' => ['trim','max_length[7]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $carrez_size = [
 	'field' => 'carrez_size',
 	'label' => 'Surface (loi Carrez)',
-	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
+	'rules' => ['trim','max_length[7]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $rooms_numbers = [
 	'field' => 'rooms_numbers',
@@ -196,12 +196,12 @@ $gas_emission = [
 $condominium_fees = [
 	'field' => 'condominium_fees',
 	'label' => 'Charge de copropriété',
-	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
+	'rules' => ['trim','max_length[7]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $annual_fees = [
 	'field' => 'annual_fees',
 	'label' => 'Charge annuelle',
-	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
+	'rules' => ['trim','max_length[7]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $price = [
 	'field' => 'price',
@@ -211,12 +211,12 @@ $price = [
 $housing_tax = [
 	'field' => 'housing_tax',
 	'label' => 'Taxe d\'habitation',
-	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
+	'rules' => ['trim','max_length[7]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 $property_tax = [
 	'field' => 'property_tax',
 	'label' => 'Taxe foncière',
-	'rules' => ['trim','max_length[5]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
+	'rules' => ['trim','max_length[7]','regex_match[/^[0-9]+([,.][0-9]+)?$/]']
 ];
 
 $facilities_array = [
@@ -243,6 +243,9 @@ $config = [
 	'employee/passwordrecovery/1' => [$mail],
 	'employee/passwordrecovery/2' => [$password,$password_confirm],
 	'estate/create' => [$id_customers, $id_cities, $street, $complement, $renovation, $id_estate_types, $floor, $id_build_dates, $condominium, $joint_ownership,
+		$floor_number, $id_expositions, $size, $carrez_size, $rooms_numbers, $bedroom_numbers, $id_outside_conditions, $id_heating_types, $energy_consumption,
+		$gas_emission, $condominium_fees, $annual_fees, $price, $housing_tax, $property_tax, $facilities_array],
+	'estate/edit' => [$id_customers, $id_cities, $street, $complement, $renovation, $id_estate_types, $floor, $id_build_dates, $condominium, $joint_ownership,
 		$floor_number, $id_expositions, $size, $carrez_size, $rooms_numbers, $bedroom_numbers, $id_outside_conditions, $id_heating_types, $energy_consumption,
 		$gas_emission, $condominium_fees, $annual_fees, $price, $housing_tax, $property_tax, $facilities_array]
 ];

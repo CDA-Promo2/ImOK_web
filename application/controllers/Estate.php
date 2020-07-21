@@ -19,8 +19,8 @@ class Estate extends CI_Controller
 		$data['title'] = 'Accueil de biens';
 		$data['estateList'] = $this->Estate_model->getAllEstates();
 		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
-														->add('Liste des Biens', site_url('estate'))
-														->createView();
+			->add('Liste des Biens', site_url('estate'))
+			->createView();
 
 		// Chargement des vues, avec envoi du tableau $data
 		$this->load->view('common/_header', $data);
@@ -34,26 +34,55 @@ class Estate extends CI_Controller
 		$data['title'] = 'Ajout d\'un bien';
 		// S'il n'a pas d'erreurs
 		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
-														->add('Liste des Biens', site_url('estate'))
-														->add('Création du Bien', site_url('estate/create'))
-														->createView();
+			->add('Liste des Biens', site_url('estate'))
+			->add('Création du Bien', site_url('estate/create'))
+			->createView();
 
 		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
-		// form_validation->run() renvoi TRUE si toutes les règles ont été appliquées sans erreurs
 		if ($this->form_validation->run() === TRUE) {
-//		if ($_POST) {
-			// On crée le bien
 			$this->Estate_model->createEstate();
-			// On récupère son id
-			$lastId = $this->db->insert_id();
-			$this->uploadImage($lastId);
-			redirect(base_url('index.php/estate/details/'.$lastId));
+			$id = $this->db->insert_id();
+			$this->uploadImage($id);
+			redirect(base_url('index.php/estate/details/'.$id));
 		}
 
 		// Chargement des vues, avec envoi du tableau $data
 		$this->load->view('common/_header', $data);
 		$this->load->view('estate/create', $data);
 		$this->load->view('common/_footer', $data);
+	}
+
+	public function edit($id)
+	{
+		$data = $this->load_estate_components();
+		$data['title'] = 'Modification d\'un bien';
+
+		$data['estate'] = $this->Estate_model->getEstates($id);
+		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
+			->add('Liste des Biens', site_url('estate'))
+			->add('Modification du Bien', site_url('estate/edit'))
+			->createView();
+
+		// S'il n'y a pas d'erreurs lors de l'application des règles de vérification
+		if ($this->form_validation->run() === TRUE) {
+			$this->Estate_model->updateEstate($id);
+			$this->uploadImage($id);
+			redirect(base_url('index.php/estate/details/'.$id));
+		}
+
+		$this->load->view('common/_header', $data);
+		$this->load->view('estate/edit', $data);
+		$this->load->view('common/_footer', $data);
+	}
+
+	public function searchEstate()
+	{
+		$term = $this->input->get('term');
+		$this->db->like('city', $term);
+		$this->db->or_like('zip_code', $term);
+		$data = $this->db->get('estate_view')->result();
+
+		echo json_encode($data);
 	}
 
 	public function search()
@@ -94,22 +123,6 @@ class Estate extends CI_Controller
 		$this->load->view('common/_footer', $data);
 	}
 
-	public function edit($id)
-	{
-		$data = $this->load_estate_components();
-		$data['title'] = 'Modification d\'un bien';
-
-		$data['estate'] = $this->Estate_model->getEstates($id);
-		$data['breadcrumb'] = $this->breadcrumbcomponent->add('Accueil', site_url())
-														->add('Liste des Biens', site_url('estate'))
-														->add('Modification du Bien', site_url('estate/edit'))
-														->createView();
-
-		$this->load->view('common/_header', $data);
-		$this->load->view('estate/edit', $data);
-		$this->load->view('common/_footer', $data);
-	}
-
 	public function uploadImage($id)
 	{
 		// On compte le nombre de photo
@@ -138,45 +151,16 @@ class Estate extends CI_Controller
 				$this->load->library('upload',$config);
 
 				$this->upload->do_upload('file');
-
 			}
 		}
 	}
 
 	public function tempUpload($fileName)
 	{
-//		var_dump($_FILES);
-
-		$tmp_name = uniqid();
-
-		var_dump($tmp_name);
-
-//		// On crée le dossier s'il n'existe pas
-//		if (!is_dir('upload/img/estate/'.$fileName)) {
-//			mkdir('./upload/img/estate/' . $fileName, 0775, TRUE);
-//		}
-//
-//		foreach ($_FILES as $key => $value)
-//		{
-//			$_FILES['file']['name'] = $value['name'];
-//			$_FILES['file']['type'] = $value['type'];
-//			$_FILES['file']['tmp_name'] = $value['tmp_name'];
-//			$_FILES['file']['error'] = $value['error'];
-//			$_FILES['file']['size'] = $value['size'];
-//
-//			// Config de l'upload
-//			$config['upload_path'] = 'upload/img/estate/'.$fileName;
-//			$config['allowed_types'] = 'jpg|jpeg|png|gif';
-//			$config['max_size'] = '2048';
-//			$config['file_name'] = $value['name'];
-//
-//			$this->load->library('upload',$config);
-//
-//			if ( !$this->upload->do_upload('file')) {
-//				// something went really wrong show error page
-//				var_dump($this->upload->display_errors());
-//			}
-//		}
+//		echo json_encode($fileName);
+//		$tmp_name = uniqid();
+//		$this->uploadImage('tmp/'.$tmp_name);
+//		echo json_encode($tmp_name);
 	}
 
 	public function load_estate_components()

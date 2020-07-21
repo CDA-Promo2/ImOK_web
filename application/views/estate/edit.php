@@ -55,9 +55,10 @@
 							</div>
 							<div class="col-12">
 								<div class="form-group required">
-									<label for="city">Ville</label><?= form_error('id_cities') ?>
-									<input type="hidden" id="id_cities" name="id_cities" value="<?= $estate->id_cities ?? '' ?>" style="height: 20px;">
-									<input id="city" name="city" class="typeahead form-control" type="text" value="<?= isset($estate->id_cities) ? $estate->city . ' (' . $estate->zip_code .')' : '' ?>">
+									<label for="city-search">Ville</label><?= form_error('id_cities') ?>
+									<input type="hidden" id="city-id" name="city-id" value="<?= $estate->id_cities ?? '' ?>" style="height: 20px;">
+									<input id="city-search" name="city-search" class="typeahead form-control" type="text" value="<?= isset($estate->id_cities) ? $estate->city . ' (' . $estate->zip_code .')' : '' ?>">
+									<div id="city-helper"></div>
 								</div>
 							</div>
 						</div>

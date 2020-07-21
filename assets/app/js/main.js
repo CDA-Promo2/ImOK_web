@@ -18,36 +18,75 @@ $(function(){
 	});
 });
 
+/**
+ * AUTOCOMPLETION VILLE
+ **/
+$(document).ready(function() {
+	const citySearch = document.getElementById('city-search')
+	const cityHelper = document.getElementById('city-helper')
+	const cityId = document.getElementById('city-id')
 
-$(function(){
-	/**
-	 * AUTOCOMPLETION VILLE
-	 **/
-	$('input.typeahead').typeahead({
-		delay: 100,
-		items: 30,
-		source:  function (query, process) {
-			let url = new URL(window.location.href);
-			let split = url.pathname.split('/');
-			// let path = '/' + split[1] + '/' + split[2] + '/search';
-			let path = '/' + split[1] + '/search';
-			return $.get(path, { query: query }, function (data) {
-				data = $.parseJSON(data);
-				return process(data);
-			});
-		},
-		displayText: function (item) {
-			return item.name + ' (' + item.zip_code + ')';
-		},
-		afterSelect: function (data) {
-			$("#id_cities").val(data.id);
+	function updateCityInput(e) {
+		citySearch.value = e.target.innerHTML
+		cityId.value = e.target.getAttribute('data-city')
+		cityHelper.innerHTML = ''
+	}
+
+	citySearch.onkeyup = () => {
+		let value = citySearch.value
+		if (value.length > 1) {
+			fetch(base_url + '/cities/search?term=' + value)
+				.then(resp => resp.json())
+				.then(data => {
+					cityHelper.innerHTML = '<ul>' + data.map(city =>
+						`<li data-city="${city.id}">${city.name} (${city.zip_code})</li>`
+					).join('') + '</ul>'
+					for (let city of cityHelper.getElementsByTagName('li')) {
+						city.addEventListener('click', (e) => {
+							updateCityInput(e)
+						})
+					}
+				})
 		}
-	});
+	}
 });
 
+/**
+ * 	RECHERCHE DE BIENS
+ */
+$(document).ready(function () {
+
+	const inputSearch = document.getElementById('search-estate');
+	const estateList = document.getElementById('estate-card');
+
+	inputSearch.onkeyup = () => {
+		let value = inputSearch.value
+		fetch(base_url + 'estate/searchEstate?term=' + value)
+			.then(resp => resp.json())
+			.then(data => {
+				estateList.innerHTML = ''
+				for (const estate of data) {
+					estateList.innerHTML +=
+						`<div class="col-11 mb-2">
+						<div class="card">
+							<a class="link-wrapper" href="estate/details/${estate.id}"></a>
+							<img class="card-img-top" src="https://picsum.photos/300/200?random=${ Math.floor(Math.random() * 21)}" alt="Card image cap">
+							<div class="card-body">
+								<p class="small mb-0">Type de bien : ${estate.estate_type}</p>
+								<p class="small mb-0">${estate.rooms_numbers ? estate.rooms_numbers : '-'} pièce(s)</p>
+								<p class="small mb-0">Ville : ${estate.city ? estate.city : '-'}</p>
+								<p class="small mb-0">Prix : ${estate.price ? estate.price : '-'} €</p>
+							</div>
+						</div>
+					</div>`
+				}
+			})
+	}
+
+});
 
 /**
- * CREATION DES BIENS
+ * MENU CREATION DES BIENS
  */
 
 //si on clique sur un bouton next ou previous
@@ -117,38 +156,32 @@ function between(x,min,max){
 	return (x>=min && x<=max);
 }
 
+/**
+ * UPLOAD TEMPORAIRE IMAGE
+ */
 $(document).ready(function()
 {
-	$('#image-upload').change(function (e)
-	{
-		var html = '';
-
-		// file_data : regroupe toutes les images
-		var file_data = $('#image-upload').prop('files');
-		var form_data = new FormData();
-
-		// Pour chaque images, on l'ajout au FormData
-		for (let [key, value] of Object.entries(file_data)) {
-			form_data.append(key, value);
-		}
-		$.ajax({
-			url: 'http://imok.local.fr/estate/tempUpload/100', // point to server-side PHP script
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: form_data,
-			type: 'post',
-			success: function(data){
-				console.log(data);
-			}
-		});
-	});
+	// $('#image-upload').change(function (e)
+	// {
+	// 	let imageData = document.getElementById('image-upload');
+	// 	console.log(imageData.files)
+	//
+	// 	fetch('http://imok.local.fr/estate/tempUpload/100', {
+	// 		method: 'POST',
+	// 		body: JSON.stringify({
+	// 			imageData: imageData.files
+	// 		})
+	// 	})
+	// 		.then(response => response.json())
+	// 		.then(json => console.log(json))
+	// });
 });
 
+/**
+ * SUPPRESSION IMAGE TEMPORAIRE
+ */
 $('body').on('click', '.deleteImage', function (e)
 {
-	// var file = document.getElementById('image-upload').files[0];
-	// console.log(file);
 	console.log($(this).attr("data-target"));
 });
 
@@ -237,7 +270,7 @@ $(document).ready(function(){
  * CONFIGURATION DU WYSIWYG
  */
 $(document).ready(function() {
-	$.trumbowyg.svgPath = '/assets/img/icons.svg';
+	$.trumbowyg.svgPath = base_url + '/assets/img/icons.svg';
 	$('#description').trumbowyg({
 		btns: [
 			['undo', 'redo'], // Only supported in Blink browsers
@@ -249,11 +282,11 @@ $(document).ready(function() {
 });
 
 /**
- *	RÉCUPÉRATION DES BIENS
+ *	GESTION DES PIECES
  */
 $(document).ready(function()
 {
-	// Correspond on nombre de pièce présente sur le bien, permets de ciblé les biens en cas de suppression / modification
+	// Correspond on nombre de pièce présente sur le bien, permets de cibler les biens en cas de suppression / modification
 	var roomNumber = 0;
 	var estateRooms = $('#room_string').val();
 

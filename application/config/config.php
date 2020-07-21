@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://imok-web';
+//$config['base_url'] = 'http://imok.local.fr';
+$config['base_url'] = 'http://imok.am.manusien-ecolelamanu.fr/imok_web/current/';
 
 /*
 |--------------------------------------------------------------------------

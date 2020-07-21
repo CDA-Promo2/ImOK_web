@@ -1,5 +1,3 @@
-<?php var_dump($_POST); ?>
-
 <div class="background"></div>
 <div class="background-filter"></div>
 
@@ -59,9 +57,10 @@
 							</div>
 							<div class="col-12">
 								<div class="form-group required">
-									<label for="city">Ville</label><?= form_error('id_cities') ?>
-									<input type="hidden" id="id_cities" name="id_cities" value="<?= $_POST['id_cities'] ?? '' ?>" style="height: 20px;">
-									<input id="city" name="city" class="typeahead form-control" type="text" value="<?= $_POST['city'] ?? '' ?>">
+									<label for="city-search">Ville</label><?= form_error('id_cities') ?>
+									<input type="hidden" id="city-id" name="city-id" value="<?= $_POST['id_cities'] ?? '' ?>" style="height: 20px;">
+									<input id="city-search" name="city-search" class="typeahead form-control" type="text" value="<?= $_POST['city'] ?? '' ?>">
+									<div id="city-helper"></div>
 								</div>
 							</div>
 						</div>
@@ -377,7 +376,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="image-upload">Charger les images</label>
-									<input type="file" name="image-upload[]" multiple="" id="image-upload" class="form-control">
+									<input type="file" name="image-upload[]" multiple id="image-upload" class="form-control">
 									<input type="text" id="images" hidden>
 								</div>
 							</div>
