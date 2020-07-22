@@ -32,7 +32,7 @@ $id_marital_status = [
 	'rules' => ['trim','required','max_length[1]','integer']
 ];
 $id_cities = [
-	'field' => 'id_cities',
+	'field' => 'city-id',
 	'label' => 'Ville',
 	'rules' => ['trim','required','max_length[5]','integer']
 ];
@@ -236,7 +236,7 @@ $config = [
     'customer/create' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
 	'customer/edit' => [ $lastname, $firstname, $street, $complement, $phone, $id_cities, $mail, $civility, $birthdate, $date_register],
 	'employee/create' => [$lastname, $firstname, $mail, $phone, $id_roles],
-	'employee/edit' => [$lastname, $firstname, $mail, $phone, $id_roles],
+	'employee/edit' => [$lastname, $firstname, $street, $mail, $phone, $id_roles],
 	'employee/password' => [$password,$password_confirm],
 	'appointment/create' => [$date_start, $note, $id_appointment_types, $id_customers, $id_employees],
 	'appointment/edit' => [$date_start, $note, $feedback, $id_appointment_types, $id_customers, $id_employees],

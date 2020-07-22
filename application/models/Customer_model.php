@@ -47,7 +47,7 @@ class Customer_model extends CI_Model {
             'birthdate' => $this->input->post('birthdate'),
             'date_register' => $this->input->post('date_register'),
             'id_marital_status' => $this->input->post('id_marital_status'),
-            'id_cities' => $this->input->post('id_cities'),
+            'id_cities' => $this->input->post('city-id'),
         ];
         $data = $this->security->xss_clean($data);
         return $this->db->insert('customers', $data);
@@ -60,7 +60,7 @@ class Customer_model extends CI_Model {
 
         // Méthode pour récupérer les info d'un client
         public function getClientById($id) {
-            $this->db->select(['customers.*', 'marital_status.name as name_status', 'cities.name as name_cities', 'cities.zip_code as zipcode']);
+            $this->db->select(['customers.*', 'marital_status.name as name_status', 'cities.name as name_cities', 'cities.zip_code as zip_code', 'cities.zip_code as zipcode']);
             $this->db->join('marital_status', 'customers.id_marital_status = marital_status.id');
             $this->db->join('cities', 'customers.id_cities = cities.id');
             $this->db->where('customers.id', $id);
@@ -71,6 +71,7 @@ class Customer_model extends CI_Model {
 
         public function updateCustomer($id) {
             $data = array(
+                // 'civility' => $this->input->post('civility'),
                 'firstname' => $this->input->post('firstname'),
                 'lastname' => $this->input->post('lastname'),
                 'street' => $this->input->post('street'),
@@ -80,7 +81,7 @@ class Customer_model extends CI_Model {
                 'birthdate' => $this->input->post('birthdate'),
                 'date_register' => $this->input->post('date_register'),
                 'id_marital_status' => $this->input->post('id_marital_status'),
-                'id_cities' => $this->input->post('id_cities'),
+                'id_cities' => $this->input->post('city-id'),
             );
             $this->db->where('id', $id);
             $data = $this->security->xss_clean($data);
