@@ -12,6 +12,10 @@
 				<input type="radio" name="civility" value="0" <?= $client->civility == 1 ? 'checked' : ''?>> Madame
 				<input type="radio" name="civility" value="1" <?= $client->civility == 0 ? 'checked' : ''?>> Monsieur
 			</div>
+			
+			<div class="form-group my-1">
+				<input type="hidden" name="date_register" value="<?= $client->date_register ?? '' ?>">
+			</div>
 			<div class="form-group my-1 required">
 				<label for="lastname">Nom</label> <?= form_error('lastname') ?>
 				<input type="text" placeholder="Nom du client" id="lastname" name="lastname" class="form-control" value="<?= $client->lastname ?? '' ?>">
