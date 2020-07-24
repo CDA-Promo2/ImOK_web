@@ -12,6 +12,10 @@
 				<input type="radio" name="civility" value="0" <?= $client->civility == 1 ? 'checked' : ''?>> Madame
 				<input type="radio" name="civility" value="1" <?= $client->civility == 0 ? 'checked' : ''?>> Monsieur
 			</div>
+			
+			<div class="form-group my-1">
+				<input type="hidden" name="date_register" value="<?= $client->date_register ?? '' ?>">
+			</div>
 			<div class="form-group my-1 required">
 				<label for="lastname">Nom</label> <?= form_error('lastname') ?>
 				<input type="text" placeholder="Nom du client" id="lastname" name="lastname" class="form-control" value="<?= $client->lastname ?? '' ?>">
@@ -41,10 +45,11 @@
 				<?= form_error('complement') ?>
 				<input type="text" placeholder="Complément d'adresse du client" id="complement" name="complement" class="form-control" value="<?= $client->complement ?? '' ?>">
 			</div>
-			<div class="form-group my-1 required">
-				<label for="id_cities">Ville</label><?= form_error('id_cities') ?>
-				<input type="hidden" id="id_cities" name="id_cities" value="<?= $client->id_cities ?? '' ?>"/>
-				<input id="city" placeholder="Ville du client (en autocompletion)" name="city" class="typeahead form-control" type="text" value="<?= $client->name_cities ?? '' ?>">
+			<div class="form-group required">
+				<label for="city-search">Ville</label><?= form_error('id_cities') ?>
+				<input type="hidden" id="city-id" name="city-id" value="<?= $client->id_cities ?? '' ?>" style="height: 20px;">
+				<input id="city-search" name="city-search" class="typeahead form-control" type="text" value="<?= isset($client->id_cities) ? $client->name_cities . ' (' . $client->zip_code .')' : '' ?>">
+				<div id="city-helper"></div>
 			</div>
 			<div class="form-group my-1 required">
 				<label for="phone">Telephone</label> <?= form_error('phone') ?>

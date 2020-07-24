@@ -53,10 +53,11 @@
 				<input type="email" id="mail" placeholder="Mail du client" name="mail" class="form-control" value="<?= $_POST['mail'] ?? '' ?>">
 			</div>
 
-			<div class="form-group my-1 required">
-				<label for="id_cities">Ville</label><?= form_error('id_cities') ?>
-				<input type="hidden" id="id_cities" name="id_cities" value="<?= $_POST['id_cities'] ?? '' ?>"/>
-				<input id="city" placeholder="Ville du client (en autocompletion)" name="city" class="typeahead form-control" type="text" value="">
+			<div class="form-group required">
+				<label for="city-search">Ville</label><?= form_error('id_cities') ?>
+				<input type="hidden" id="city-id" name="city-id" value="<?= $_POST['city-id'] ?? '' ?>" style="height: 20px;">
+				<input id="city-search" name="city-search" class="typeahead form-control" type="text" value="<?= $_POST['city-search'] ?? '' ?>">
+				<div id="city-helper"></div>
 			</div>
 			<div class="mt-3 d-flex justify-content-end">
 				<a href="<?= site_url('customer/') ?>" class="btn btn-secondary mr-3">Retour</a>

@@ -39,6 +39,7 @@ class Appointment_model extends CI_Model {
     public function updateAppointments($id_customers, $id_employees, $date_start) {
         $data = array(
             'date_start' => $this->input->post('date_start'),
+            'feedback' => $this->input->post('feedback'),
             'note' => $this->input->post('note'),
             'id_appointment_types' => $this->input->post('id_appointment_types'),
             'id_customers' => $this->input->post('id_customers'),
