@@ -53,6 +53,14 @@ class Employee_model extends CI_Model {
 		return $this->db->where('id',$id)->update('employees',$data);
 	}
 
+	public function archive($id){
+		$data = [
+			'archived' => $this->input->post('1')
+		];
+		$data = $this->security->xss_clean($data);
+		return $this->db->where('id',$id)->update('employees',$data);
+	}
+	
 	public function update_password($id){
 		$data = [
 			'first_connection' => 0,

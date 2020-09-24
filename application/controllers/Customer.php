@@ -99,7 +99,7 @@ class Customer extends CI_Controller {
                 // On appel la méthodes du model Client afin de mettre à jour le client d'id = $id
                 $this->Customer_model->updateCustomer($id);
                 // Puis on se redirige vers l'accueil
-                redirect(base_url());
+                redirect(base_url('index.php/customer/'));
             }
         }
         // Récupération des informations du client choisi

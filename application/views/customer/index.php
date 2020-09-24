@@ -34,6 +34,7 @@
 						<td><?= $customer->mail ?></td>
 						<td class="d-flex justify-content-end">
 							<a href="<?= site_url('customer/details/' . $customer->id) ?>" class="btn btn-outline-secondary mx-1"><i class="fas fa-user-tie"></i></a>
+							<a href="<?= site_url('customer/details/' . $customer->id) ?>" class="btn btn-outline-danger mx-1"><i class="fas fa-archive"></i></a>
 						</td>
 					</tr>
 				<?php } ?>

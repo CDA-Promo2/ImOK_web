@@ -51,7 +51,7 @@
 			<li class="menu-group">
 				<h3 class="menu-title">Bien immobiliers</h3>
 				<ul class="menu-content">
-					<li><a href="<?= site_url('estate')?>" title="Liste des biens">Liste des bien</a></li>
+					<li><a href="<?= site_url('estate')?>" title="Liste des biens">Liste des biens</a></li>
 					<li><a href="<?= site_url('estate/create')?>" title="Enregistrer un bien">Enregistrer un bien</a></li>
 				</ul>
 			</li>

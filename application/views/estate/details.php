@@ -198,10 +198,14 @@
 					</div>
 				</div>
 				<div class="col-12 mb-4">
-					<a href="../edit/<?= $estate->id ?>" class="d-block btn btn-info">
-						<i class="fa fa-pen"></i>
-						Mettre à jour le bien
-					</a>
+				<a href="../edit/<?= $estate->id ?>" class="d-block btn btn-info">
+					<i class="fa fa-pen"></i>
+					Mettre à jour le bien
+				</a>
+				<a href="../edit/<?= $estate->id ?>" class="d-block btn btn-danger mt-1">
+					<i class="fa fa-archive"></i>
+					Arhiver
+				</a>
 				</div>
 				<div class="col-12 mb-2">
 					<h3 class="text-bold h6 text-uppercase">Collaborateur en charge du bien</h3>

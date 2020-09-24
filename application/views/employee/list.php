@@ -26,7 +26,10 @@
 					<td><?=$employee->lastname?></td>
 					<td><?=$employee->firstname?></td>
 					<td><?=$employee->role?></td>
-					<td><a href="<?=site_url('employee/edit/'.$employee->id)?>" class="btn btn-outline-secondary mx-1"><i class="fas fa-user-tie"></i></a></td>
+					<td>
+						<a href="<?=site_url('employee/edit/'.$employee->id)?>" class="btn btn-outline-secondary mx-1"><i class="fas fa-user-tie"></i></a>
+						<a href="<?=site_url('employee/edit/'.$employee->id)?>" class="btn btn-outline-danger mx-1"><i class="fas fa-archive"></i></a>
+					</td>
 				</tr>
 			<?php } ?>
 

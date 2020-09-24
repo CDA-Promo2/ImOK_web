@@ -15,11 +15,11 @@
 					<div class="form-group required">
 						<label for="date_start">Date et heure de début</label>
 						<?= form_error('date_start') ?>
-						<input type="datetime-local" placeholder="Date et heure du début du rendez-vous" id="date_start" name="date_start" class="form-control" value="<?= $_POST['date_start'] ?? '' ?>">
+						<input type="text" placeholder="Date et heure du début du rendez-vous" id="date_start datepicker" name="date_start" class="form-control" value="<?= $_POST['date_start'] ?? '' ?>">
 					</div>
 
 					<div class="form-group required">
-							<label for="id_appointment_types">Employé</label><?= form_error('id_appointment_types') ?>
+							<label for="id_appointment_types">Type de rendez-vous</label><?= form_error('id_appointment_types') ?>
 							<select type="text" name="id_appointment_types" id="id_appointment_types" class="form-control">
 								<option selected disabled>Veuillez choisir le type de rendez-vous</option>
 								<?php foreach ($appointment_types as $description): ?>
@@ -63,7 +63,7 @@
 			
 			<div class="form-group my-1">
 				<label for="note">Note</label> <?= form_error('note') ?>
-				<input type="textarea" placeholder="Note" id="note" name="note" class="form-control" value="<?= $_POST['note'] ?? '' ?>">
+				<textarea type="text" placeholder="Note" id="note" name="note" class="form-control" value="<?= $_POST['note'] ?? '' ?>"></textarea>
 			</div>
 
 			<div class="row justify-content-around my-5">
@@ -75,7 +75,6 @@
 		</div>
 
 	</div>
-
 
 <script>
 
